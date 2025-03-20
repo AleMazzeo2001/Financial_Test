@@ -19,5 +19,5 @@ Elenco di comandi git:
 # Branch
    ° git branch versione-parallela # creo un nuovo branch
    ° git checkout versione-parallela # passo al nuovo brunch
-   sjsjs jsnsh akakak
+   ° git checkout -b emergency-fix #crea nuovo branch e ci passa in automatico
 
