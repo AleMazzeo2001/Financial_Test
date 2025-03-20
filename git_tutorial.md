@@ -21,3 +21,7 @@ Elenco di comandi git:
    ° git checkout versione-parallela # passo al nuovo brunch
    ° git checkout -b emergency-fix #crea nuovo branch e ci passa in automatico
 
+# Riunire il Branch al Main
+   ° git checkout main
+   ° git merge emergency-fix
+
