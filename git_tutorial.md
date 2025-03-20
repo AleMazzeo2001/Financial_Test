@@ -25,3 +25,9 @@ Elenco di comandi git:
    ° git checkout main
    ° git merge emergency-fix
 
+# Push Local Repository on GitHub
+   ° crea per prima cosa la repository su GitHub
+   ° git remote add origin https://github.com/AleMazzeo2001/Financial_Test.git
+   ° git push --set-upstream origin master #aggiungo la repository su GitHib
+
+
