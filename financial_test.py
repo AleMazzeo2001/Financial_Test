@@ -8,7 +8,17 @@ import time
 import os
 import argparse
 import traceback
-from scipy.linalg import logm, inv
+from scipy.linalg import logm, inv, pinv
+
+import sys
+import os
+
+sys.path.append(
+    os.path.abspath(
+        os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
+    )
+)
+from TMFG_core import *  # TMFG as fast_tmfg
 
 
 def load_stock_data(file_name="returns_data_1060.csv"):
@@ -18,13 +28,36 @@ def load_stock_data(file_name="returns_data_1060.csv"):
     )  # index_col=0 usa la prima colonna come indice (es. date)
 
     # metto a 0 i NaN
-    df.fillna(0, inplace=True)
+    # df.fillna(0, inplace=True)
+
+    if df.isna().values.any():
+        # Conta quanti NaN ci sono
+        nan_count = df.isna().sum().sum()
+        print(f"Numero totale di NaN nel DataFrame: {nan_count}")
+
+    # Sostituisci i NaN con interpolazione lineare
+    df.interpolate(method="linear", inplace=True)
+    df.bfill(inplace=True)  # Backfill per riempire NaN alle estremità
+    df.ffill(inplace=True)  # Forward fill per riempire NaN alle estremità
+
+    # df.display()
+
+    # Controlla se ci sono ancora NaN e sostituiscili con 0
+    if df.isnull().values.any():
+        print("Attenzione: ci sono ancora NaN nei dati. Verranno sostituiti con 0.")
+        nan_count = df.isnull().sum().sum()
+        print(f"Numero totale di NaN nel DataFrame: {nan_count}")
+
+        df.fillna(0, inplace=True)
 
     # Converti il DataFrame in un array NumPy
     data = df.to_numpy()
     data = data.T
-    X_train, X_test = data[:, :1000], data[:, 1000:]
-
+    # X_train, X_test = data[:, :1000], data[:, 1000:]
+    X_train, X_test = (
+        data[:400, :800],
+        data[:400, 800:860],
+    )  # ho modificato i valori per tenere q=cost
     return X_train, X_test
 
 
@@ -133,7 +166,7 @@ def random_long_short_portfolio_vector(X):
     return g
 
 
-def optimal_weights(Sigma, g):
+def optimal_weights(Sigma, g, J_Precision=None):
     """
     Compute the optimal weights for the portfolio.
 
@@ -145,12 +178,25 @@ def optimal_weights(Sigma, g):
     w (numpy.ndarray): Optimal weights for the portfolio.
     """
 
-    w = np.dot(inv(Sigma), g) / np.dot(g, np.dot(inv(Sigma), g))
+    # Check if Sigma is singular or has very small eigenvalues => use the pseudo-inverse
+    if np.linalg.det(Sigma) == 0:
+        print("Attenzione! Sigma è singolare.")
+        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+    eigvals = np.linalg.eigvals(Sigma)
+    if np.min(np.abs(eigvals)) < 1e-10:
+        print("Attenzione! Sigma ha autovalori molto piccoli.")
+        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+
+    else:
+        w = np.dot(inv(Sigma), g) / np.dot(g, np.dot(inv(Sigma), g))
+
+    if J_Precision is not None:
+        w = np.dot(J_Precision, g) / np.dot(g, np.dot(J_Precision, g))
 
     return w
 
 
-def variance_portfolio(Sigma, w):
+def variance_portfolio(Sigma, w, J_Precision=None):
     """
     Compute the variance of the portfolio.
 
@@ -164,10 +210,14 @@ def variance_portfolio(Sigma, w):
 
     var = np.dot(w, np.dot(Sigma, w))
 
+    if J_Precision is not None:
+        var = np.dot(w, np.dot(inv(J_Precision), w))
     return var
 
 
-def portfolio_statistics(X_train, Sigma=np.identity(500), strategy="min_var"):
+def portfolio_statistics(
+    X_train, Sigma=np.identity(500), strategy="min_var", J_Precision=None
+):
     """
     Compute the statistics of the portfolio.
 
@@ -188,26 +238,56 @@ def portfolio_statistics(X_train, Sigma=np.identity(500), strategy="min_var"):
     var (float): Variance of the portfolio.
     """
 
-    if strategy == "min_var":
+    if strategy == "min_var ":
         g = minimum_variance_portfolio_vector(X_train)
-    elif strategy == "omn":
+    elif strategy == "omn     ":
         Oracle_train, Oracle_test = load_stock_data(
             file_name="oracle_returns_data_1060.csv"
         )
         g = omniscient_portfolio_vector(Oracle_train)
     elif strategy == "mean_rev":
         g = mean_reversion_portfolio_vector(X_train)
-    elif strategy == "rnd":
+    elif strategy == "rnd     ":
         g = random_long_short_portfolio_vector(X_train)
 
-    # toy example
+    if J_Precision is not None:
+        w = optimal_weights(Sigma, g, J_Precision)
+        var = variance_portfolio(Sigma, w, J_Precision)
+    else:
+        w = optimal_weights(Sigma, g)
+        var = variance_portfolio(Sigma, w)
 
-    w = optimal_weights(Sigma, g)
-    var = variance_portfolio(Sigma, w)
-
-    #print(f"Strategy: {strategy}, portfolio variance: {var}")
+    # print(f"Strategy: {strategy}, portfolio variance: {var}")
 
     return var
+
+
+def plot_eigenvalues(E0, E1, E2, E3, E_Clipped, Oracle=None):
+    """
+    Plotta gli autovalori delle matrici ripulite rispetto agli autovalori campionari.
+    """
+    eig_E0 = np.linalg.eigvalsh(E0)
+    eig_E1 = np.linalg.eigvalsh(E1)
+    eig_E2 = np.linalg.eigvalsh(E2)
+
+    eig_E3 = np.linalg.eigvalsh(E3)
+    eig_clip = np.linalg.eigvalsh(E_Clipped)
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(eig_E0, eig_E1, "o", label="RIE", alpha=0.7)
+    plt.plot(eig_E0, eig_E2, "s", label="IW", alpha=0.7)
+    plt.plot(eig_E0, eig_E3, "d", label="Kernel", alpha=0.7)
+    plt.plot(eig_E0, eig_clip, "x", label="Clipped", alpha=0.7)
+
+    if Oracle is not None:
+        eig_Oracle = np.linalg.eigvalsh(Oracle)
+        plt.plot(eig_E0, eig_Oracle, "o", label="Oracle", alpha=0.7)
+
+    plt.xlabel("Autovalori campionari")
+    plt.ylabel("Autovalori ripuliti")
+    plt.legend()
+    plt.title("Autovalori ripuliti vs. Autovalori campionari")
+    plt.show()
 
 
 def main():
@@ -230,29 +310,47 @@ def main():
     E_sample = np.cov(X_train)
     E_rie = rmt.optimalShrinkage(X_train, return_covariance=False, method="rie")
     E_iw = rmt.optimalShrinkage(X_train, return_covariance=False, method="iw")
-    E_Clipped = rmt.clipped(X_train, alpha=0.2, return_covariance=True)
+    E_Clipped = rmt.clipped(X_train, alpha=0.2, return_covariance=False)
+    # TMFG
+    model = TMFG()
+    corr = np.square(np.corrcoef(X_train, rowvar=False))
+    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_sample, output="logo")
+
+    # Plot the eigenvalues
+    # plot_eigenvalues(E_sample, E_rie, E_iw, E_sample, E_Clipped)
 
     # Compute the statistics of the portfolio
     # Create a dictionary mapping Sigmas to their corresponding methods
     Sigma_methods = {
-        "Sample": E_sample,
-        "Rie": E_rie,
-        "IW": E_iw,
-        "Clipped": E_Clipped
+        "Sample ": E_sample,
+        "Rie    ": E_rie,
+        "IW     ": E_iw,
+        "Clipped": E_Clipped,
+        "TMFG   ": J_TMFG,
     }
-    strategies = ["min_var", "omn", "mean_rev", "rnd"]
+    strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
 
     print("STRATEGY  |  METHOD  |  VARIANCE")
-    print("---------------------------------")
+    print("----------------------------------------------")
     for strategy in strategies:
         for method, Sigma in Sigma_methods.items():
-            var = portfolio_statistics(X_train, Sigma, strategy=strategy)
+
+            if method == "TMFG   ":
+                var = portfolio_statistics(
+                    X_train, Sigma, strategy=strategy, J_Precision=Sigma
+                )
+            else:
+                var = portfolio_statistics(X_train, Sigma, strategy=strategy)
             print(f"{strategy}  |  {method}  | {var}")
+        print("----------------------------------------------")
+
 
 def check():
 
     # Load the stock data
     X_train, X_test = load_stock_data()
+    print("Dimensioni Train:", X_train.shape)
+    print("Dimensioni Test:", X_test.shape)
     if np.any(np.isnan(X_train)):
         print("Ci sono NaN in X_train!")
     if np.any(np.isnan(X_test)):
@@ -270,6 +368,8 @@ def check():
     Oracle_train, Oracle_test = load_stock_data(
         file_name="oracle_returns_data_1060.csv"
     )
+    print("Dimensioni Oracle Train:", Oracle_train.shape)
+    print("Dimensioni Oracle Test:", Oracle_test.shape)
     if np.any(np.isnan(X_train)):
         print("Ci sono NaN in X_train!")
     if np.any(np.isnan(X_test)):
@@ -277,5 +377,5 @@ def check():
 
 
 if __name__ == "__main__":
-    check()
+    # check()
     main()

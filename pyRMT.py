@@ -597,7 +597,45 @@ def optimalShrinkage(X, return_covariance=False, method='rie'):
         eigvec = eigvec.reshape(-1, 1)
         E_RIE += lambda_hat * eigvec.dot(eigvec.T)
         
-    tmp = 1./np.sqrt(np.diag(E_RIE))
+   
+   #----------------------------------------- MODIFICA MIA ------------------------------------------------
+    tmp = 1./np.sqrt(np.diag(E_RIE)) # versione originale
+
+
+    """             
+    # Controllo sul fatto di essere definita positiva
+    eigenvalues, eigenvectors = np.linalg.eigh(E_RIE)
+    eigenvalues[eigenvalues < 0] = 0  # Imposta gli autovalori negativi a zero
+    E_RIE = eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T  # Ricostruisci la matrice
+
+    # Estrai la diagonale
+    diag_E_RIE = np.diag(E_RIE)
+
+    # Debug: Controlla se ci sono NaN o valori negativi
+    if np.any(np.isnan(diag_E_RIE)):
+        print("Attenzione: NaN trovati nella diagonale di E_RIE!")
+    if np.any(diag_E_RIE < 0):
+        print("Attenzione: Valori negativi trovati nella diagonale di E_RIE!")
+
+    # Sostituisci NaN con un valore piccolo positivo
+    diag_E_RIE = np.nan_to_num(diag_E_RIE, nan=1e-8)
+
+    # Sostituisci i valori negativi con zero per evitare problemi con sqrt
+    diag_E_RIE[diag_E_RIE < 0] = 0  
+
+    tmp = 1. / np.sqrt(diag_E_RIE)
+    
+    
+    
+    """
+    
+
+    #------------------------------------FINE MODIFICA MIA ------------------------------------------------
+
+
+
+
+
     E_RIE *= tmp
     E_RIE *= tmp.reshape(-1, 1)
     
