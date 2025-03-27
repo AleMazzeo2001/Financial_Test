@@ -41,3 +41,8 @@ cliques, seps, adj_matrix = model.fit_transform(
 print(type(adj_matrix))
 print(adj_matrix.shape)
 print(adj_matrix)
+
+i = 0
+while i <= 10:
+    print(i)
+    i += 1
