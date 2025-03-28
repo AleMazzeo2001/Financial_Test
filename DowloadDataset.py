@@ -22,7 +22,7 @@ def download_data(tickers, start_date, end_date):
 # Definiamo il range temporale
 #end_date = datetime.today()
 #start_date = end_date - timedelta(days=total_days)
-start_date  = datetime.datetime(2009, 1, 1)
+start_date  = datetime.datetime(2007, 1, 1) #2009 andava abbastanza bene
 end_date  = datetime.datetime(2024, 1, 1)
 
 

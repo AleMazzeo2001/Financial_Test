@@ -9,6 +9,7 @@ import os
 import argparse
 import traceback
 from scipy.linalg import logm, inv, pinv
+from scipy.stats import multivariate_t
 
 import sys
 import os
@@ -18,18 +19,20 @@ sys.path.append(
         os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
     )
 )
-from TMFG_core import * 
+from TMFG_core import *
 
 
-def load_stock_data(file_name="returns_data_1060.csv", train_size=800, N_stocks=400, T_out=60):
+def load_stock_data(
+    file_name="returns_data_1060.csv", train_size=800, N_stocks=400, T_out=60
+):
     """
     Carica i dati delle azioni e li suddivide in training e test set.
-    
+
     Parameters:
     - data: array 2D (shape: num_timesteps x num_assets), contenente i prezzi o rendimenti.
     - train_size: numero di dati da usare per il training (default: 800).
     - T_out: lunghezza delle finestre di test (default: 60).
-    
+
     Returns:
     - train_data: primi `train_size` dati.
     - test_data_list: lista di array di shape (T_out, num_assets), con blocchi non overlapping.
@@ -64,35 +67,33 @@ def load_stock_data(file_name="returns_data_1060.csv", train_size=800, N_stocks=
     data = df.to_numpy()
     data = data.T
 
-
-
     num_assets, num_timesteps = data.shape
 
     # Training set: primi 800 dati
     train_data = data[:N_stocks, :train_size]
     test_data = data[:N_stocks, train_size:]
-    
 
     # Creazione delle finestre di test consecutive non overlapping
     test_data_list = []
     start_idx = train_size
 
     # Size Check
-    #print(f"num_timesteps: {num_timesteps}, train_size: {train_size}, T_out: {T_out}")
-    #print(f"Condizione iniziale: {train_size + T_out} <= {num_timesteps} -> {train_size + T_out <= num_timesteps}")
+    # print(f"num_timesteps: {num_timesteps}, train_size: {train_size}, T_out: {T_out}")
+    # print(f"Condizione iniziale: {train_size + T_out} <= {num_timesteps} -> {train_size + T_out <= num_timesteps}")
 
     while start_idx + T_out <= num_timesteps:
-        #print(f"Aggiungo dati da {start_idx} a {start_idx + T_out}")  # Debug
-        test_data_list.append(data[ :N_stocks , start_idx:start_idx + T_out])
+        # print(f"Aggiungo dati da {start_idx} a {start_idx + T_out}")  # Debug
+        test_data_list.append(data[:N_stocks, start_idx : start_idx + T_out])
         start_idx += T_out  # Finestra non overlapping
-    
-    if len(test_data_list) == 0:
-        raise ValueError("Errore: nessun dato disponibile per il test. Controlla i parametri di input.")
 
-    
+    if len(test_data_list) == 0:
+        raise ValueError(
+            "Errore: nessun dato disponibile per il test. Controlla i parametri di input."
+        )
+
     # Converti la lista in un array NumPy
-    test_data = np.stack(test_data_list) 
-    
+    test_data = np.stack(test_data_list)
+
     return train_data, test_data
 
 
@@ -124,12 +125,12 @@ def standardize_returns(R):
         for i in range(n_series):
             std_dev = np.std(R[i], axis=1, keepdims=True)
             std_dev[std_dev == 0] = 1
-            X_temp= (R[i] - np.mean(R[i], axis=1, keepdims=True)) / std_dev
+            X_temp = (R[i] - np.mean(R[i], axis=1, keepdims=True)) / std_dev
             std_dev_col = np.std(X_temp, axis=0, keepdims=True)
             std_dev_col[std_dev_col == 0] = 1
             X[i] = X_temp / std_dev
 
-    return X
+    return X, std_dev, std_dev_col
 
 
 def minimum_variance_portfolio_vector(X):
@@ -214,7 +215,7 @@ def random_long_short_portfolio_vector(X):
     return g
 
 
-def optimal_weights(Sigma, g, J_Precision=None):
+def optimal_weights(Sigma, g, std, std_col, J_Precision=None):
     """
     Compute the optimal weights for the portfolio.
 
@@ -228,19 +229,20 @@ def optimal_weights(Sigma, g, J_Precision=None):
 
     # Check if Sigma is singular or has very small eigenvalues => use the pseudo-inverse
     if np.linalg.det(Sigma) == 0:
-        print("Attenzione! Sigma è singolare.")
-        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+        print("Attenzione! Sigma è singolare => Pseudo_Inverse")
+        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(np.linalg.pinv(Sigma), g))
 
     eigvals = np.linalg.eigvals(Sigma)
 
-    
-   # if np.min(np.abs(eigvals)) < 1e-10:
-   #     if J_Precision is None:
-   #         print("Attenzione! Sigma ha autovalori molto piccoli.")
-   #         w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+    Sigma = Sigma * std * std.T
 
-   
+    # if np.min(np.abs(eigvals)) < 1e-10:
+    #     if J_Precision is None:
+    #         print("Attenzione! Sigma ha autovalori molto piccoli.")
+    #         w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+
     if J_Precision is not None:
+        J_Precision = J_Precision  # / (std * std.T)
         w = np.dot(J_Precision, g) / np.dot(g, np.dot(J_Precision, g))
 
     else:
@@ -263,16 +265,15 @@ def variance_portfolio(Sigma, w, J_Precision=None):
 
     var = np.dot(w, np.dot(Sigma, w))
 
-
     if var < 0:
         raise ValueError("Portfolio variance is negative!")
-    
 
     return var
 
 
 def portfolio_statistics(
-    X_train, Sigma, strategy="min_var", J_Precision=None):
+    X_train, Sigma, std, std_col, strategy="min_var", J_Precision=None
+):
     """
     Compute the statistics of the portfolio.
 
@@ -305,23 +306,23 @@ def portfolio_statistics(
     elif strategy == "rnd     ":
         g = random_long_short_portfolio_vector(X_train)
 
-
     # Optimal weights
     if J_Precision is not None:
-        w = optimal_weights(Sigma, g, J_Precision=J_Precision)
+        w = optimal_weights(Sigma, g, std, std_col, J_Precision=J_Precision)
         var = variance_portfolio(Sigma, w)
     else:
-        w = optimal_weights(Sigma, g)
+        w = optimal_weights(Sigma, g, std, std_col)
         var = variance_portfolio(Sigma, w)
 
     # print(f"Strategy: {strategy}, portfolio variance: {var}")
 
     return g, w, var
 
+
 def is_positive_definite(matrix):
     # Calcola gli autovalori della matrice
     eigenvalues = np.linalg.eigvals(matrix)
-    
+
     # Verifica se tutti gli autovalori sono positivi
     return np.all(eigenvalues > 0)
 
@@ -367,65 +368,127 @@ def Risk_Out(X, w):
     """
     if X.ndim != 2:
         raise ValueError("X must be a 2D array!")
-    
-    Sigma=np.cov(X)
+
+    Sigma = np.cov(X)
     var = variance_portfolio(Sigma, w)
 
     return var
 
 
+def generate_dataset(C, T, n_sets, df=3):
+    """
+    Genera un tensore 3D contenente n_sets di dati estratti da una distribuzione di Student multivariata.
 
-def main():
+    Parametri:
+    C      -- matrice di covarianza (NxN)
+    T      -- numero di campioni per ogni set
+    n_sets -- numero di set indipendenti da generare
+    df     -- gradi di libertà della distribuzione di Student (default: 3)
 
-    # define parameters
-    N = 400
-    T = 800
-    T_out = 60
+    Ritorna:
+    Un array (n_sets, N, T) di dati campionati.
+    """
+    np.random.seed(27029)  # Per la riproducibilità
 
-    # Load the stock data
-    X_train, X_test = load_stock_data()
+    N = C.shape[0]  # Dimensione della matrice di covarianza
+    data = np.zeros((n_sets, N, T))  # Preallocazione del tensore
+
+    for i in range(n_sets):
+        data[i] = multivariate_t.rvs(
+            loc=np.zeros(N), shape=C, df=df, size=T
+        ).T  # Trasposta per avere (N, T)
+
+    return data
+
+
+def Show_Outliers(variance_data, OUTPUT="Single_Boxplot"):
+    """
+    Show the outliers of the variance data using boxplots.
+
+    Parameters:
+    - variance_data: Dictionary containing the variance data for each strategy and method.
+       variance_data[(strategy, method)] = performances
+    - OUTPUT: String indicating the type of boxplot to create.
+        "Single_Boxplot" for a single boxplot for each strategy and method.
+        "Multiple_Boxplot" for multiple boxplots for each strategy.
+
+    Returns:
+    - None
+    """
+
+    if OUTPUT == "Single_Boxplot":
+        for (strategy, methods), var in variance_data.items():
+            plt.figure(figsize=(8, 6))
+            plt.boxplot(var)
+            plt.title(f"Box Plot per {strategy}, {methods}")
+            plt.ylabel("Varianza")
+            plt.xlabel("Metodo")
+            plt.grid(True, linestyle="--", alpha=0.7)
+            plt.show()
+
+    elif OUTPUT == "Multiple_Boxplot":
+        grouped_data = {}
+        for (strategy, methods), var in variance_data.items():
+            if strategy not in grouped_data:
+                grouped_data[strategy] = {}
+            grouped_data[strategy][methods] = var
+
+        # Creiamo i boxplot per ogni strategia
+        for strategy, methods_data in grouped_data.items():
+            plt.figure(figsize=(8, 6))  # Creiamo una figura per ogni strategia
+
+            # Estraiamo i dati per ogni metodo
+            data = list(methods_data.values())
+            labels = list(methods_data.keys())
+
+            plt.boxplot(data, labels=labels)  # Creiamo il boxplot per tutti i metodi
+            plt.title(f"Box Plot per {strategy}")
+            plt.ylabel("Varianza")
+            plt.xlabel("Metodo")
+            plt.xticks(rotation=45)  # Ruotiamo le etichette se sono lunghe
+            plt.grid(True, linestyle="--", alpha=0.7)
+
+            plt.show()
+
+
+def Compute_Performances(X_train, X_test, OUTPUT=None):
+    """
+    OUTPUT Visualization of the outliers:
+        -Single_Boxplot
+        -Multiple_Boxplot
+    """
 
     # Standardize the returns
-    X_train = standardize_returns(X_train)
-    #X_test = standardize_returns(X_test)
+    X_train_std, std, std_col = standardize_returns(X_train)
+    # X_test = standardize_returns(X_test)
     Oracle_train, Oracle_test = load_stock_data(
         file_name="oracle_returns_data_1060.csv"
     )
 
-    E_sample = np.cov(X_train)
-    E_rie = rmt.optimalShrinkage(X_train, return_covariance=False, method="rie")
-    E_iw = rmt.optimalShrinkage(X_train, return_covariance=False, method="iw")
-    E_Clipped = rmt.clipped(X_train, alpha=0.2, return_covariance=False)
- 
-    print("DEBUG")
-    print("E_sample:", E_sample.shape)  
-    print("E_rie:", E_rie.shape)
-    print("E_iw:", E_iw.shape)
-    print("E_Clipped:", E_Clipped.shape)
-          
-    
+    E_sample = np.cov(X_train_std)
+    E_rie = rmt.optimalShrinkage(X_train_std, return_covariance=False, method="rie")
+    E_iw = rmt.optimalShrinkage(X_train_std, return_covariance=False, method="iw")
+    E_Clipped = rmt.clipped(X_train_std, alpha=0.0, return_covariance=False)
+
     # TMFG
     model = TMFG()
-    corr = np.square(np.corrcoef(X_train, rowvar=True))  
+    corr = np.square(np.corrcoef(X_train, rowvar=True))
     _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_sample, output="logo")
-    _, _, E_TMFG = model.fit_transform(weights=corr, cov=E_sample, output="weighted_sparse_W_matrix")
-    
+    E_TMFG = np.linalg.inv(J_TMFG)
 
     # Check if the matrices are positive definite
     if not is_positive_definite(E_sample):
         raise ValueError("Sample covariance matrix not positive definite!")
     if not is_positive_definite(E_rie):
-        raise ValueError("RIE covariance matrix not positive definite!")     
+        raise ValueError("RIE covariance matrix not positive definite!")
     if not is_positive_definite(E_iw):
         raise ValueError("IW covariance matrix not positive definite!")
     if not is_positive_definite(E_Clipped):
         raise ValueError("Clipped covariance matrix not positive definite!")
     if not is_positive_definite(J_TMFG):
         raise ValueError("Precision TMFG matrix not positive definite!")
-    #if not is_positive_definite(E_TMFG):
-    #    raise ValueError("TMFG covariance matrix not positive definite!")
-    
-    
+    if not is_positive_definite(E_TMFG):
+        raise ValueError("TMFG covariance matrix not positive definite!")
 
     # Plot the eigenvalues
     # plot_eigenvalues(E_sample, E_rie, E_iw, E_sample, E_Clipped)
@@ -438,10 +501,9 @@ def main():
         "Rie    ": E_rie,
         "IW     ": E_iw,
         "Clipped": E_Clipped,
-        "TMFG   ": (E_sample, J_TMFG)
+        "TMFG   ": (E_sample, J_TMFG),
     }
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
-
 
     print("\nIN SAMPLE CASE\n")
     Optimal_Weights_dict = {}
@@ -453,64 +515,84 @@ def main():
 
             if method == "TMFG   ":
                 E_TMFG, J_TMFG = Sigma
-                g, w, var = portfolio_statistics( X_train, E_TMFG, strategy=strategy, J_Precision=J_TMFG)
+                g, w, var = portfolio_statistics(
+                    X_train, E_TMFG, std, std_col, strategy=strategy, J_Precision=J_TMFG
+                )
             else:
-                g, w, var = portfolio_statistics(X_train, Sigma, strategy=strategy)
-            
+                g, w, var = portfolio_statistics(
+                    X_train, Sigma, std, std_col, strategy=strategy
+                )
+
             Optimal_Weights_dict[(strategy, method)] = w
 
             print(f"{strategy}  |  {method}  | {var:.3e}")
         print("----------------------------------------------")
 
-    print(len(Optimal_Weights_dict))
-
     print("\nOUT OF SAMPLE CASE\n")
     print("STRATEGY  |  METHOD  |  VARIANCE")
     print("-----------------------------------------------")
 
-    index=0
+    index = 0
+    variance_data = {}
     for (strategy, method), w in Optimal_Weights_dict.items():
 
         if strategy == "omn     ":
-            TEST_DATA=Oracle_test
+            TEST_DATA = Oracle_test
         else:
-            TEST_DATA=X_test
+            TEST_DATA = X_test
 
-    
-        performances=np.zeros(TEST_DATA.shape[0])
+        performances = np.zeros(TEST_DATA.shape[0])
 
         for i in range(TEST_DATA.shape[0]):
 
-            var=Risk_Out(TEST_DATA[i], w)  
-            performances[i]=var
+            var = Risk_Out(TEST_DATA[i], w)
+            performances[i] = var
 
-        mean_var=np.mean(performances)
-        std_var=np.std(performances)
-        print(f"{strategy}  |  {method}  | {mean_var:.3e} +/- {std_var:.3e}")      
-        
-        index+=1
+        mean_var = np.mean(performances)
+        std_var = np.std(
+            performances, ddof=1
+        )  # Use ddof=1 for sample standard deviation
+        variance_data[(strategy, method)] = performances
+        print(f"{strategy}  |  {method}  | {mean_var:.2e} +/- {std_var:.1e}")
+
+        index += 1
         if (index % 5) == 0:
             print("-----------------------------------------------")
+
+    if OUTPUT is not None:
+        Show_Outliers(variance_data, OUTPUT=OUTPUT)
+
+
+def main():
+
+    # define parameters
+    N = 400
+    T = 800
+    T_out = 60
+
+    # Load the stock data
+    X_train, X_test = load_stock_data()
+
+    Compute_Performances(X_train, X_test, OUTPUT=None)
 
 
 def check():
 
+    print("\n\n--CHECK DATA--\n\n")
+
     # Load the stock data
     X_train, X_test = load_stock_data()
     print("Dimensioni Train:", X_train.shape)
-    print("Dimensioni Test:", X_test.shape  )
+    print("Dimensioni Test:", X_test.shape)
     if np.any(np.isnan(X_train)):
         print("Ci sono NaN in X_train!")
     if np.any(np.isnan(X_test)):
         print("Ci sono NaN in X_test!")
 
     # Standardize the returns
-    X_train = standardize_returns(X_train)
-    X_test = standardize_returns(X_test)
+    X_train, std, std_col = standardize_returns(X_train)
     if np.any(np.isnan(X_train)):
         print("Ci sono NaN in X_train dopo la standardizzazione!")
-    if np.any(np.isnan(X_test)):
-        print("Ci sono NaN in X_test dopo la standardizzazione!")
 
     # Oracle data
     Oracle_train, Oracle_test = load_stock_data(
@@ -523,18 +605,38 @@ def check():
     if np.any(np.isnan(X_test)):
         print("Ci sono NaN in X_test!")
 
+
 def simulated_data():
 
+    print("\n\n--SIMULATED DATA--\n\n")
+
     # define parameters
-    N = 400
-    T = 800
+    T_train = 800
     T_out = 60
+    n_sets = 500
+    T_tot = n_sets * T_out
 
     # Load the stock data
     X_train, X_test = load_stock_data()
+    C_true = np.cov(X_train)
+
+    # Generate simulated data
+    simulated_data_train = generate_dataset(C_true, T_train, 1)
+    simulated_data_train = np.squeeze(simulated_data_train)
+    simulated_data_test = generate_dataset(C_true, T_out, n_sets)
+
+    print(f"Dimensioni Dati Simulati Train", simulated_data_train.shape)
+    print(f"Dimensioni Dati Simulati Test", simulated_data_test.shape)
+    print(f"Dimensioni Covarianza", C_true.shape)
+
+    Compute_Performances(simulated_data_train, simulated_data_test)
+
+    # Show the outliers
+    # Show_Outliers(variance_data, OUTPUT="Single_Boxplot")
+    # Show_Outliers(variance_data, OUTPUT="Multiple_Boxplot")
 
 
 if __name__ == "__main__":
-    check()
-    #simulated_data()
+    # check()
+    # simulated_data()
     main()
