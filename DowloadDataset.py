@@ -22,8 +22,8 @@ def download_data(tickers, start_date, end_date):
 # Definiamo il range temporale
 #end_date = datetime.today()
 #start_date = end_date - timedelta(days=total_days)
-start_date  = datetime.datetime(2007, 1, 1) #2009 andava abbastanza bene
-end_date  = datetime.datetime(2024, 1, 1)
+start_date  = datetime.datetime(2006, 1, 1) #2007 andava abbastanza bene
+end_date  = datetime.datetime(2025, 1, 1)
 
 
 # Prendiamo i tickers e aggiungiamo titoli extra
@@ -46,7 +46,7 @@ print("Numero di Titoli: ", len(all_tickers))
 
 
 # Crea una lista per raccogliere i dati di tutti i ticker
-log_returns_df = pd.DataFrame()
+#log_returns_df = pd.DataFrame() => divisione per NaN, tanto non mi serve
 returns_df = pd.DataFrame()
 oracle_returns_df = pd.DataFrame()
 
@@ -55,8 +55,8 @@ for name in all_tickers:
     name_data = yf.Ticker(name).history(start=start_date, end=end_date)
 
     #log-returns
-    name_log_returns = np.log(name_data['Close'] / name_data['Close'].shift(1)).interpolate(method='time').dropna()
-    log_returns_df[name] = name_log_returns
+    #name_log_returns = np.log(name_data['Close'] / name_data['Close'].shift(1)).interpolate(method='time').dropna()
+    #log_returns_df[name] = name_log_returns
 
     #returns
     name_returns = name_data['Close'].pct_change().interpolate(method='time').dropna()
@@ -68,7 +68,7 @@ for name in all_tickers:
     oracle_returns_df[name] = name_returns
 
 # Remove columns with NaN values from log_returns_df
-log_returns_df.dropna(axis=1, how='any', inplace=True)
+#log_returns_df.dropna(axis=1, how='any', inplace=True)
 
 # Remove columns with NaN values from returns_df
 returns_df.dropna(axis=1, how='any', inplace=True)
@@ -76,15 +76,15 @@ returns_df.dropna(axis=1, how='any', inplace=True)
 # Remove columns with NaN values from oracle_returns_df
 oracle_returns_df.dropna(axis=1, how='any', inplace=True)
 
-log_has_nan = log_returns_df.isna().any().any()
+#log_has_nan = log_returns_df.isna().any().any()
 returns_has_nan = returns_df.isna().any().any()
 oracle_has_nan = oracle_returns_df.isna().any().any()
-print("log_returns_df has NaN values:", log_has_nan)
+#print("log_returns_df has NaN values:", log_has_nan)
 print("returns_df has NaN values:", returns_has_nan)
 print("oracle_returns_df has NaN values:", oracle_has_nan)
 
 
-print(log_returns_df.shape)
+#print(log_returns_df.shape)
 print(returns_df.shape)
 print(oracle_returns_df.shape)
 
@@ -96,6 +96,6 @@ print(oracle_returns_df.shape)
 
 
 # Salva il DataFrame ridotto in un file CSV
-log_returns_df.to_csv("log_returns_data_1060.csv", index=True)
+#log_returns_df.to_csv("log_returns_data_1060.csv", index=True)
 returns_df.to_csv("returns_data_1060.csv", index=True)
 oracle_returns_df.to_csv("oracle_returns_data_1060.csv", index=True)

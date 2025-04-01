@@ -255,6 +255,9 @@ def clipped(X, alpha=None, return_covariance=False):
         inverse_std = 1./np.sqrt(np.diag(E))
         E *= inverse_std
         E *= inverse_std.reshape(-1, 1)
+    #if return_covariance: MODIFICA CHAT
+    #    inverse_std = 1. / np.sqrt(np.diag(E))
+    #    E = (E * inverse_std) * inverse_std[:, np.newaxis]
 
     eigvals, eigvecs = np.linalg.eigh(E)
     eigvecs = eigvecs.T

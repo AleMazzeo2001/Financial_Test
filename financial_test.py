@@ -44,32 +44,27 @@ def load_stock_data(
 
     # Chek for NaN values
     if df.isna().values.any():
-        # Conta quanti NaN ci sono
         nan_count = df.isna().sum().sum()
-        print(f"Numero totale di NaN nel DataFrame: {nan_count}")
+        print(f"Total number of NaN values in DataFrame: {nan_count}")
 
-    # Sostituisci i NaN con interpolazione lineare
+    # Linear interpolation for NaN values
     df.interpolate(method="linear", inplace=True)
     df.bfill(inplace=True)  # Backfill per riempire NaN alle estremità
     df.ffill(inplace=True)  # Forward fill per riempire NaN alle estremità
 
-    # df.display()
-
-    # Controlla se ci sono ancora NaN e sostituiscili con 0
+    # Check for NaN values again => fill with 0
     if df.isnull().values.any():
         print("Attenzione: ci sono ancora NaN nei dati. Verranno sostituiti con 0.")
         nan_count = df.isnull().sum().sum()
-        print(f"Numero totale di NaN nel DataFrame: {nan_count}")
-
+        print(f"Total number of NaN values in DataFrame: {nan_count}")
         df.fillna(0, inplace=True)
 
     # Converti il DataFrame in un array NumPy
     data = df.to_numpy()
-    data = data.T
+    data = data.T  # TxN => NxT
 
     num_assets, num_timesteps = data.shape
 
-    # Training set: primi 800 dati
     train_data = data[:N_stocks, :train_size]
     test_data = data[:N_stocks, train_size:]
 
@@ -82,7 +77,6 @@ def load_stock_data(
     # print(f"Condizione iniziale: {train_size + T_out} <= {num_timesteps} -> {train_size + T_out <= num_timesteps}")
 
     while start_idx + T_out <= num_timesteps:
-        # print(f"Aggiungo dati da {start_idx} a {start_idx + T_out}")  # Debug
         test_data_list.append(data[:N_stocks, start_idx : start_idx + T_out])
         start_idx += T_out  # Finestra non overlapping
 
@@ -106,31 +100,63 @@ def standardize_returns(R):
 
     Returns:
     X (numpy.ndarray): Matrix of standardized returns.
+    std_dev_daily (numpy.ndarray T): Standard deviation of each colum.
+    std_dev_stocks (numpy.ndarray N): Standard deviation of each row.
+
+    If R is 2D, it returns:
+    - X: standardized returns matrix
+
+    If R is 3D, it returns:
+    - X: 3D matrix of standardized returns
     """
     if R.ndim == 2:
         N, T = R.shape
-        std_dev = np.std(R, axis=1, keepdims=True)
-        std_dev[std_dev == 0] = 1  # Evita la divisione per zero
-        X = (R - np.mean(R, axis=1, keepdims=True)) / std_dev
-        std_dev_col = np.std(X, axis=0, keepdims=True)
-        std_dev_col[std_dev_col == 0] = (
-            1  # Evita la divisione per zero nella seconda dimensione
-        )
-        X = X / std_dev_col
+        X = R - np.mean(R, axis=1, keepdims=True)
+        std_dev_daily = np.std(X, axis=0, keepdims=True, ddof=0) * np.sqrt(
+            T
+        )  # Paper Bouchaud
+        print(f"std_dev_daily: {std_dev_daily.shape}")
+        if np.any(std_dev_daily == 0):
+            print(
+                "Attenzione! Ci sono righe con deviazione standard zero nel training."
+            )
+            std_dev_daily[std_dev_daily == 0] = 1  # Evita la divisione per zero
+        X = X / std_dev_daily
+        print(f"X: {X.shape}")
+        std_dev_stocks = np.std(X, axis=1, keepdims=True, ddof=0)
+        if np.any(std_dev_stocks == 0):
+            print(
+                "Attenzione! Ci sono colonne con deviazione standard zero nel training."
+            )
+            std_dev_stocks[std_dev_stocks == 0] = (
+                1  # Evita la divisione per zero nella seconda dimensione
+            )
+        print(f"std_dev_stocks: {std_dev_stocks.shape}")
+        X = X / std_dev_stocks
+        print(f"X: {X.shape}")
 
     else:
         n_series, N, T = R.shape
         X = np.zeros((n_series, N, T))
 
         for i in range(n_series):
-            std_dev = np.std(R[i], axis=1, keepdims=True)
-            std_dev[std_dev == 0] = 1
-            X_temp = (R[i] - np.mean(R[i], axis=1, keepdims=True)) / std_dev
-            std_dev_col = np.std(X_temp, axis=0, keepdims=True)
-            std_dev_col[std_dev_col == 0] = 1
-            X[i] = X_temp / std_dev
+            X_temp = R[i] - np.mean(R[i], axis=1, keepdims=True)
+            std_dev_daily = np.std(X_temp, axis=0, keepdims=True, ddof=0) * np.sqrt(T)
+            if np.any(std_dev_daily == 0):
+                print(
+                    f"Attenzione! Ci sono righe con deviazione standard zero in serie {i}."
+                )
+                std_dev_daily[std_dev_daily == 0] = 1
+            X_temp = X_temp / std_dev_daily
+            std_dev_stocks = np.std(X_temp, axis=1, keepdims=True, ddof=0)
+            if np.any(std_dev_stocks == 0):
+                print(
+                    f"Attenzione! Ci sono colonne con deviazione standard zero in serie {i}."
+                )
+                std_dev_stocks[std_dev_stocks == 0] = 1
+            X[i] = X_temp / std_dev_stocks
 
-    return X, std_dev, std_dev_col
+    return X, std_dev_daily, std_dev_stocks
 
 
 def minimum_variance_portfolio_vector(X):
@@ -166,19 +192,19 @@ def omniscient_portfolio_vector(O_train):
     std_dev = np.std(O_train, axis=1)
 
     # Check if there are rows with zero standard deviation
-    zero_std_rows = np.where(std_dev == 0)[0]
+    zero_std_rows = np.where(std_dev == 1)[0]
     if len(zero_std_rows) > 0:
         print(
             f"Attenzione! Le seguenti righe hanno deviazione standard zero: {zero_std_rows}"
         )
+        std_dev[std_dev == 0] = 1
+    # print(f"O_train.shape, {O_train[:,0].shape}")
 
-    std_dev[std_dev == 0] = 1  # Evita la divisione per zero
     g = np.sqrt(N) * O_train[:, 0] / std_dev
-
     return g
 
 
-def mean_reversion_portfolio_vector(X_train):
+def mean_reversion_portfolio_vector(O_train):
     """
     Compute the predictions vector  g for the mean reversion portfolio.
 
@@ -190,8 +216,19 @@ def mean_reversion_portfolio_vector(X_train):
     g (numpy.ndarray): Predictions vector for the mean reversion portfolio.
     """
 
-    N, T = X_train.shape
-    g = -np.sqrt(N) * X_train[:, 0]
+    N, T = O_train.shape
+    std_dev = np.std(O_train, axis=1)
+
+    # Check if there are rows with zero standard deviation
+    zero_std_rows = np.where(std_dev == 1)[0]
+    if len(zero_std_rows) > 0:
+        print(
+            f"Attenzione! Le seguenti righe hanno deviazione standard zero: {zero_std_rows}"
+        )
+        std_dev[std_dev == 0] = 1
+    # print(f"O_train.shape, {O_train[:,0].shape}")
+
+    g = -np.sqrt(N) * O_train[:, 0] / std_dev
     return g
 
 
@@ -215,7 +252,29 @@ def random_long_short_portfolio_vector(X):
     return g
 
 
-def optimal_weights(Sigma, g, std, std_col, J_Precision=None):
+def check_norm(g):
+    """
+    Check if the norm of the vector g is equal to sqrt(N).
+
+    Parameters:
+    g (numpy.ndarray): Predictions vector.
+
+    Returns:
+    g (numpy.ndarray): Normalized predictions vector.
+    """
+    N = g.shape[0]
+
+    norm = np.linalg.norm(g)
+    if np.abs(norm - np.sqrt(N)) < 1e-4:
+        pass
+    else:
+        print(f"Norma del vettore g non è uguale a sqrt(N): {norm}")
+        c = np.sqrt(N) / norm
+        g = g * c
+    return g
+
+
+def optimal_weights(Sigma, g, std_daily, std_stocks, J_Precision=None):
     """
     Compute the optimal weights for the portfolio.
 
@@ -234,12 +293,11 @@ def optimal_weights(Sigma, g, std, std_col, J_Precision=None):
 
     eigvals = np.linalg.eigvals(Sigma)
 
-    Sigma = Sigma * std * std.T
+    Sigma = (std_stocks @ std_stocks.T) @ Sigma
 
-    # if np.min(np.abs(eigvals)) < 1e-10:
-    #     if J_Precision is None:
-    #         print("Attenzione! Sigma ha autovalori molto piccoli.")
-    #         w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
+    if np.min(np.abs(eigvals)) < 1e-10:
+        print("Attenzione! Sigma ha autovalori molto piccoli.")
+        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(pinv(Sigma), g))
 
     if J_Precision is not None:
         J_Precision = J_Precision  # / (std * std.T)
@@ -302,9 +360,15 @@ def portfolio_statistics(
         )
         g = omniscient_portfolio_vector(Oracle_train)
     elif strategy == "mean_rev":
-        g = mean_reversion_portfolio_vector(X_train)
+        Oracle_train, Oracle_test = load_stock_data(
+            file_name="oracle_returns_data_1060.csv"
+        )
+        g = mean_reversion_portfolio_vector(Oracle_train)
     elif strategy == "rnd     ":
         g = random_long_short_portfolio_vector(X_train)
+
+    g = check_norm(g)
+    print(f"Norma del vettore g: {np.linalg.norm(g)}")
 
     # Optimal weights
     if J_Precision is not None:
@@ -459,21 +523,22 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
     """
 
     # Standardize the returns
-    X_train_std, std, std_col = standardize_returns(X_train)
+    X_train_std, std_daily, std_stocks = standardize_returns(X_train)
     # X_test = standardize_returns(X_test)
     Oracle_train, Oracle_test = load_stock_data(
         file_name="oracle_returns_data_1060.csv"
     )
 
     E_sample = np.cov(X_train_std)
-    E_rie = rmt.optimalShrinkage(X_train_std, return_covariance=False, method="rie")
-    E_iw = rmt.optimalShrinkage(X_train_std, return_covariance=False, method="iw")
-    E_Clipped = rmt.clipped(X_train_std, alpha=0.0, return_covariance=False)
+    E_rie = rmt.optimalShrinkage(X_train, return_covariance=False, method="rie")
+    E_iw = rmt.optimalShrinkage(X_train, return_covariance=False, method="iw")
+    E_Clipped = rmt.clipped(X_train, alpha=0.0, return_covariance=False)
 
     # TMFG
     model = TMFG()
     corr = np.square(np.corrcoef(X_train, rowvar=True))
-    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_sample, output="logo")
+    E_Sample_TMFG = np.cov(X_train)
+    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
     E_TMFG = np.linalg.inv(J_TMFG)
 
     # Check if the matrices are positive definite
@@ -501,8 +566,9 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
         "Rie    ": E_rie,
         "IW     ": E_iw,
         "Clipped": E_Clipped,
-        "TMFG   ": (E_sample, J_TMFG),
+        "TMFG   ": (E_TMFG, J_TMFG),
     }
+
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
 
     print("\nIN SAMPLE CASE\n")
@@ -516,11 +582,16 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
             if method == "TMFG   ":
                 E_TMFG, J_TMFG = Sigma
                 g, w, var = portfolio_statistics(
-                    X_train, E_TMFG, std, std_col, strategy=strategy, J_Precision=J_TMFG
+                    X_train,
+                    E_TMFG,
+                    std_daily,
+                    std_stocks,
+                    strategy=strategy,
+                    J_Precision=J_TMFG,
                 )
             else:
                 g, w, var = portfolio_statistics(
-                    X_train, Sigma, std, std_col, strategy=strategy
+                    X_train, Sigma, std_daily, std_stocks, strategy=strategy
                 )
 
             Optimal_Weights_dict[(strategy, method)] = w
@@ -613,12 +684,14 @@ def simulated_data():
     # define parameters
     T_train = 800
     T_out = 60
-    n_sets = 500
+    n_sets = 50
     T_tot = n_sets * T_out
 
     # Load the stock data
     X_train, X_test = load_stock_data()
-    C_true = np.cov(X_train)
+    X_train_std, std_daily, std_stocks = standardize_returns(X_train)
+
+    C_true = np.cov(X_train_std)
 
     # Generate simulated data
     simulated_data_train = generate_dataset(C_true, T_train, 1)
@@ -626,17 +699,47 @@ def simulated_data():
     simulated_data_test = generate_dataset(C_true, T_out, n_sets)
 
     print(f"Dimensioni Dati Simulati Train", simulated_data_train.shape)
-    print(f"Dimensioni Dati Simulati Test", simulated_data_test.shape)
+    # print(f"Dimensioni Dati Simulati Test", simulated_data_test.shape)
     print(f"Dimensioni Covarianza", C_true.shape)
 
-    Compute_Performances(simulated_data_train, simulated_data_test)
+    # Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Single_Boxplot")
 
-    # Show the outliers
-    # Show_Outliers(variance_data, OUTPUT="Single_Boxplot")
-    # Show_Outliers(variance_data, OUTPUT="Multiple_Boxplot")
+    # Standardize the returns
+    X_train_std, std_daily, std_stocks = standardize_returns(simulated_data_train)
+
+    E_sample = np.cov(X_train_std)
+    E_rie = rmt.optimalShrinkage(X_train_std, return_covariance=True, method="rie")
+    E_iw = rmt.optimalShrinkage(X_train_std, return_covariance=True, method="iw")
+    E_Clipped = rmt.clipped(X_train_std, alpha=0.0, return_covariance=True)
+
+    # TMFG
+    model = TMFG()
+    corr = np.square(np.corrcoef(X_train, rowvar=True))
+    E_Sample_TMFG = np.cov(X_train_std)
+    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
+    E_TMFG = np.linalg.inv(J_TMFG)
+
+    # Calcolo degli autovalori e ordinamento in ordine decrescente
+    lambda_C = np.sort(np.linalg.eigvals(C_true))[::-1]
+    lambda_E_sample = np.sort(np.linalg.eigvals(E_sample))[::-1]
+    lambda_E_rie = np.sort(np.linalg.eigvals(E_rie))[::-1]
+    lambda_E_iw = np.sort(np.linalg.eigvals(E_iw))[::-1]
+    lambda_E_Clipped = np.sort(np.linalg.eigvals(E_Clipped))[::-1]
+    lambda_E_TMFG = np.sort(np.linalg.eigvals(E_TMFG))[::-1]
+
+    plt.plot(lambda_C, lambda_C, marker="o", linestyle="-", label="C_True")
+    plt.plot(lambda_C, lambda_E_sample, marker="o", linestyle="-", label="E_Sample")
+    plt.plot(lambda_C, lambda_E_rie, marker="o", linestyle="-", label="E_Rie")
+    plt.plot(lambda_C, lambda_E_iw, marker="o", linestyle="-", label="E_IW")
+    plt.plot(lambda_C, lambda_E_Clipped, marker="o", linestyle="-", label="E_Clipped")
+    plt.plot(lambda_C, lambda_E_TMFG, marker="o", linestyle="-", label="E_TMFG")
+    # plt.xscale('log')
+    # plt.yscale('log')
+    plt.legend()
+    plt.show()
 
 
 if __name__ == "__main__":
-    # check()
+    check()
     # simulated_data()
     main()
