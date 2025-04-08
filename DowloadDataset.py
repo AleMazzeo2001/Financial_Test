@@ -22,7 +22,7 @@ def download_data(tickers, start_date, end_date):
 # Definiamo il range temporale
 #end_date = datetime.today()
 #start_date = end_date - timedelta(days=total_days)
-start_date  = datetime.datetime(2006, 1, 1) #2007 andava abbastanza bene
+start_date  = datetime.datetime(2007, 1, 1) #2007 andava abbastanza bene
 end_date  = datetime.datetime(2025, 1, 1)
 
 
@@ -83,6 +83,10 @@ oracle_has_nan = oracle_returns_df.isna().any().any()
 print("returns_df has NaN values:", returns_has_nan)
 print("oracle_returns_df has NaN values:", oracle_has_nan)
 
+log_returns_df = np.log(1 + returns_df)
+#log_returns_df = log_returns_df.dropna(axis=1, how='any')
+
+
 
 #print(log_returns_df.shape)
 print(returns_df.shape)
@@ -96,6 +100,6 @@ print(oracle_returns_df.shape)
 
 
 # Salva il DataFrame ridotto in un file CSV
-#log_returns_df.to_csv("log_returns_data_1060.csv", index=True)
+log_returns_df.to_csv("log_returns_data_1060.csv", index=True)
 returns_df.to_csv("returns_data_1060.csv", index=True)
 oracle_returns_df.to_csv("oracle_returns_data_1060.csv", index=True)

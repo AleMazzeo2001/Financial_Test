@@ -288,12 +288,12 @@ def optimal_weights(Sigma, g, std_daily, std_stocks, J_Precision=None):
 
     # Check if Sigma is singular or has very small eigenvalues => use the pseudo-inverse
     if np.linalg.det(Sigma) == 0:
-        print("Attenzione! Sigma è singolare => Pseudo_Inverse")
-        w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(np.linalg.pinv(Sigma), g))
+        raise ValueError ("Attenzione! Sigma è singolare => Pseudo_Inverse")
+        #w = np.dot(pinv(Sigma), g) / np.dot(g, np.dot(np.linalg.pinv(Sigma), g))
 
     eigvals = np.linalg.eigvals(Sigma)
 
-    Sigma = (std_stocks @ std_stocks.T) @ Sigma
+    
 
     if np.min(np.abs(eigvals)) < 1e-10:
         print("Attenzione! Sigma ha autovalori molto piccoli.")
@@ -304,6 +304,7 @@ def optimal_weights(Sigma, g, std_daily, std_stocks, J_Precision=None):
         w = np.dot(J_Precision, g) / np.dot(g, np.dot(J_Precision, g))
 
     else:
+        Sigma = (std_stocks @ std_stocks.T) @ Sigma
         w = np.dot(inv(Sigma), g) / np.dot(g, np.dot(inv(Sigma), g))
 
     return w
@@ -524,6 +525,10 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
 
     # Standardize the returns
     X_train_std, std_daily, std_stocks = standardize_returns(X_train)
+    
+    #print("DEBUG", X_train.shape[0], X_train.shape[1])
+    #X_train_std, std_daily, std_stocks= X_train, np.ones([1, X_train.shape[1]]), np.ones([X_train.shape[0],0])
+    
     # X_test = standardize_returns(X_test)
     Oracle_train, Oracle_test = load_stock_data(
         file_name="oracle_returns_data_1060.csv"
@@ -537,7 +542,7 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
     # TMFG
     model = TMFG()
     corr = np.square(np.corrcoef(X_train, rowvar=True))
-    E_Sample_TMFG = np.cov(X_train)
+    E_Sample_TMFG = np.cov(X_train_std)
     _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
     E_TMFG = np.linalg.inv(J_TMFG)
 
@@ -600,8 +605,8 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
         print("----------------------------------------------")
 
     print("\nOUT OF SAMPLE CASE\n")
-    print("STRATEGY  |  METHOD  |  VARIANCE")
-    print("-----------------------------------------------")
+    print("STRATEGY  |  METHOD  |  VARIANCE              |  CV%")
+    print("-------------------------------------------------------")
 
     index = 0
     variance_data = {}
@@ -624,11 +629,11 @@ def Compute_Performances(X_train, X_test, OUTPUT=None):
             performances, ddof=1
         )  # Use ddof=1 for sample standard deviation
         variance_data[(strategy, method)] = performances
-        print(f"{strategy}  |  {method}  | {mean_var:.2e} +/- {std_var:.1e}")
+        print(f"{strategy}  |  {method}  | {mean_var:.2e} +/- {std_var:.1e}  | {round((100*std_var)/np.abs(mean_var), 1)}")
 
         index += 1
         if (index % 5) == 0:
-            print("-----------------------------------------------")
+            print("-------------------------------------------------------")
 
     if OUTPUT is not None:
         Show_Outliers(variance_data, OUTPUT=OUTPUT)
@@ -714,7 +719,7 @@ def simulated_data():
 
     # TMFG
     model = TMFG()
-    corr = np.square(np.corrcoef(X_train, rowvar=True))
+    corr = np.square(np.corrcoef(X_train_std, rowvar=True))
     E_Sample_TMFG = np.cov(X_train_std)
     _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
     E_TMFG = np.linalg.inv(J_TMFG)

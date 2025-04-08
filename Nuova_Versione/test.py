@@ -24,7 +24,7 @@ def main():
     # Load the stock data
     X_train, X_test = FCA.load_stock_data()
 
-    FCA.Compute_Performances(X_train, X_test, OUTPUT=None)
+    FCA.Compute_Performances(X_train, X_test, OUTPUT="Multiple_Boxplot")
 
 
 def check():
@@ -130,7 +130,7 @@ def simulated_data():
     plt.legend()    
     plt.show()
 
-    FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT=None)
+    FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Multi_Boxplot")
 
 
 
@@ -139,5 +139,6 @@ if __name__ == "__main__":
     #check()
     #simulated_data()
     main()
+
 
 
