@@ -22,9 +22,9 @@ def main():
     T_out = 60
 
     # Load the stock data
-    X_train, X_test = FCA.load_stock_data()
+    X_train, X_test = FCA.load_stock_data(file_name="returns_data_1060.csv")
 
-    FCA.Compute_Performances(X_train, X_test, OUTPUT="Multiple_Boxplot")
+    FCA.Compute_Performances(X_train, X_test, OUTPUT="Multiple_Boxplot", Compute_MI=False)
 
 
 def check():
@@ -130,7 +130,7 @@ def simulated_data():
     plt.legend()    
     plt.show()
 
-    FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Multi_Boxplot")
+    FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Multi_Boxplot", Compute_MI=False)
 
 
 

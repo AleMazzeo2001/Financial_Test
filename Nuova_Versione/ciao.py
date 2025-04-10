@@ -69,4 +69,12 @@ plt.title(f"Difference: {diff:.2f}")
 im3 = axs[1,0].imshow(J_Sample-J_Sample_Cazzuta, aspect="auto")
 axs[1, 0].set_title("DiffMatrix")
 fig.colorbar(im3, ax=axs[1,0])
-plt.show()
+#plt.show()
+
+
+# prova returns standardize 2
+X_train, X_test= FCA.load_stock_data(file_name="returns_data_1060.csv")
+print(f"Dimensioni X_train : {X_train.shape}")
+print(f"Dimensioni X_test : {X_test.shape}")
+X_test_std, _, _= FCA.standardize_returns_2(X_train, X_test)
+print(f"Dimensioni X_test_std : {X_test_std.shape}")

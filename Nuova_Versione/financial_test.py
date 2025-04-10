@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 import pyRMT as rmt
 import yfinance as yf
 import pandas as pd
@@ -10,16 +9,25 @@ import argparse
 import traceback
 from scipy.linalg import logm, inv, pinv, LinAlgError
 from scipy.stats import multivariate_t
+from sklearn.covariance import shrunk_covariance
+from sklearn.feature_selection import mutual_info_regression
 
 import sys
 import os
 
-sys.path.append(
-    os.path.abspath(
-        os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
-    )
+tmfg_core_path = os.path.expanduser(
+    "~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph"
 )
-from TMFG_core import *
+mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
+FCA_path = os.path.expanduser("/Users/alessandromazzeo/Desktop/UCL/CODE/Nuova_Versione")
+sys.path.append(tmfg_core_path)
+sys.path.append(mfcf_path)
+sys.path.append(FCA_path)
+import TMFG_core as tmfg
+import mfcf as mfcf
+import gain_functions as gf
+import gain_table
+import financial_test as FCA
 
 path = "/Users/alessandromazzeo/Desktop/UCL/CODE/"
 
@@ -171,6 +179,44 @@ def standardize_returns(R):
     return X, std_daily, std_stocks
 
 
+def standardize_returns_2(X_train, X_test):
+    """
+    unisce X_train e X_test in un'unica matrice, standardizza tutto assieme e poi ti ritorna
+    solo X_test_std
+    """
+    N, T_train = X_train.shape
+    n_series, N_test, T_test = X_test.shape
+
+    if N != N_test:
+        raise ("Il numero di Stocks non coindice.")
+
+    # 1. Rimodellare X_test
+    # Permutiamo gli assi per portare la dimensione 400 come prima dimensione
+    X_test_reshaped = np.transpose(X_test, (1, 0, 2))  # Ora ha forma (400, 65, 60)
+    X_test_reshaped = X_test_reshaped.reshape(N, -1)  # Rimodelliamo in (400, 65 * 60)
+
+    # 2. Concatenare con X_train
+    # X_combined = np.concatenate((X_train, X_test_reshaped), axis=1)
+    X_combined = X_test_reshaped
+
+    # 3. Standardizzare le righe
+    mean = np.mean(X_combined, axis=1, keepdims=True)
+    std_stocks = np.std(X_combined, axis=1, keepdims=True)
+    std_stocks[std_stocks == 0] = 1
+    std_daily = np.std(X_combined, axis=0, keepdims=True) * np.sqrt(T_test * n_series)
+    std_daily[std_daily == 0] = 1
+    X_combined_standardized = (X_combined - mean) / (std_stocks * std_daily)
+
+    # 4. Separare nuovamente le matrici
+    # X_train_standardized = X_combined_standardized[:, :800]
+    # Estraiamo X_test_standardized e rimodelliamo alla forma originale
+    X_test_standardized = X_combined_standardized[:,].reshape(N, n_series, T_test)
+    # Trasponiamo gli assi per riportare alla forma originale (65, 400, 60)
+    X_test_standardized = np.transpose(X_test_standardized, (1, 0, 2))
+
+    return X_test_standardized, std_daily, std_stocks
+
+
 def minimum_variance_portfolio_vector(X):
     """
     Compute the predictions vector  g for the minimum variance portfolio.
@@ -291,7 +337,9 @@ def check_norm(g):
     return g
 
 
-def optimal_weight(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None): #hai tolto la s finale, versione vecchia
+def optimal_weight(
+    Sigma, g, std_daily=None, std_stocks=None, J_Precision=None
+):  # hai tolto la s finale, versione vecchia
     """
     Compute the optimal weights for the portfolio.
 
@@ -314,7 +362,7 @@ def optimal_weight(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
 
         if J_Precision is not None:
             w = J_Precision @ g / (g @ J_Precision @ g)
-            
+
         elif std_stocks is None:
             Sigma_inv = inv(Sigma)
             w = Sigma_inv @ g / (g @ Sigma_inv @ g)
@@ -363,14 +411,16 @@ def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None)
             Sigma_rescaled = (std_stocks @ std_stocks.T) * Sigma
             eigvals = np.linalg.eigvalsh(Sigma_rescaled)
             if np.min(np.abs(eigvals)) < 1e-10:
-                raise np.linalg.LinAlgError("Autovalori troppo piccoli in Sigma_rescaled.")
+                raise np.linalg.LinAlgError(
+                    "Autovalori troppo piccoli in Sigma_rescaled."
+                )
 
             Sigma_inv = np.linalg.inv(Sigma_rescaled)
             w = Sigma_inv @ g / (g @ Sigma_inv @ g)
 
     except np.linalg.LinAlgError as e:
         print(f"⚠️ Errore numerico: {e} Uso la pseudo-inversa.")
-        
+
         if std_stocks is None:
             Sigma_pinv = np.linalg.pinv(Sigma)
         else:
@@ -429,12 +479,12 @@ def portfolio_statistics(
         g = minimum_variance_portfolio_vector(X_train)
     elif strategy == "omn     ":
         Oracle_train, Oracle_test = load_stock_data(
-            file_name=path + "oracle_returns_data_1060.csv"
+            file_name="oracle_returns_data_1060.csv"
         )
         g = omniscient_portfolio_vector(Oracle_train)
     elif strategy == "mean_rev":
         Oracle_train, Oracle_test = load_stock_data(
-            file_name=path + "oracle_returns_data_1060.csv"
+            file_name="oracle_returns_data_1060.csv"
         )
         g = mean_reversion_portfolio_vector(Oracle_train)
     elif strategy == "rnd     ":
@@ -565,22 +615,53 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot"):
             plt.show()
 
 
+def mutual_info_matrix(data):
+    """
+    Calcola la matrice della mutua informazione per un dataset di variabili continue.
+
+    Parametri:
+    data (numpy.ndarray): Matrice 2D con shape (n_variabili, n_osservazioni).
+
+    Ritorna:
+    numpy.ndarray: Matrice quadrata (n_variabili x n_variabili) della mutua informazione.
+    """
+    # Trasponi la matrice per avere le variabili come colonne
+    data_t = data.T
+    n_variabili = data_t.shape[1]
+    mi_matrix = np.zeros((n_variabili, n_variabili))
+
+    for i in range(n_variabili):
+        for j in range(i, n_variabili):
+            if i == j:
+                mi = mutual_info_regression(data_t[:, i].reshape(-1, 1), data_t[:, i])[0]
+            else:
+                mi = mutual_info_regression(data_t[:, i].reshape(-1, 1), data_t[:, j])[0]
+            mi_matrix[i, j] = mi
+            mi_matrix[j, i] = mi  # La matrice è simmetrica
+
+    return mi_matrix
+
+
 def Compute_Performances(
-    X_train, X_test, Oracle_Train_=None, Oracle_Test_=None, OUTPUT=None
+    X_train, X_test, Oracle_Train_=None, Oracle_Test_=None, OUTPUT=None, Compute_MI=False
 ):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
         -Multiple_Boxplot
+    Compute_MI:
+        -True: calcola e salva la matrice della Mutua Informazione
+        _FAlse: carica la matrice della mutua informazione
+    
     """
 
     # Standardize the returns
     X_train_std, std_daily, std_stocks = standardize_returns(X_train)
-    X_test_std, _, _ = standardize_returns(X_test)
+    X_test_std, _, _ = standardize_returns_2(X_train, X_test)
 
     path = "/Users/alessandromazzeo/Desktop/UCL/CODE/"
     Oracle_train, Oracle_test = load_stock_data(
-        file_name = path + "oracle_returns_data_1060.csv"
+        file_name="oracle_returns_data_1060.csv"
     )
 
     if Oracle_Train_ is not None:
@@ -594,13 +675,25 @@ def Compute_Performances(
     E_rie = rmt.optimalShrinkage(X_train, return_covariance=True, method="rie")
     E_iw = rmt.optimalShrinkage(X_train, return_covariance=True, method="iw")
     E_Clipped = rmt.clipped(X_train, alpha=0.0, return_covariance=True)
+    E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
 
     # TMFG
-    model = TMFG()
+    model = tmfg.TMFG()
     corr = np.square(np.corrcoef(X_train, rowvar=True))
     E_Sample_TMFG = np.cov(X_train)
     _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
     E_TMFG = np.linalg.inv(J_TMFG)
+
+    # TMFG + MI (Mutual Information)
+    if Compute_MI == True:
+        MI=mutual_info_matrix(X_train)
+        np.save('MI_Matrix.npy', MI)
+    if Compute_MI == False:
+        MI=np.load('MI_Matrix.npy')
+
+    _, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
+    E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
+
 
     # Check if the matrices are positive definite
     if not is_positive_definite(E_sample):
@@ -611,12 +704,17 @@ def Compute_Performances(
         raise ValueError("IW covariance matrix not positive definite!")
     if not is_positive_definite(E_Clipped):
         raise ValueError("Clipped covariance matrix not positive definite!")
+    if not is_positive_definite(E_shrunk):
+        raise ValueError("Shrunk covariance matrix not positive definite!")
     if not is_positive_definite(J_TMFG):
         raise ValueError("Precision TMFG matrix not positive definite!")
     if not is_positive_definite(E_TMFG):
         raise ValueError("TMFG covariance matrix not positive definite!")
-
-   
+    if not is_positive_definite(J_TMFG_MI):
+        raise ValueError("Precision TMFG_MI matrix not positive definite!")
+    if not is_positive_definite(E_TMFG_MI):
+        raise ValueError("TMFG_MI covariance matrix not positive definite!")
+    
 
     # Compute the statistics of the portfolio
 
@@ -625,8 +723,13 @@ def Compute_Performances(
         "Rie    ": E_rie,
         "IW     ": E_iw,
         "Clipped": E_Clipped,
+        "Shrunk ": E_shrunk,
         "TMFG   ": (E_TMFG, J_TMFG),
+        "TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
+
     }
+
+    n_methods = len(Sigma_methods)
 
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
 
@@ -647,6 +750,16 @@ def Compute_Performances(
                     strategy=strategy,
                 )
             elif method == "TMFG   ":
+                E_TMFG, J_TMFG = Sigma
+                g, w, var = portfolio_statistics(
+                    X_train,
+                    E_TMFG,
+                    std_daily,
+                    std_stocks,
+                    strategy=strategy,
+                    J_Precision=J_TMFG,
+                )
+            elif method == "TMFG_MI":
                 E_TMFG, J_TMFG = Sigma
                 g, w, var = portfolio_statistics(
                     X_train,
@@ -678,7 +791,7 @@ def Compute_Performances(
     variance_data = {}
     for (strategy, method), w in Optimal_Weights_dict.items():
 
-        #if strategy == "omn     ":
+        # if strategy == "omn     ":
         #    TEST_DATA = Oracle_test_std
         if method == "TMFG   ":
             TEST_DATA = X_test_std
@@ -702,7 +815,7 @@ def Compute_Performances(
         )
 
         index += 1
-        if (index % 5) == 0:
+        if (index % n_methods) == 0:
             print("-------------------------------------------------------")
 
     if OUTPUT is not None:

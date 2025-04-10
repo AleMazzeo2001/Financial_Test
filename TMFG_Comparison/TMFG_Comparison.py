@@ -5,26 +5,27 @@ from sklearn.feature_selection import mutual_info_regression
 import sys
 import os
 
-# Percorsi dei file
+
 tmfg_core_path = os.path.expanduser('~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph')
 mfcf_path = os.path.expanduser('~/Desktop/UCL/CODE/MFCF')
-
-# Aggiungi i percorsi a sys.path
+FCA_path = os.path.expanduser('/Users/alessandromazzeo/Desktop/UCL/CODE/Nuova_Versione')
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
-
-# Ora puoi importare i moduli
+sys.path.append(FCA_path)
 import TMFG_core as tmfg
 import mfcf as mfcf
 import gain_functions as gf
 import gain_table
+import financial_test as FCA
 
 
 
-def Compute_J_MFCF(Min_Cl=5, Max_Cl=5, Coordination_Number=2, threshold=0.01, drop_sep=True, return_J=False):
+def Compute_J_MFCF(C, Min_Cl=5, Max_Cl=5, Coordination_Number=2, threshold=0.01, drop_sep=True, return_J=False):
     """
     Compute the MFCF(Min_Cl, Max_Cl, Coordination_Number) Network.
+
     Parameters:
+    C (numpy.ndarray): Correlation matrix.(Mutual information matrix???)
     Min_Cl (int): Minimum clique size.
     Max_Cl (int): Maximum clique size.
     Coordination_Number (int): Coordination number.
@@ -88,15 +89,75 @@ def mutual_info_matrix(data):
     return mi_matrix
 
 
-p = 15
-T = 100
+
 
 np.random.seed(seed=27029)
-X = np.random.normal(0,1,(T,p)).T
-print(X.shape)
+X_train_emp, X_test_emp = FCA.load_stock_data(file_name="~/Desktop/UCL/CODE/Nuova_Versione/returns_data_1060.csv")
+N, T_train = X_train_emp.shape
+T_out=60
+n_sets=65
+C_true= np.cov(X_train_emp)
 
+
+X = FCA.generate_dataset(C_true, T_train, 1, type="Gaussian")
+X = np.squeeze(X)
+simulated_data_test = FCA.generate_dataset(C_true, T_out, n_sets, type="Gaussian")
 C = np.corrcoef(X, rowvar=True)
-print(C.shape)
 
-MI=mutual_info_matrix(X)
-print(MI.shape)
+Compute_MI=False
+if Compute_MI==True:
+    MI = mutual_info_matrix(X)
+    np.save("MI_Matrix.npy", MI)
+else:
+    MI = np.load("MI_Matrix.npy")
+
+J_True = np.linalg.inv(C_true)
+
+#TMFG with two different classes
+print("Correlation Matrix")
+J1, _, _, _, _ = Compute_J_MFCF(C, 4, 4, 1, return_J=True)
+model = tmfg.TMFG()
+E_Sample_TMFG = np.cov(X)
+_, _, J_TMFG = model.fit_transform(weights=C, cov=E_Sample_TMFG, output="logo")
+
+print(f"J_True - J1: {np.linalg.norm(J_True - J1):.2e} " )
+print(f"J_True - J_TMFG: {np.linalg.norm(J_True - J_TMFG):.2e}")
+print(f"J1 - J_TMFG: {np.linalg.norm(J1 - J_TMFG):.2e}" )
+
+
+
+#Mutual INformation
+print("Mutual Information")
+J1, _, _, _, _ = Compute_J_MFCF(MI, 4, 4, 1, return_J=True)
+model = tmfg.TMFG()
+E_Sample_TMFG = np.cov(X)
+_, _, J_TMFG = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
+
+print(f"J_True - J1: {np.linalg.norm(J_True - J1):.2e}" )
+print(f"J_True - J_TMFG: {np.linalg.norm(J_True - J_TMFG):.2e}" )
+print(f"J1 - J_TMFG: {np.linalg.norm(J1 - J_TMFG):.2e} ")
+
+show=True
+if show:
+    fig, axs = plt.subplots(1, 3, figsize=(12, 10))
+
+    # Plot C_true
+    im0 = axs[ 0].imshow(J_True, aspect="auto")
+    axs[ 0].set_title("True Precision Matrix")
+    fig.colorbar(im0, ax=axs[ 0])
+
+    # Plot J_MFCF
+    im1 = axs[ 1].imshow(J1, aspect="auto")
+    axs[ 1].set_title("MFCF Precision Matrix")
+    fig.colorbar(im1, ax=axs[ 1])
+
+    # Plot J_TMFG
+    im2 = axs[ 2].imshow(J_TMFG, aspect="auto")
+    axs[ 2].set_title("TMFG Precision Matrix")
+    fig.colorbar(im1, ax=axs[ 2])
+    
+    plt.tight_layout()
+    plt.show()
+
+
+

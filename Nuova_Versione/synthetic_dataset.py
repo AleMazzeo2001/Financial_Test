@@ -66,8 +66,8 @@ C_true= np.cov(X_Train_Real)
 mean = np.zeros(N_Stocks)
 # print(C_true.shape)
 
-simulated_data_train = FCA.generate_dataset(C_true, T_train, 1, type="Gaussian")
-simulated_data_test = FCA.generate_dataset(C_true, T_out, n_sets, type="Gaussian")
+simulated_data_train = FCA.generate_dataset(C_true, T_train, 1, type="Student")
+simulated_data_test = FCA.generate_dataset(C_true, T_out, n_sets, type="Student")
 
 # print(simulated_data_train[0,:])
 simulated_data_train = np.squeeze(simulated_data_train)
@@ -126,9 +126,10 @@ def plot_eigenvalues(data, C_true, show=False):
 
     # TMFG with mutual information
     # mi_matrix = get_mutual_info_matrix_continuous(data)
-    # E_Sample_MI = np.cov(data)
-    # _, _, J_MI = model.fit_transform(weights=mi_matrix, cov=E_Sample_MI, output="logo")
-    # E_MI = np.linalg.inv(J_MI)
+    E_Sample_MI = np.cov(data)
+    MI=np.load("MI_Matrix.npy")
+    _, _, J_MI = model.fit_transform(weights=MI, cov=E_Sample_MI, output="logo")
+    E_MI = np.linalg.inv(J_MI)
 
     # Autovalori della matrice di covarianza vera
     lambda_C = sorted_eigenvalues(C_true)
@@ -141,7 +142,7 @@ def plot_eigenvalues(data, C_true, show=False):
     lambda_E_iw = sorted_eigenvalues(E_iw, std_stocks=None)
     lambda_E_Clipped = sorted_eigenvalues(E_Clipped, std_stocks=None)
     lambda_E_TMFG = sorted_eigenvalues(E_TMFG, std_stocks=None)
-    # lambda_E_MI = sorted_eigenvalues(E_MI, std_stocks=None)
+    lambda_E_MI = sorted_eigenvalues(E_MI, std_stocks=None)
 
     # Autovalori della matrice di precisione vera
     J = np.linalg.inv(C_true)
@@ -162,7 +163,7 @@ def plot_eigenvalues(data, C_true, show=False):
     lambda_E_iw_J = sorted_eigenvalues(J_iw)
     lambda_E_Clipped_J = sorted_eigenvalues(J_Clipped)
     lambda_J_TMFG = sorted_eigenvalues(J_TMFG)
-    # lambda_J_MI = sorted_eigenvalues(J_MI)
+    lambda_J_MI = sorted_eigenvalues(J_MI)
 
     # Figura con due subplot affiancati
     fig, axs = plt.subplots(1, 2, figsize=(16, 6))
@@ -176,7 +177,7 @@ def plot_eigenvalues(data, C_true, show=False):
     axs[0].plot(lambda_C, lambda_E_iw, label="E_IW")
     axs[0].plot(lambda_C, lambda_E_Clipped, label="E_Clipped")
     axs[0].plot(lambda_C, lambda_E_TMFG, label="E_TMFG")
-    # axs[0].plot(lambda_C, lambda_E_MI, label="E_MI")
+    axs[0].plot(lambda_C, lambda_E_MI, label="E_MI")
     axs[0].set_xlabel("True Eigenvalues")
     axs[0].set_ylabel("Reconstructed Eigenvalues")
     axs[0].set_title("Covariance Matrix")
@@ -191,7 +192,7 @@ def plot_eigenvalues(data, C_true, show=False):
     axs[1].plot(lambda_J, lambda_E_iw_J, label="E_IW")
     axs[1].plot(lambda_J, lambda_E_Clipped_J, label="E_Clipped")
     axs[1].plot(lambda_J, lambda_J_TMFG, label="J_TMFG")
-    # axs[1].plot(lambda_J, lambda_J_MI, label="J_MI")
+    axs[1].plot(lambda_J, lambda_J_MI, label="J_MI")
     axs[1].set_xlabel("True Eigenvalues")
     axs[1].set_ylabel("Reconstructed Eigenvalues")
     axs[1].set_title("Precision Matrix")
@@ -272,7 +273,7 @@ def plot_eigenvalues(data, C_true, show=False):
         plt.show()
 
 
-plot_eigenvalues(simulated_data_train, C_true, show=True)
+plot_eigenvalues(simulated_data_train, C_true, show=False)
 
 
-FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Multiple_Boxplot")
+FCA.Compute_Performances(simulated_data_train, simulated_data_test, OUTPUT="Multiple_Boxplot", Compute_MI=False)
