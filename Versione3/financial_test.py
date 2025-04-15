@@ -704,7 +704,7 @@ def Compute_Performances(
 
 
 def Compute_Performances_Rolling(
-    X_train_3D, X_test_3D, Oracle_Train_3D, Oracle_Test_3D, OUTPUT=None, Compute_MI=False
+    X_train_3D, X_test_3D, Oracle_Train_3D, Oracle_Test_3D, pathfilename_temp=None, OUTPUT=None, Compute_MI=False
 ):
     """
     OUTPUT Visualization of the outliers:
@@ -719,7 +719,7 @@ def Compute_Performances_Rolling(
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
     methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ", "TMFG   " ] #, "TMFG_MI"]
     n_methods = len(methods_list)
-    stepTotali=n_windows-15
+    stepTotali=n_windows-1
     # Salva le performance per ogni coppia rolling (finestra train+test)
     rolling_performance_dict = { (strategy, method): [] for strategy in strategies for method in methods_list }
 
@@ -786,9 +786,9 @@ def Compute_Performances_Rolling(
             risks = np.array([Risk_Out(test_data, w)])
             avg_risk = np.mean(risks)
             rolling_performance_dict[(strategy, method)].append(avg_risk)
-
-        save_performance_dict(rolling_performance_dict, filename="risultati_rolling_temp.pkl")
-
+        if pathfilename_temp is not None:
+            save_performance_dict(rolling_performance_dict, filename=pathfilename_temp)
+        
     # Stampa finale delle statistiche sui rolling window
     index = 0
     print("\nSUMMARY STATISTICS OVER ROLLING WINDOWS\n")
@@ -828,8 +828,8 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
     index = 0
     n_methods = 6
     print("\nSUMMARY STATISTICS OVER ROLLING WINDOWS\n")
-    print("STRATEGY  |  METHOD  |  MEAN VARIANCE        |  STD       |  CV%")
-    print("------------------------------------------------------------------")
+    print("STRATEGY |  METHOD |  MEAN VARIANCE       |  CV%")
+    print("---------------------------------------------------")
     for key, values in rolling_performance_dict.items():
         values = np.array(values)
         mean_val = np.mean(values)
@@ -840,7 +840,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
         index += 1
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
-    print("------------------------------------------------------------------")
+    #print("------------------------------------------------------------------")
 
     if OUTPUT is not None:
         Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)
