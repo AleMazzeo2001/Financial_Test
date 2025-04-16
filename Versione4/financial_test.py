@@ -9,6 +9,7 @@ import argparse
 import traceback
 from scipy.linalg import logm, inv, pinv, LinAlgError
 from scipy.stats import multivariate_t
+from scipy.stats import kendalltau
 from sklearn.covariance import shrunk_covariance
 from sklearn.feature_selection import mutual_info_regression
 import shutil
@@ -524,183 +525,93 @@ def mutual_info_matrix(data):
     return mi_matrix
 
 
-def Compute_Performances(
-    X_train, X_test, Oracle_Train_=None, Oracle_Test_=None, OUTPUT=None, Compute_MI=False
-):
+
+def kendall_tau_matrix(data):
     """
-    OUTPUT Visualization of the outliers:
-        -Single_Boxplot
-        -Multiple_Boxplot
-    Compute_MI:
-        -True: calcola e salva la matrice della Mutua Informazione
-        _FAlse: carica la matrice della mutua informazione
+    Calcola la matrice di Kendall's rank correlation (Tau) per una matrice NxT,
+    dove N è il numero di variabili (righe) e T il numero di osservazioni (colonne).
+
+    Parameters:
+    - data: np.ndarray, shape (N, T)
+
+    Returns:
+    - tau_matrix: np.ndarray, shape (N, N), simmetrica con valori di Tau
     """
+    N = data.shape[0]
+    tau_matrix = np.ones((N, N))
 
-    # Standardize the returns
-    X_train_std, std_daily, std_stocks = standardize_returns(X_train)
-    X_test_std, _, _ = standardize_returns(X_test)
+    for i in range(N):
+        for j in range(i+1, N):
+            tau, _ = kendalltau(data[i], data[j])
+            tau_matrix[i, j] = tau
+            tau_matrix[j, i] = tau  # simmetrica
 
-    
-    Oracle_train, Oracle_test = load_stock_data(
-        file_name="oracle_returns_data_1060.csv"
-    )
-
-    if Oracle_Train_ is not None:
-        Oracle_train = Oracle_Train_
-    if Oracle_Test_ is not None:
-        Oracle_test = Oracle_Test_
-
-    Oracle_test_std, _, _ = standardize_returns(Oracle_test)
-
-    E_sample = np.cov(X_train)
-    E_rie = rmt.optimalShrinkage(X_train, return_covariance=True, method="rie")
-    E_iw = rmt.optimalShrinkage(X_train, return_covariance=True, method="iw")
-    E_Clipped = rmt.clipped(X_train, alpha=0.0, return_covariance=True)
-    E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
-
-    # TMFG
-    model = tmfg.TMFG()
-    corr = np.square(np.corrcoef(X_train, rowvar=True))
-    E_Sample_TMFG = np.cov(X_train)
-    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
-    E_TMFG = np.linalg.inv(J_TMFG)
-
-    # TMFG + MI (Mutual Information)
-    if Compute_MI == True:
-        MI=mutual_info_matrix(X_train)
-        np.save('MI_Matrix.npy', MI)
-    if Compute_MI == False:
-        MI=np.load('MI_Matrix.npy')
-
-    _, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
-    E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
+    return tau_matrix
 
 
-    # Check if the matrices are positive definite
-    if not is_positive_definite(E_sample):
-        raise ValueError("Sample covariance matrix not positive definite!")
-    if not is_positive_definite(E_rie):
-        raise ValueError("RIE covariance matrix not positive definite!")
-    if not is_positive_definite(E_iw):
-        raise ValueError("IW covariance matrix not positive definite!")
-    if not is_positive_definite(E_Clipped):
-        raise ValueError("Clipped covariance matrix not positive definite!")
-    if not is_positive_definite(E_shrunk):
-        raise ValueError("Shrunk covariance matrix not positive definite!")
-    if not is_positive_definite(J_TMFG):
-        raise ValueError("Precision TMFG matrix not positive definite!")
-    if not is_positive_definite(E_TMFG):
-        raise ValueError("TMFG covariance matrix not positive definite!")
-    if not is_positive_definite(J_TMFG_MI):
-        raise ValueError("Precision TMFG_MI matrix not positive definite!")
-    if not is_positive_definite(E_TMFG_MI):
-        raise ValueError("TMFG_MI covariance matrix not positive definite!")
-    
+from concurrent.futures import ThreadPoolExecutor
 
-    # Compute the statistics of the portfolio
+def kendall_tau_matrix_parallel(data, max_workers=None):
+    """
+    Versione parallela della matrice di Kendall Tau.
 
-    Sigma_methods = {
-        "Sample ": E_sample,
-        "Rie    ": E_rie,
-        "IW     ": E_iw,
-        "Clipped": E_Clipped,
-        "Shrunk ": E_shrunk,
-        "TMFG   ": (E_TMFG, J_TMFG),
-        "TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
+    Parameters:
+    - data: np.ndarray (N, T)
+    - max_workers: numero massimo di thread
 
-    }
+    Returns:
+    - tau_matrix: np.ndarray (N, N)
+    """
+    N = data.shape[0]
+    tau_matrix = np.ones((N, N))
 
-    n_methods = len(Sigma_methods)
+    def compute_tau(i, j):
+        tau, _ = kendalltau(data[i], data[j])
+        return (i, j, tau)
 
-    strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
+    pairs = [(i, j) for i in range(N) for j in range(i + 1, N)]
 
-    print("\nIN SAMPLE CASE\n")
-    Optimal_Weights_dict = {}
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = executor.map(lambda p: compute_tau(*p), pairs)
 
-    print("STRATEGY  |  METHOD  |  VARIANCE")
-    print("----------------------------------------------")
-    for strategy in strategies:
-        for method, Sigma in Sigma_methods.items():
+    for i, j, tau in results:
+        tau_matrix[i, j] = tau
+        tau_matrix[j, i] = tau
 
-            if method == "Sample ":
-                g, w, var = portfolio_statistics(
-                    X_train,
-                    Sigma,
-                    std_daily=None,
-                    std_stocks=None,
-                    strategy=strategy,
-                )
-            elif method == "TMFG   ":
-                E_TMFG, J_TMFG = Sigma
-                g, w, var = portfolio_statistics(
-                    X_train,
-                    E_TMFG,
-                    std_daily,
-                    std_stocks,
-                    strategy=strategy,
-                    J_Precision=J_TMFG,
-                )
-            elif method == "TMFG_MI":
-                E_TMFG, J_TMFG = Sigma
-                g, w, var = portfolio_statistics(
-                    X_train,
-                    E_TMFG,
-                    std_daily,
-                    std_stocks,
-                    strategy=strategy,
-                    J_Precision=J_TMFG,
-                )
-            else:
-                g, w, var = portfolio_statistics(
-                    X_train,
-                    Sigma,
-                    std_daily=None,
-                    std_stocks=None,
-                    strategy=strategy,
-                )
+    return tau_matrix
 
-            Optimal_Weights_dict[(strategy, method)] = w
+def mutual_info_matrix_parallel(data, max_workers=None):
+    """
+    Versione parallela della matrice di mutua informazione.
 
-            print(f"{strategy}  |  {method}  | {var:.3e}")
-        print("----------------------------------------------")
+    Parameters:
+    - data: np.ndarray (N, T)
+    - max_workers: numero massimo di thread
 
-    print("\nOUT OF SAMPLE CASE\n")
-    print("STRATEGY  |  METHOD  |  VARIANCE              |  CV%")
-    print("-------------------------------------------------------")
+    Returns:
+    - mi_matrix: np.ndarray (N, N)
+    """
+    data_t = data.T  # shape: (T, N)
+    N = data_t.shape[1]
+    mi_matrix = np.zeros((N, N))
 
-    index = 0
-    variance_data = {}
-    for (strategy, method), w in Optimal_Weights_dict.items():
-
-        # if strategy == "omn     ":
-        #    TEST_DATA = Oracle_test_std
-        if method == "TMFG   ":
-            TEST_DATA = X_test_std
+    def compute_mi(i, j):
+        if i == j:
+            mi = mutual_info_regression(data_t[:, i].reshape(-1, 1), data_t[:, i])[0]
         else:
-            TEST_DATA = X_test_std
+            mi = mutual_info_regression(data_t[:, i].reshape(-1, 1), data_t[:, j])[0]
+        return (i, j, mi)
 
-        performances = np.zeros(TEST_DATA.shape[0])
+    pairs = [(i, j) for i in range(N) for j in range(i, N)]
 
-        for i in range(TEST_DATA.shape[0]):
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = executor.map(lambda p: compute_mi(*p), pairs)
 
-            var = Risk_Out(TEST_DATA[i], w)
-            performances[i] = var
+    for i, j, mi in results:
+        mi_matrix[i, j] = mi
+        mi_matrix[j, i] = mi
 
-        mean_var = np.mean(performances)
-        std_var = np.std(
-            performances, ddof=1
-        )  # Use ddof=1 for sample standard deviation
-        variance_data[(strategy, method)] = performances
-        print(
-            f"{strategy}  |  {method}  | {mean_var:.2e} +/- {std_var:.1e}  | {round((100*std_var)/np.abs(mean_var), 1)}"
-        )
-
-        index += 1
-        if (index % n_methods) == 0:
-            print("-------------------------------------------------------")
-
-    if OUTPUT is not None:
-        Show_Outliers(variance_data, OUTPUT=OUTPUT)
+    return mi_matrix
 
 
 def Compute_Performances_Rolling(
@@ -717,7 +628,7 @@ def Compute_Performances_Rolling(
 
     n_windows = X_train_3D.shape[0]
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
-    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ", "TMFG   " ] #, "TMFG_MI"]
+    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ", "Kendall", "TMFG   " ]#, "TMFG_MI"]
     n_methods = len(methods_list)
     stepTotali=n_windows-1
     # Salva le performance per ogni coppia rolling (finestra train+test)
@@ -741,6 +652,7 @@ def Compute_Performances_Rolling(
         E_iw = rmt.optimalShrinkage(X_train, return_covariance=True, method="iw")
         E_Clipped = rmt.clipped(X_train, alpha=0.0, return_covariance=True)
         E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
+        E_Kendall = kendall_tau_matrix_parallel(X_train)
 
         # TMFG e TMFG_MI
         model = tmfg.TMFG()
@@ -750,13 +662,13 @@ def Compute_Performances_Rolling(
         E_TMFG = np.linalg.inv(J_TMFG)
 
         if Compute_MI:
-            MI = mutual_info_matrix(X_train)
+            MI = mutual_info_matrix_parallel(X_train)
             np.save("MI_Matrix.npy", MI)
         else:
             MI = np.load("MI_Matrix.npy")
 
-        #_, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
-        #E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
+        _, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
+        E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
 
         Sigma_methods = {
             "Sample ": E_sample,
@@ -764,8 +676,9 @@ def Compute_Performances_Rolling(
             "IW     ": E_iw,
             "Clipped": E_Clipped,
             "Shrunk ": E_shrunk,
+            "Kendall": E_Kendall,
             "TMFG   ": (E_TMFG, J_TMFG),
-           # "TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
+            #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
 
         # In-sample: calcolo pesi
@@ -819,6 +732,11 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
         pickle.dump(performance_dict, f)
 
 def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None):
+    """
+    OUTPUT Visualization of the outliers:
+        -Single_Boxplot
+        -Multiple_Boxplot
+    """
     import pickle
     import numpy as np
 
@@ -826,7 +744,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
         rolling_performance_dict = pickle.load(f)
 
     index = 0
-    n_methods = 6
+    n_methods = 7
     print("\nSUMMARY STATISTICS OVER ROLLING WINDOWS\n")
     print("STRATEGY |  METHOD |  MEAN VARIANCE       |  CV%")
     print("---------------------------------------------------")
@@ -840,7 +758,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
         index += 1
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
-    #print("------------------------------------------------------------------")
+    #print("---------------------------------------------------")
 
     if OUTPUT is not None:
         Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)

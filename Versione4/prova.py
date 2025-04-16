@@ -54,7 +54,10 @@ print("Test shape:", X_test.shape)
 # Calcola le performance rolling
 save_path_temp = os.path.join(output_dir, "risultati_rolling_temp.pkl")
 rolling_performance_dict = FCA.Compute_Performances_Rolling(
-    X_train, X_test, Oracle_train, Oracle_test, OUTPUT=None, pathfilename_temp=save_path_temp
+    X_train, X_test, Oracle_train, Oracle_test, 
+    OUTPUT="Multiple_Boxplot", 
+    pathfilename_temp=save_path_temp, 
+    Compute_MI=False
 )
 
 # Salva i risultati nella directory corretta

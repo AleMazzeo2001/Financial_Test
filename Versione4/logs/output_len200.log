@@ -9,6 +9,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
 Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -25,10 +26,14 @@ Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
 Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
 Norma del vettore g: 19.999999999999993
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
 Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
 Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
@@ -45,6 +50,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 19.999999999999996
 Norma del vettore g: 19.999999999999993
 Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000004
 [===                                                                   ] 5.26%
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -54,6 +60,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
 Norma del vettore g: 19.999999999999996
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -70,24 +77,29 @@ Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
 Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
 Norma del vettore g: 19.999999999999996
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
 Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.000000000000004
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 54.970855185248595
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.000000000000007
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 [=======                                                               ] 10.53%
@@ -99,40 +111,46 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
-Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 61.74357143714344
+Norma del vettore g: 19.999999999999996
+Norma del vettore g: 20.000000000000004
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.000000000000004
 Norma del vettore g: 20.000000000000004
 [===========                                                           ] 15.79%
@@ -144,6 +162,8 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -158,6 +178,9 @@ Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
+Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -172,14 +195,19 @@ Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
 Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
 Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 82.15379303494099
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g: 20.000000000000004
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.000000000000007
 Norma del vettore g: 19.999999999999996
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.000000000000004
 [==============                                                        ] 21.05%
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -190,45 +218,55 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.000000000000007
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g: 19.999999999999996
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 56.55082077697146
+Norma del vettore g: 19.999999999999996
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 19.999999999999993
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999993
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.000000000000004
 [==================                                                    ] 26.32%
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -239,6 +277,8 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -254,6 +294,9 @@ Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
@@ -269,15 +312,20 @@ Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
 Norma del vettore g: 20.000000000000007
-Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 19.999999999999996
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.000000000000004
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 19.999999999999993
 [======================                                                ] 31.58%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -287,6 +335,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
@@ -305,24 +354,29 @@ Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 41.618829991959366
 Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
-⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
 Norma del vettore g: 20.0
 ⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
-Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 19.999999999999996
 [=========================                                             ] 36.84%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -330,6 +384,11 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 89.38125375879697
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 89.38125375879697
+Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 89.38125375879697
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 89.38125375879697
@@ -356,10 +415,11 @@ Norma del vettore g non è uguale a sqrt(N): 89.38125375879697
 Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.0
 Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.0
 [=============================                                         ] 42.11%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -367,6 +427,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
 Norma del vettore g: 20.000000000000004
 Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
@@ -391,12 +452,17 @@ Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
 Norma del vettore g: 20.000000000000004
 Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
 Norma del vettore g: 20.000000000000004
+Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
+Norma del vettore g: 20.000000000000004
+Norma del vettore g non è uguale a sqrt(N): 43.97337916080963
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.00000000000001
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.000000000000007
 Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.0
-Norma del vettore g: 20.0
 Norma del vettore g: 20.000000000000007
-Norma del vettore g: 20.000000000000007
-Norma del vettore g: 20.000000000000004
 [=================================                                     ] 47.37%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -404,6 +470,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
@@ -428,12 +495,17 @@ Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
 Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 46.70646104008763
+Norma del vettore g: 19.999999999999996
+Norma del vettore g: 19.999999999999993
 Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.0
-Norma del vettore g: 20.00000000000001
+Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.0
-Norma del vettore g: 20.0
-Norma del vettore g: 20.000000000000004
+Norma del vettore g: 19.999999999999993
 [====================================                                  ] 52.63%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -441,6 +513,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
 Norma del vettore g: 20.000000000000004
 Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
@@ -465,12 +538,17 @@ Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
 Norma del vettore g: 20.000000000000004
 Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000007
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.000000000000007
-Norma del vettore g: 19.999999999999993
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.0
 [========================================                              ] 57.89%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -478,7 +556,6 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
 Norma del vettore g: 20.0
@@ -502,10 +579,17 @@ Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
 Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
 Norma del vettore g: 20.0
-Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 37.56156648480506
+Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 Norma del vettore g: 20.000000000000004
 [============================================                          ] 63.16%
@@ -515,36 +599,42 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
-Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
-Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.0
-Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 48.01766087005583
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.000000000000004
 Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999996
+Norma del vettore g: 20.0
 [===============================================                       ] 68.42%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -552,7 +642,6 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
 Norma del vettore g: 20.0
@@ -576,12 +665,19 @@ Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
 Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
 Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999993
-Norma del vettore g: 20.000000000000004
+Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 59.41865719290358
+Norma del vettore g: 20.0
 Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999996
 [===================================================                   ] 73.68%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -589,6 +685,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
@@ -613,12 +710,17 @@ Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
 Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 40.56848494690373
 Norma del vettore g: 20.000000000000007
 Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
-Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000004
 Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.000000000000014
+Norma del vettore g: 20.000000000000007
+Norma del vettore g: 19.999999999999996
 [=======================================================               ] 78.95%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -626,6 +728,7 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
@@ -650,11 +753,16 @@ Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
 Norma del vettore g: 19.999999999999996
 Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
 Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 19.999999999999996
-Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.000000000000004
 [==========================================================            ] 84.21%
 Norma del vettore g: 20.0
@@ -663,6 +771,11 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 42.7380252950515
+Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 42.7380252950515
+Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 42.7380252950515
 Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 42.7380252950515
@@ -688,11 +801,12 @@ Norma del vettore g: 20.000000000000007
 Norma del vettore g non è uguale a sqrt(N): 42.7380252950515
 Norma del vettore g: 20.000000000000007
 Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 19.999999999999996
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 19.999999999999993
+Norma del vettore g: 19.999999999999996
+Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999996
 [==============================================================        ] 89.47%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -700,7 +814,6 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
 Norma del vettore g: 20.0
@@ -724,12 +837,19 @@ Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
 Norma del vettore g: 20.0
-Norma del vettore g: 20.000000000000014
-Norma del vettore g: 20.000000000000007
+Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 46.56785538040787
+Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 19.999999999999993
+Norma del vettore g: 20.000000000000004
+Norma del vettore g: 19.999999999999996
 Norma del vettore g: 19.999999999999996
 Norma del vettore g: 19.999999999999993
-Norma del vettore g: 20.0
-Norma del vettore g: 20.0
 [==================================================================    ] 94.74%
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
@@ -737,7 +857,6 @@ Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
 Norma del vettore g: 20.0
-Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
 Norma del vettore g: 20.0
@@ -761,11 +880,18 @@ Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
 Norma del vettore g: 20.0
 Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
 Norma del vettore g: 20.0
-Norma del vettore g: 19.999999999999996
-Norma del vettore g: 19.999999999999996
+Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
+Norma del vettore g: 20.0
+Norma del vettore g non è uguale a sqrt(N): 79.30833320318938
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999993
 Norma del vettore g: 20.000000000000004
-Norma del vettore g: 20.000000000000004
 Norma del vettore g: 20.0
+Norma del vettore g: 19.999999999999993
 Norma del vettore g: 20.0
 
 SUMMARY STATISTICS OVER ROLLING WINDOWS
@@ -777,6 +903,7 @@ min_var  | Rie     | 5.20e-01 +/- 3.3e-01 | 62.7
 min_var  | IW      | 3.32e-01 +/- 1.1e-01 | 31.8
 min_var  | Clipped | 3.25e-01 +/- 1.1e-01 | 33.7
 min_var  | Shrunk  | 2.84e-01 +/- 8.5e-02 | 30.1
+min_var  | Kendall | 1.49e-01 +/- 4.9e-02 | 32.7
 min_var  | TMFG    | 2.69e-01 +/- 9.4e-02 | 35.0
 ---------------------------------------------------
 omn      | Sample  | 1.03e-02 +/- 4.6e-03 | 44.6
@@ -784,6 +911,7 @@ omn      | Rie     | 8.18e+00 +/- 1.1e+01 | 135.6
 omn      | IW      | 1.49e+01 +/- 3.0e+01 | 198.8
 omn      | Clipped | 9.86e-02 +/- 9.2e-02 | 93.2
 omn      | Shrunk  | 4.54e-03 +/- 1.9e-03 | 40.9
+omn      | Kendall | 3.13e-03 +/- 1.1e-03 | 36.1
 omn      | TMFG    | 5.03e-03 +/- 2.1e-03 | 42.5
 ---------------------------------------------------
 mean_rev | Sample  | 1.03e-02 +/- 4.6e-03 | 44.6
@@ -791,13 +919,15 @@ mean_rev | Rie     | 8.18e+00 +/- 1.1e+01 | 135.6
 mean_rev | IW      | 1.49e+01 +/- 3.0e+01 | 198.8
 mean_rev | Clipped | 9.86e-02 +/- 9.2e-02 | 93.2
 mean_rev | Shrunk  | 4.54e-03 +/- 1.9e-03 | 40.9
+mean_rev | Kendall | 3.13e-03 +/- 1.1e-03 | 36.1
 mean_rev | TMFG    | 5.03e-03 +/- 2.1e-03 | 42.5
 ---------------------------------------------------
-rnd      | Sample  | 1.50e-03 +/- 1.1e-03 | 75.9
-rnd      | Rie     | 1.12e+04 +/- 4.7e+04 | 414.7
-rnd      | IW      | 1.51e+03 +/- 3.2e+03 | 211.6
-rnd      | Clipped | 3.39e-03 +/- 2.1e-03 | 62.5
-rnd      | Shrunk  | 1.59e-03 +/- 4.8e-04 | 29.9
-rnd      | TMFG    | 1.04e-03 +/- 8.7e-04 | 84.2
+rnd      | Sample  | 1.64e-03 +/- 1.4e-03 | 84.7
+rnd      | Rie     | 1.17e+03 +/- 2.1e+03 | 177.1
+rnd      | IW      | 2.03e+03 +/- 3.9e+03 | 192.7
+rnd      | Clipped | 3.79e-03 +/- 2.7e-03 | 72.5
+rnd      | Shrunk  | 1.35e-03 +/- 3.8e-04 | 27.8
+rnd      | Kendall | 1.01e-03 +/- 5.5e-04 | 54.6
+rnd      | TMFG    | 1.30e-03 +/- 1.3e-03 | 98.9
 ---------------------------------------------------
 ---------------------------------------------------
