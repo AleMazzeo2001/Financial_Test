@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/Users/alessandromazzeo/Desktop/UCL/CODE/Versione5/prova.py", line 56, in <module>
+    rolling_performance_dict = FCA.Compute_Performances_Rolling(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alessandromazzeo/Desktop/UCL/CODE/Versione5/financial_test.py", line 744, in Compute_Performances_Rolling
+    MI = mutual_info_matrix_parallel(X_train)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alessandromazzeo/Desktop/UCL/CODE/Versione5/financial_test.py", line 670, in mutual_info_matrix_parallel
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/concurrent/futures/_base.py", line 647, in __exit__
+    self.shutdown(wait=True)
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/concurrent/futures/thread.py", line 238, in shutdown
+    t.join()
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py", line 1147, in join
+    self._wait_for_tstate_lock()
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py", line 1167, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Exception ignored in: <module 'threading' from '/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py'>
+Traceback (most recent call last):
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py", line 1592, in _shutdown
+    atexit_call()
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/concurrent/futures/thread.py", line 31, in _python_exit
+    t.join()
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py", line 1147, in join
+    self._wait_for_tstate_lock()
+  File "/Users/alessandromazzeo/anaconda3/envs/UCL/lib/python3.12/threading.py", line 1167, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt: 

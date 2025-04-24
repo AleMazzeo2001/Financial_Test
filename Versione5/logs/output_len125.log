@@ -1,0 +1,2598 @@
+Train shape: (31, 400, 800)
+Test shape: (31, 400, 60)
+[                                                                      ] 0.00%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.3005326209754308e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 5.964247172027599e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.002812176799564e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.5615099329101947e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.422303588849494e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.1113331361742818
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.418579267058558e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.001043452976165e-05
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 9.280760800166052e-07
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.3548211687114454e-14
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.891976692493567e-10
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.951934243130302e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.6342157185999077e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 0.002335093267263268
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.3350369274663445e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.4666915523765844e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 9.280760800166052e-07
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.3548211687114454e-14
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.891976692493567e-10
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.951934243130302e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.6342157185999077e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 0.002335093267263268
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.3350369274663445e-06
+Norma del vettore g non è uguale a sqrt(N): 45.58665157226964
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.4666915523765844e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 2.762685730602067e-15
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 4.0786007224829305e-15
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.795609130491219e-10
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.5862298632736352e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 5.992537878920609e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 7.785704074148088e-05
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 5.763900782287636e-15
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.3478869236807903e-14
+[==                                                                    ] 3.33%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.265140200816697e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 4.693447370483615e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.785311639036583e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.5688878664074488e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.4381423772648296e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.11621196632116933
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.361171108788315e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.182013852963325e-05
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 7.703634076277492e-07
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 9.95250250025626e-16
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 5.323033014505365e-12
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.245198247813648e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.436134295588383e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.002061374337821751
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.2524339229745612e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.310060686481526e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 7.703634076277492e-07
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 9.95250250025626e-16
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 5.323033014505365e-12
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.245198247813648e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.436134295588383e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.002061374337821751
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.2524339229745612e-06
+Norma del vettore g non è uguale a sqrt(N): 46.55456009633764
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.310060686481526e-06
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 7.108306218043586e-13
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 5.1683356239706555e-15
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.101536839492338e-10
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.6280843547313722e-06
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 6.390430281900295e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.0005276436496230899
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.1295709171717718e-15
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.1164035845144506e-13
+[====                                                                  ] 6.67%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.3684059616762588e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 4.503103105607208e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.494466402217347e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.6188333875908099e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.6730375280305465e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.12751185039616375
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.887036208928162e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.755604472772513e-05
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.0041545590882516e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 6.394626845413116e-15
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.417141117741619e-11
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.5735218036393197e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.6910159686235504e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0020138438155512177
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.4668839229875226e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.388140951162833e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.0041545590882516e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 6.394626845413116e-15
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.417141117741619e-11
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.5735218036393197e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.6910159686235504e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0020138438155512177
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.4668839229875226e-06
+Norma del vettore g non è uguale a sqrt(N): 49.56644951492508
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.388140951162833e-06
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 6.175810274257139e-16
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 1.2404188793797488e-15
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.2725111005541698e-09
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.6863360966474096e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 6.301622731920581e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.2179593884914292e-05
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 8.536375672874404e-15
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.959923633937113e-15
+[=======                                                               ] 10.00%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.2379942591576174e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 3.9329543912581776e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.142946736705489e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.5483720891883858e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.4788929246603592e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.12582391780469931
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.510948647041215e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.914976652635314e-05
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.0072252849479164e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.0867914363024865e-16
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.8472462855389786e-11
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.4842231876092914e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.781646872874345e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.002085155056188251
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.3192190851255763e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.272193000237834e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.0072252849479164e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.0867914363024865e-16
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.8472462855389786e-11
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.4842231876092914e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.781646872874345e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.002085155056188251
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.3192190851255763e-06
+Norma del vettore g non è uguale a sqrt(N): 57.074138421516224
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.272193000237834e-06
+Norma del vettore g: 20.00000000000001
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 4.49940091649886e-15
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 1.5928137153652983e-15
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.8695311055435143e-09
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.4647399125894116e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 5.855662151626211e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.00018345420366315147
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.7306932653058525e-14
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 8.652701323608443e-13
+[=========                                                             ] 13.33%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.1999083964607939e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 3.293979878085211e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.605984257932595e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.4516166010309607e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.347646765316532e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.1281317083364924
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.7063373781143724e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.781829195650458e-05
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.097320852748089e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.4593382799479376e-16
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 6.780518648243613e-12
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.443188475438889e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.9995012016681054e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 0.0023709678357483844
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 3.1281947901201062e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 3.179734717778569e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.097320852748089e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.4593382799479376e-16
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 6.780518648243613e-12
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.443188475438889e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.9995012016681054e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 0.0023709678357483844
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 3.1281947901201062e-06
+Norma del vettore g non è uguale a sqrt(N): 57.93825747878388
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 3.179734717778569e-06
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 3.3918063744603016e-12
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 3.0123464382441864e-12
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.0722416013779333e-10
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.4332447540392609e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 5.242110096611418e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.241754651319129e-06
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 8.66514225917864e-15
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 8.489163098455995e-15
+[===========                                                           ] 16.67%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 1.1163742003838551e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 3.944033635026532e-16
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.1237196457197026e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.0724162460628307e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.013983771608618e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 3.8987372815680505e+27
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.51510112164002e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.72053771108957e-05
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.7734503747901943e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.4387549729425936e-16
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 1.548974070211967e-11
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 2.057444243442327e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 2.5673006022159903e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 0.04256622022113682
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 4.907036986485301e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 4.980753306497561e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.7734503747901943e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.4387549729425936e-16
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 1.548974070211967e-11
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 2.057444243442327e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 2.5673006022159903e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 0.04256622022113682
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 4.907036986485301e-06
+Norma del vettore g non è uguale a sqrt(N): 116.4275306982422
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 4.980753306497561e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 9.239455599005067e-15
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 2.7897013795506813e-14
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.729406536981761e-10
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.1081865051353352e-06
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.584456461126934e-07
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: -3.2093760391644243e-31
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.7241794822030294e-14
+Norma del vettore g: 20.000000000000014
+Strategy: rnd     , portfolio variance: 3.1214061650946244e-13
+[==============                                                        ] 20.00%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 7.931325266625255e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 4.420444512137171e-16
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.5451227876905855e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.967135955522148e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.323379832076243e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.13367028614953289
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.7797366796103254e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.9966656808275385e-05
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.1991025070696845e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.9327471172696517e-15
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 7.068827558658486e-13
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.1446660562683681e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.6974252010011959e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.0030915499142112777
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.598288483709788e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.6065494633256193e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.1991025070696845e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.9327471172696517e-15
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 7.068827558658486e-13
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.1446660562683681e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.6974252010011959e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.0030915499142112777
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.598288483709788e-06
+Norma del vettore g non è uguale a sqrt(N): 82.85148787058208
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.6065494633256193e-06
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 4.895302062921363e-15
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 8.983631373510946e-13
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 4.7421866905865923e-11
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 7.192616611876332e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.6624204479719833e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.7563118481514256e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.638281530138857e-14
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 3.3801884559324897e-15
+[================                                                      ] 23.33%
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 6.929469268020331e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 4.444290121124987e-16
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.140437306330054e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.196352168798292e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.1663152979338632e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 0.38510723246368805
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.4161887257779964e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.6519750393231854e-05
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 7.010527389435919e-07
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.415356819871506e-15
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.6871929343117287e-12
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.1116726634406131e-06
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 9.786039159102849e-07
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: -2.2082921822436463e-18
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.5388642378358673e-06
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.518009711811555e-06
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 7.010527389435919e-07
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.415356819871506e-15
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.6871929343117287e-12
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.1116726634406131e-06
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 9.786039159102849e-07
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: -2.2082921822436463e-18
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.5388642378358673e-06
+Norma del vettore g non è uguale a sqrt(N): 52.62091290413302
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.518009711811555e-06
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 7.410766821963838e-16
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 2.986165043167474e-15
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 6.211801327976963e-09
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 6.07285791757663e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.3496726811928186e-07
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: -1.686058653234388e-30
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.0604130730844374e-13
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.062041631912045e-14
+[==================                                                    ] 26.67%
+Kendall covariance matrix not positive definite!
+ It may happen!
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 7.214133783395517e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 4.387450448259099e-16
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.1247958106830711e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.948875108578825e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.2229103445798418e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.0192600565923673e+27
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.3975429286706734e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.586270330314367e-05
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 5.14664124464406e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.5398238021575623e-15
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.884264046476876e-12
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 7.561607102369778e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 7.894101774446767e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.865890284803584e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 1.0241406992375335e-06
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 1.0837674237436e-06
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 5.14664124464406e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.5398238021575623e-15
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.884264046476876e-12
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 7.561607102369778e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 7.894101774446767e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.865890284803584e-07
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 1.0241406992375335e-06
+Norma del vettore g non è uguale a sqrt(N): 43.7557910399115
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 1.0837674237436e-06
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 1.7461811281309933e-14
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 6.948837634415654e-15
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 1.5781232263558354e-11
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 6.359552536848657e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.372958382145678e-07
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: -3.577436544635643e-32
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 5.324324075019922e-15
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.0050130318696643e-14
+[=====================                                                 ] 30.00%
+Kendall covariance matrix not positive definite!
+ It may happen!
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 6.756431709052822e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 5.634794296796345e-16
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.2051196647261947e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.500914465550792e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.1576360478585948e-05
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.657557797889577e+27
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.369213159248578e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.4735654642518806e-05
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 1.4892403883154537e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 3.540726011155987e-15
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 4.466369122304886e-13
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 8.864920831796399e-07
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.16627328701039e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 5.72361191126321e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.347449823911736e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.969490643411162e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 1.4892403883154537e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 3.540726011155987e-15
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 4.466369122304886e-13
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 8.864920831796399e-07
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.16627328701039e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 5.72361191126321e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.347449823911736e-06
+Norma del vettore g non è uguale a sqrt(N): 79.8721547132567
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.969490643411162e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 1.1005449911165058e-14
+Norma del vettore g: 19.999999999999996
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 2.2996462720537396e-16
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 5.651741381066094e-09
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 5.15388821275188e-07
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 2.137797496652519e-07
+Norma del vettore g: 20.000000000000004
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: -1.4357117932984818e-32
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 4.66717861029397e-13
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.0641259181381966e-14
+[=======================                                               ] 33.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.7527391533383225e-06
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.172286913887286e-13
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: min_var , portfolio variance: 2.1755437020199434e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.412369838838046e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.127176266961603e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.11553489773944435
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.334802577277946e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.5199824189153507e-05
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 1.981488847919863e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 4.0106271023569244e-13
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: omn     , portfolio variance: 4.007626344192019e-13
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 7.796128466171391e-07
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 2.757775117612867e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 0.007500159372485617
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 3.9920461467733135e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: omn     , portfolio variance: 4.155379460038159e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 1.981488847919863e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 4.0106271023569244e-13
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: mean_rev, portfolio variance: 4.007626344192019e-13
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 7.796128466171391e-07
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 2.757775117612867e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 0.007500159372485617
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 3.9920461467733135e-06
+Norma del vettore g non è uguale a sqrt(N): 68.37176599172552
+Norma del vettore g: 20.000000000000007
+Strategy: mean_rev, portfolio variance: 4.155379460038159e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 4.572515152618652e-08
+Norma del vettore g: 19.999999999999993
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 6.715222899772691e-10
+Norma del vettore g: 20.0
+⚠️ Errore numerico: Autovalori troppo piccoli in Sigma. Uso la pseudo-inversa.
+Strategy: rnd     , portfolio variance: 2.30591690860104e-10
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 5.164958723083836e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.1531613519293775e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.00120809201864226
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.5981300909525384e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.5076950006644865e-07
+[=========================                                             ] 36.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.631677494365542e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.2539583282805475e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.2568960330471415e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.119654066145727e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.654943746192705e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09456239852848257
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.984385105053114e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.1455643242283836e-05
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.849116569121768e-07
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.969596669306954e-13
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.968623833364256e-13
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 7.500357118079901e-07
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.3288397473275554e-06
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0034203847080108906
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.8887347099905413e-06
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.0440934503436152e-06
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.849116569121768e-07
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.969596669306954e-13
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.968623833364256e-13
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 7.500357118079901e-07
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.3288397473275554e-06
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0034203847080108906
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.8887347099905413e-06
+Norma del vettore g non è uguale a sqrt(N): 67.32228905706359
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.0440934503436152e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 6.022082193040993e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.4189590253589427e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 5.86299762502539e-09
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 4.1986880988938045e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.7694505049087364e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.001273401150875021
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.1885705187813122e-07
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.6614306624049114e-07
+[============================                                          ] 40.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.106509557363368e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.566934680403452e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.592839835608923e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.9403729706598327e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.866783045618583e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.08805403396568118
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.2986793012363895e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.391080184162327e-05
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 4.056094668516441e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.069306633104342e-12
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.0866523981138424e-12
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 5.502068783526804e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 5.769991266813763e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0022577711334600707
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 7.887265164466045e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 8.304097292084709e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 4.056094668516441e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.069306633104342e-12
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.0866523981138424e-12
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 5.502068783526804e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 5.769991266813763e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0022577711334600707
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 7.887265164466045e-07
+Norma del vettore g non è uguale a sqrt(N): 41.59012210684371
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 8.304097292084709e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 5.0816819813541486e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.7964832138200524e-10
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 2.2884372303671006e-10
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 4.1976268344267725e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.7397795601794108e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.0012807582802548795
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.646982051645245e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.2471421447034974e-07
+[==============================                                        ] 43.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.172209258485606e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.152217619979546e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.203842153982242e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.2786521175008735e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.2253582038427122e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09240075302372408
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.657089600473092e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.8198111855533885e-05
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.1738161831829661e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.538522694952863e-13
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.625830652497958e-13
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.964696966597269e-07
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.5951699419093906e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 0.005208428461883841
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.8598451016453495e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 3.051952255913746e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.1738161831829661e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.538522694952863e-13
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.625830652497958e-13
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.964696966597269e-07
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.5951699419093906e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 0.005208428461883841
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.8598451016453495e-06
+Norma del vettore g non è uguale a sqrt(N): 71.05274779041527
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 3.051952255913746e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.05261598554718e-08
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 5.952886798352431e-11
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 6.334546715388942e-11
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.107114737910662e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.7182840120703634e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.0012610771413101062
+Norma del vettore g: 20.00000000000001
+Strategy: rnd     , portfolio variance: 1.8549495567802508e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.497254904606031e-07
+[================================                                      ] 46.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.74819152102856e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.4532077886379177e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.5333502364659574e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.593015640978539e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.3805430584780914e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09384470368147646
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.80321069559817e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.9321324489727994e-05
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 5.1043759658852e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 4.308960072099978e-12
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 4.384616847311108e-12
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 6.208645012196949e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 7.316128888224802e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.0027267702445259467
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.0368834087958028e-06
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.0192757235131241e-06
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 5.1043759658852e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 4.308960072099978e-12
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 4.384616847311108e-12
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 6.208645012196949e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 7.316128888224802e-07
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.0027267702445259467
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.0368834087958028e-06
+Norma del vettore g non è uguale a sqrt(N): 40.77957664671342
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.0192757235131241e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 7.305752140982355e-08
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.3582403157773403e-09
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.097418941696447e-10
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 4.42470121888024e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.6999898287801003e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.0011847338759661103
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.7404096995741678e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.4944520027605752e-07
+[===================================                                   ] 50.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.88713580250509e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.0335805719554933e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.141552549135713e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.5982017808113417e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.4182251388522877e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09397285672521648
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.8650256549532915e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.990182086948391e-05
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.531086659718721e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 6.5809500423641445e-12
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 6.74996209965813e-12
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 7.788467017544391e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 7.937809635106848e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 0.0026707662018461897
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.310401304080055e-06
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.2649040662349378e-06
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.531086659718721e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 6.5809500423641445e-12
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 6.74996209965813e-12
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 7.788467017544391e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 7.937809635106848e-07
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 0.0026707662018461897
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.310401304080055e-06
+Norma del vettore g non è uguale a sqrt(N): 46.99713271577908
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.2649040662349378e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 5.6269960468666666e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.3976530196358653e-09
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.5829373821443584e-09
+Norma del vettore g: 19.99999999999999
+Strategy: rnd     , portfolio variance: 4.5472194842508175e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.6516631920224206e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 0.0012676090378136323
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.5524880106765613e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.0008254306656788e-07
+[=====================================                                 ] 53.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.561349726487087e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.3961960760384503e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.5182879099428597e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.457261727316305e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.3800783460305212e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09087427168189155
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.679455619587289e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.8820495056554726e-05
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.1108334927332655e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 8.444351825114925e-11
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 8.475392229861696e-11
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 6.549721161348334e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 4.863577760004545e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.001980851668604353
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 6.661709467343006e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 6.99341008095466e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.1108334927332655e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 8.444351825114925e-11
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 8.475392229861696e-11
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 6.549721161348334e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 4.863577760004545e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.001980851668604353
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 6.661709467343006e-07
+Norma del vettore g non è uguale a sqrt(N): 30.735391696928094
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 6.99341008095466e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.838515204317158e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.780020734988339e-11
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.448490424965405e-09
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.287607123249299e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.5529165425045788e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.0012041921262802339
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.782873395902497e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.5671846353927128e-07
+[=======================================                               ] 56.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.05225359493292e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.50295713582616e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.644965642666959e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.4963510362258697e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.372818196336144e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.08603859425803803
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.746688357900783e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.9802395327273105e-05
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 5.975357688771049e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 3.3783890781299044e-12
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 3.439927181861964e-12
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 5.879049727712158e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 8.39145537407136e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 0.0031384904688640117
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.3854535999444786e-06
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.4442656621702664e-06
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 5.975357688771049e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 3.3783890781299044e-12
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 3.439927181861964e-12
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 5.879049727712158e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 8.39145537407136e-07
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 0.0031384904688640117
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.3854535999444786e-06
+Norma del vettore g non è uguale a sqrt(N): 43.56036009741698
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.4442656621702664e-06
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 6.83376877482971e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.3833874274356361e-09
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.7913229235646056e-10
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 4.4126211650164946e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.707780403199798e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 0.0011433005972237616
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.5505299468334506e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.6617831602182598e-07
+[==========================================                            ] 60.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.858213429999873e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.664832957443613e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.810227981612477e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.7371428182834395e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.4686119869843192e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.08661461798399057
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.2976553659981466e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.328898341223093e-05
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 6.906332882577119e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.3418710574746018e-11
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.426640933390236e-11
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 7.603574223445348e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.733136026096611e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0032135627880162092
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.768642037398311e-06
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.7808304738157809e-06
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 6.906332882577119e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.3418710574746018e-11
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.426640933390236e-11
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 7.603574223445348e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.733136026096611e-07
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0032135627880162092
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.768642037398311e-06
+Norma del vettore g non è uguale a sqrt(N): 45.99631863048562
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.7808304738157809e-06
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 7.70711599647189e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 3.3383264996765604e-10
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.7126432861282971e-09
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 4.4321948990239345e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.799656191285058e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.001290829471334228
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.7444117157374944e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.6097342748078388e-07
+[============================================                          ] 63.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.866762203989912e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.759336409657959e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.918940798468835e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.96265573169223e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.3593976047608168e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.07699555623984386
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.1255944906066096e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.2508203679848034e-05
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.1582249721395342e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 2.134666080385402e-12
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 2.1874867147993364e-12
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 7.26893070468916e-07
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.6680074088030924e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 0.005331729015466266
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 3.1011919636739234e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 3.470022789409178e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.1582249721395342e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 2.134666080385402e-12
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 2.1874867147993364e-12
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 7.26893070468916e-07
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.6680074088030924e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 0.005331729015466266
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 3.1011919636739234e-06
+Norma del vettore g non è uguale a sqrt(N): 57.203976352291306
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 3.470022789409178e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.90209360545838e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 6.305299778821769e-11
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 5.89167850201606e-11
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 5.093719565687438e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.0026869760025812e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.0012370882944353824
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.6605921345329645e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.8909360990610976e-07
+[==============================================                        ] 66.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.52671693039875e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.092661887777609e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.233628427203438e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.628895966171695e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.228923518925006e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.07087735209225433
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.9386692771818437e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.14625031613707e-05
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 7.00375788010176e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 3.3241328222709057e-12
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 3.3715638026008384e-12
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 7.447962579398891e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.691810450835974e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.002921488253480796
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.5113572690720875e-06
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.6171787344222647e-06
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 7.00375788010176e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 3.3241328222709057e-12
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 3.3715638026008384e-12
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 7.447962579398891e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.691810450835974e-07
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.002921488253480796
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.5113572690720875e-06
+Norma del vettore g non è uguale a sqrt(N): 52.368284145409454
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.6171787344222647e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 7.802152894669998e-08
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 5.694104288781072e-10
+Norma del vettore g: 20.00000000000001
+Strategy: rnd     , portfolio variance: 1.4192928529585654e-09
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 4.667664148237404e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.658365201665542e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.001292506821471754
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.4596445615987396e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.6834893787510497e-07
+[=================================================                     ] 70.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.998638547339445e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.032432996885861e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 9.147893099821266e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.671023612333466e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.2367094383746805e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.07082194746701949
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.916288731508447e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.995619093914114e-05
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.0260251066739945e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.8049132951677552e-12
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.83200012970586e-12
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 6.564548786657403e-07
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.4962744272173398e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0048234122816294585
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.8554464654928454e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 3.0560746941060063e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.0260251066739945e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.8049132951677552e-12
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.83200012970586e-12
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 6.564548786657403e-07
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.4962744272173398e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0048234122816294585
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.8554464654928454e-06
+Norma del vettore g non è uguale a sqrt(N): 65.11243166821914
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 3.0560746941060063e-06
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 7.21019613897678e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.2411107938246491e-09
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 4.699539190717817e-11
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 4.509275147994757e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.9569034337585398e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.001395053519727399
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.7067893536601839e-07
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.4277517822908924e-07
+[===================================================                   ] 73.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.5648353397530877e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.588107956947674e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.798428850548694e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.0115980171077594e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.7735043412181027e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.0884202183467776
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.596040737480668e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.451508497806323e-05
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 5.55522297672813e-07
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.4443267311318055e-12
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.5600448779681054e-12
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.2674941882609586e-06
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 9.648342232846196e-07
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.0026016056797642274
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.3703166284896503e-06
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.2721743640541716e-06
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 5.55522297672813e-07
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.4443267311318055e-12
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.5600448779681054e-12
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.2674941882609586e-06
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 9.648342232846196e-07
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.0026016056797642274
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.3703166284896503e-06
+Norma del vettore g non è uguale a sqrt(N): 38.71776784206766
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.2721743640541716e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 8.514912899065149e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 8.070539966277089e-11
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 3.2841209208919856e-10
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.0574062634954823e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 3.029088318404794e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.0011854726664168517
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 2.1183275911505385e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 9.152797405687295e-08
+[=====================================================                 ] 76.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.7947455111390766e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.278271871008169e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.485929649171842e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.0979679991247417e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.1674928472288984e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09350965481086704
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.220493499740666e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.304700320112443e-05
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.196282097316842e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.2168974917093391e-12
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.2489876212546528e-12
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.2611445459588188e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.9509325518100924e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.004973882840782041
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.6853436015883925e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.7341717817030447e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.196282097316842e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.2168974917093391e-12
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.2489876212546528e-12
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.2611445459588188e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.9509325518100924e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.004973882840782041
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.6853436015883925e-06
+Norma del vettore g non è uguale a sqrt(N): 63.481586028963044
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.7341717817030447e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 9.041377997529965e-08
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.283531592545805e-09
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 8.554177353422401e-10
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.1065999273588906e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 3.189179184537592e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 0.001090165577139124
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.8366925079828534e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 2.7455497417514473e-07
+[========================================================              ] 80.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.718981538379986e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.679545263696186e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.952770506921034e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.103524067270831e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.9876144416175778e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.08943753395277379
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.979796182376313e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.757673183195711e-05
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 8.933409796369324e-07
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.6750393108487216e-12
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.7364057837943935e-12
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.383703815932047e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 1.4736859079050661e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 0.0031456596221214285
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 2.6078134765448506e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: omn     , portfolio variance: 2.7214156208609643e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 8.933409796369324e-07
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.6750393108487216e-12
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.7364057837943935e-12
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.383703815932047e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 1.4736859079050661e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 0.0031456596221214285
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 2.6078134765448506e-06
+Norma del vettore g non è uguale a sqrt(N): 52.96605655205466
+Norma del vettore g: 19.999999999999996
+Strategy: mean_rev, portfolio variance: 2.7214156208609643e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.0853111214393897e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.0390223222543091e-09
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 2.2248020644586766e-10
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.1110426238024015e-06
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 3.156352041452622e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 0.0010485434742776205
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.6516891231188125e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 3.5532895702493773e-07
+[==========================================================            ] 83.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.6918896434529888e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.617811733624515e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.936397697315035e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.1077917013551597e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.084886226495202e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09078842431770939
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.957682833724657e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.2561220149345e-05
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 5.622057633208472e-07
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 5.7532315704111265e-12
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 6.152296766035777e-12
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.4325274121287579e-06
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 9.59613842214316e-07
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.0021267591200744597
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.2391102871515665e-06
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.2669383902187486e-06
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 5.622057633208472e-07
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 5.7532315704111265e-12
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 6.152296766035777e-12
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.4325274121287579e-06
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 9.59613842214316e-07
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.0021267591200744597
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.2391102871515665e-06
+Norma del vettore g non è uguale a sqrt(N): 43.2201747734877
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.2669383902187486e-06
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 8.801645000361098e-08
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 2.2000213028255023e-10
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.2281230333387742e-10
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.1829745155768654e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 3.1511546954040327e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.0011581146929179466
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 3.0305574213596486e-07
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 3.2740793865290017e-07
+[============================================================          ] 86.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.8921511621406486e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.932861669372561e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.270145972916105e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.1692572385325136e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.233960355850724e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09856994381733888
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.323969854678329e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.615665129849809e-05
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 6.172653934826332e-07
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.532007210148195e-12
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.673398998759425e-12
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.2957901037896487e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.1669401995355815e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 0.002638857432399499
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 2.113062091955639e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: omn     , portfolio variance: 1.97597462077116e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 6.172653934826332e-07
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.532007210148195e-12
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.673398998759425e-12
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.2957901037896487e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.1669401995355815e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 0.002638857432399499
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 2.113062091955639e-06
+Norma del vettore g non è uguale a sqrt(N): 42.83095435001574
+Norma del vettore g: 20.0
+Strategy: mean_rev, portfolio variance: 1.97597462077116e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 8.89182701258452e-08
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.48401659963615e-10
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 8.89168987163152e-09
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 1.0721926801361684e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 3.3470187564711165e-07
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 0.0010407914654450609
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.795035440659059e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 3.728626310086203e-07
+[===============================================================       ] 90.00%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.942447217160864e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.880845341766762e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 6.229126807385144e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.229228187703624e-06
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 3.41722304339148e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.10715724985892824
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.606337914752858e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.141595453873366e-05
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.227131935462883e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.1062065268723067e-12
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.2556533341805065e-12
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.1770312675069286e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.917361112812168e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.0024576265505852164
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.1386690247948646e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.3069806940428094e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.227131935462883e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.1062065268723067e-12
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.2556533341805065e-12
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.1770312675069286e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.917361112812168e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.0024576265505852164
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.1386690247948646e-06
+Norma del vettore g non è uguale a sqrt(N): 74.6349361956695
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.3069806940428094e-06
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 8.982949499471167e-08
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 7.727701852891014e-11
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 1.0502797030589165e-09
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 1.211885246454651e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 3.600083437512459e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.0009800653426733062
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 3.94193365412702e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.2665633715368814e-07
+[=================================================================     ] 93.33%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.4322326442481214e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.410048263551257e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.659736827149546e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.291412735537092e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.4016129001914994e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09903524565551153
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.322756206550743e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 5.335244550230018e-05
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.351842414953216e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.6737622491067944e-12
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.7252557300463997e-12
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 1.0715212980057918e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 2.063084496746592e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 0.00493707454032972
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.6612626708280042e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: omn     , portfolio variance: 3.5117044397289814e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.351842414953216e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.6737622491067944e-12
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.7252557300463997e-12
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 1.0715212980057918e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 2.063084496746592e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 0.00493707454032972
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.6612626708280042e-06
+Norma del vettore g non è uguale a sqrt(N): 74.12437179832173
+Norma del vettore g: 20.000000000000004
+Strategy: mean_rev, portfolio variance: 3.5117044397289814e-06
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.1066201213204686e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 1.126090110430852e-08
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 7.799017516976243e-11
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 7.950267495494516e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.6836105241690613e-07
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 0.0011098853814907946
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.775480751549591e-07
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 2.9981573433557627e-07
+[===================================================================   ] 96.67%
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 1.3257735183756348e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.905785224873584e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 8.145928850245403e-13
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 7.455611490165865e-07
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 2.097329425268413e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 0.09659026304930932
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.748344668570386e-05
+Norma del vettore g: 20.0
+Strategy: min_var , portfolio variance: 4.899145705954869e-05
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.9332864683431985e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.684556546887301e-12
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.785057865600947e-12
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 1.2890409500094575e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 2.825646338361273e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 0.005685667806004536
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.591004491117353e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: omn     , portfolio variance: 5.337546419462518e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.9332864683431985e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.684556546887301e-12
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.785057865600947e-12
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 1.2890409500094575e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 2.825646338361273e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 0.005685667806004536
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.591004491117353e-06
+Norma del vettore g non è uguale a sqrt(N): 97.12604143691645
+Norma del vettore g: 19.999999999999993
+Strategy: mean_rev, portfolio variance: 5.337546419462518e-06
+Norma del vettore g: 20.000000000000007
+Strategy: rnd     , portfolio variance: 8.234512293301393e-08
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 1.4790929159706865e-10
+Norma del vettore g: 19.999999999999996
+Strategy: rnd     , portfolio variance: 7.505837113132285e-11
+Norma del vettore g: 19.999999999999993
+Strategy: rnd     , portfolio variance: 8.161176657005764e-07
+Norma del vettore g: 20.000000000000004
+Strategy: rnd     , portfolio variance: 2.611344172253689e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 0.001187973395296404
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.594554572219168e-07
+Norma del vettore g: 20.0
+Strategy: rnd     , portfolio variance: 2.5402786153257803e-07
+
+SUMMARY STATISTICS OVER ROLLING WINDOWS
+
+STRATEGY |  METHOD |  MEAN VARIANCE       |  CV%
+---------------------------------------------------
+min_var  | Sample  | 4.12e+02 +/- 2.3e+03 | 547.2
+min_var  | Rie     | 5.51e-01 +/- 3.2e-01 | 58.5
+min_var  | IW      | 3.52e-01 +/- 1.3e-01 | 37.2
+min_var  | Clipped | 3.44e-01 +/- 1.3e-01 | 38.5
+min_var  | Shrunk  | 2.92e-01 +/- 1.1e-01 | 37.7
+min_var  | Kendall | 3.74e+26 +/- 1.3e+27 | 337.2
+min_var  | TMFG    | 1.35e+00 +/- 5.8e+00 | 430.5
+min_var  | TMFG_MI | 5.13e-01 +/- 1.3e+00 | 244.0
+---------------------------------------------------
+omn      | Sample  | 6.09e+01 +/- 3.3e+02 | 547.6
+omn      | Rie     | 4.45e+00 +/- 6.7e+00 | 150.3
+omn      | IW      | 8.58e+00 +/- 2.4e+01 | 274.4
+omn      | Clipped | 1.45e-01 +/- 1.2e-01 | 81.8
+omn      | Shrunk  | 5.47e-03 +/- 2.9e-03 | 53.3
+omn      | Kendall | 3.06e+10 +/- 1.7e+11 | 547.7
+omn      | TMFG    | 4.76e-02 +/- 2.3e-01 | 479.7
+omn      | TMFG_MI | 1.40e-01 +/- 7.4e-01 | 524.9
+---------------------------------------------------
+mean_rev | Sample  | 6.09e+01 +/- 3.3e+02 | 547.6
+mean_rev | Rie     | 4.45e+00 +/- 6.7e+00 | 150.3
+mean_rev | IW      | 8.58e+00 +/- 2.4e+01 | 274.4
+mean_rev | Clipped | 1.45e-01 +/- 1.2e-01 | 81.8
+mean_rev | Shrunk  | 5.47e-03 +/- 2.9e-03 | 53.3
+mean_rev | Kendall | 3.06e+10 +/- 1.7e+11 | 547.7
+mean_rev | TMFG    | 4.76e-02 +/- 2.3e-01 | 479.7
+mean_rev | TMFG_MI | 1.40e-01 +/- 7.4e-01 | 524.9
+---------------------------------------------------
+rnd      | Sample  | 2.79e-03 +/- 7.2e-03 | 256.3
+rnd      | Rie     | 9.83e+02 +/- 2.1e+03 | 216.1
+rnd      | IW      | 1.36e+03 +/- 2.7e+03 | 196.7
+rnd      | Clipped | 3.24e-03 +/- 1.5e-03 | 46.3
+rnd      | Shrunk  | 1.35e-03 +/- 3.5e-04 | 26.0
+rnd      | Kendall | 9.11e-04 +/- 7.3e-04 | 80.0
+rnd      | TMFG    | 2.89e-02 +/- 1.5e-01 | 530.4
+rnd      | TMFG_MI | 2.09e-03 +/- 6.7e-03 | 319.2
+---------------------------------------------------
+---------------------------------------------------
