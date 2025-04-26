@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/alessandromazzeo/Desktop/UCL/CODE/Versione6/prova.py", line 56, in <module>
+    rolling_performance_dict = FCA.Compute_Performances_Rolling(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alessandromazzeo/Desktop/UCL/CODE/Versione6/financial_test.py", line 703, in Compute_Performances_Rolling
+    Oracle_train = Oracle_Train_3D[i]
+                   ~~~~~~~~~~~~~~~^^^
+IndexError: index 152 is out of bounds for axis 0 with size 152
