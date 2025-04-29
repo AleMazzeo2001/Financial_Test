@@ -17,11 +17,10 @@ import sys
 # Set path for local modules
 tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
 mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
-FCA_path = os.path.expanduser("/Users/alessandromazzeo/Desktop/UCL/CODE/Nuova_Versione")
 
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
-sys.path.append(FCA_path)
+
 
 import TMFG_core as tmfg
 import mfcf as mfcf
@@ -32,6 +31,7 @@ import financial_test as FCA
 # Argument parser per leggere i parametri da riga di comando
 parser = argparse.ArgumentParser(description="Esegui performance rolling con len_rolling variabile.")
 parser.add_argument("--len_rolling", type=int, default=100, help="Dimensione della finestra rolling (default: 100)")
+parser.add_argument("--output", type=str, default=None, help="Single_Boxplot, Multiple_Boxplot, None (default: None)")
 args = parser.parse_args()
 
 # Imposta il seed
@@ -39,6 +39,7 @@ np.random.seed(27029)
 
 # Parametri rolling
 len_rolling = args.len_rolling
+output_mode = args.output
 
 # Crea la directory di output se non esiste
 output_dir = f"Rolling_{len_rolling}"
@@ -55,9 +56,9 @@ print("Test shape:", X_test.shape)
 save_path_temp = os.path.join(output_dir, "risultati_rolling_temp.pkl")
 rolling_performance_dict = FCA.Compute_Performances_Rolling(
     X_train, X_test, Oracle_train, Oracle_test, 
-    OUTPUT=None, 
-    pathfilename_temp=save_path_temp, 
-    Compute_MI=False
+    OUTPUT = output_mode, 
+    pathfilename_temp = save_path_temp, 
+    Compute_MI = False
 )
 
 # Salva i risultati nella directory corretta

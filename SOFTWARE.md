@@ -15,3 +15,4 @@ Pacchetti Installati: (conda list python)
     networkx 3.4.2
     fast-tmfg Repo GitHub clonata (pip non aggiornato)
     black 24.10.0 (pulire il codice)
+    

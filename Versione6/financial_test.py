@@ -311,17 +311,17 @@ def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None)
         print(f"⚠️ Errore numerico: {e} Uso la pseudo-inversa.")
 
         if std_stocks is None:
-            Sigma_pinv = np.linalg.inv(Sigma)
+            Sigma_pinv = np.linalg.pinv(Sigma)
         else:
             Sigma_rescaled = (std_stocks @ std_stocks.T) * Sigma
-            Sigma_pinv = np.linalg.inv(Sigma_rescaled)
+            Sigma_pinv = np.linalg.pinv(Sigma_rescaled)
 
         w = Sigma_pinv @ g / (g @ Sigma_pinv @ g)
 
     return w
 
 
-def variance_portfolio(Sigma, w, J_Precision=None):
+def variance_portfolio(Sigma, w, method, J_Precision=None):
     """
     Compute the variance of the portfolio.
 
@@ -336,13 +336,13 @@ def variance_portfolio(Sigma, w, J_Precision=None):
     var = np.dot(w, np.dot(Sigma, w))
 
     if var < 0:
-        raise ValueError("Portfolio variance is negative!")
+        raise ValueError(f"{method}-Portfolio variance is negative!")
 
     return var
 
 
 def portfolio_statistics(
-    X_train, Sigma, Oracle_train, Oracle_test, std_daily, std_stocks, strategy="min_var", J_Precision=None
+    X_train, Sigma, method, Oracle_train, Oracle_test, std_daily, std_stocks, strategy="min_var", J_Precision=None
 ):
     """
     Compute the statistics of the portfolio.
@@ -379,10 +379,10 @@ def portfolio_statistics(
     # Optimal weights
     if J_Precision is not None:
         w = optimal_weights(Sigma, g, std_daily, std_stocks, J_Precision=J_Precision)
-        var = variance_portfolio(Sigma, w)
+        var = variance_portfolio(Sigma, w, method)
     else:
         w = optimal_weights(Sigma, g, std_daily, std_stocks)
-        var = variance_portfolio(Sigma, w)
+        var = variance_portfolio(Sigma, w, method)
 
     # print(f"Strategy: {strategy}, portfolio variance: {var}")
 
@@ -397,7 +397,7 @@ def is_positive_definite(matrix):
     return np.all(eigenvalues > 0)
 
 
-def Risk_Out(X, w):
+def Risk_Out(X, w, method):
     """
     Compute the out-of-sample risk of the portfolio.
 
@@ -412,7 +412,7 @@ def Risk_Out(X, w):
         raise ValueError("X must be a 2D array!")
 
     Sigma = np.cov(X)
-    var = variance_portfolio(Sigma, w)
+    var = variance_portfolio(Sigma, w, method)
 
     return var
 
@@ -614,67 +614,6 @@ def mutual_info_matrix_parallel(data, max_workers=None):
     return mi_matrix
 
 
-
-def Compute_J_MFCF(X_train, Min_Cl=5, Max_Cl=5, Coordination_Number=2, threshold=0.01, drop_sep=True, return_J=False):
-    """
-    Compute the MFCF(Min_Cl, Max_Cl, Coordination_Number) Network.
-
-    Parameters:
-    X_train (numpy.ndarray): Training matrix.
-    Min_Cl (int): Minimum clique size.
-    Max_Cl (int): Maximum clique size.
-    Coordination_Number (int): Coordination number.
-    threshold (float): Threshold for clique extension.
-    drop_sep (bool): Whether to drop separators.
-    return_J (bool): Whether to return the J matrix.
-    Returns:
-    cliques (list): List of cliques.
-    separators (list): List of separators.
-    peo (list): Perfect elimination order.
-    gt (gain_table): Gain table.
-    J (numpy.ndarray): J matrix if return_J is True.
-
-    if return_J:
-        return J, cliques, separators, peo, gt
-    else:
-        return cliques, separators, peo, gt
-
-    """
-    # Compute Correlation Matrix
-    C = np.corrcoef(X_train, rowvar=True)
-
-    ctl = mfcf.mfcf_control()
-    ctl['min_clique_size'] = Min_Cl
-    ctl['max_clique_size'] = Max_Cl
-    ctl['coordination_number'] = Coordination_Number
-    ctl['threshold'] = threshold
-    ctl['drop_sep'] = drop_sep
-
-    gain_function = gf.sumsquares_gen
-    cliques, separators, peo, gt = mfcf.mfcf(C, ctl, gain_function)
-
-    if return_J:
-        J = mfcf.logo(C, cliques, separators)
-        return J, cliques, separators, peo, gt
-    else:
-        return cliques, separators, peo, gt
-
-def Compute_J_Fast(X_train):
-    """
-    Antonio's Implementation
-    """
-    model = tmfg.TMFG()
-    corr = np.square(np.corrcoef(X_train, rowvar=True))
-    E_Sample_TMFG = np.cov(X_train)
-    _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
-    E_TMFG = np.linalg.inv(J_TMFG)
-
-    return  J_TMFG, E_TMFG
-
-
-
-
-
 def Compute_Performances_Rolling(
     X_train_3D, X_test_3D, Oracle_Train_3D, Oracle_Test_3D, pathfilename_temp=None, OUTPUT=None, Compute_MI=False
 ):
@@ -689,8 +628,7 @@ def Compute_Performances_Rolling(
 
     n_windows = X_train_3D.shape[0]
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
-    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", 
-                    "Shrunk ", "Kendall", "TMFG   ", "MFCF   "]
+    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ", "Kendall", "TMFG   " ]#, "TMFG_MI"]
     n_methods = len(methods_list)
     stepTotali=n_windows-1
     # Salva le performance per ogni coppia rolling (finestra train+test)
@@ -716,21 +654,21 @@ def Compute_Performances_Rolling(
         E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
         E_Kendall = kendall_tau_matrix_parallel(X_train)
 
-        # TMFG Fast
-        J_TMFG, E_TMFG = Compute_J_Fast(X_train)
-        
-        # TMFG MFCF
-        J_MFCF, _, _, _, _ = Compute_J_MFCF(E_sample, Min_Cl=4, Max_Cl=4, Coordination_Number=1, threshold=0.01, drop_sep=True, return_J=True)
-        
+        # TMFG e TMFG_MI
+        model = tmfg.TMFG()
+        corr = np.square(np.corrcoef(X_train, rowvar=True))
+        E_Sample_TMFG = np.cov(X_train)
+        _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
+        E_TMFG = np.linalg.inv(J_TMFG)
 
-        #if Compute_MI:
-        #    MI = mutual_info_matrix_parallel(X_train)
-        #    np.save("MI_Matrix.npy", MI)
-        #else:
-        #    MI = np.load("MI_Matrix.npy")
+        if Compute_MI:
+            MI = mutual_info_matrix_parallel(X_train)
+            np.save("MI_Matrix.npy", MI)
+        else:
+            MI = np.load("MI_Matrix.npy")
 
-        #_, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
-        #E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
+        _, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
+        E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
 
         Sigma_methods = {
             "Sample ": E_sample,
@@ -740,25 +678,25 @@ def Compute_Performances_Rolling(
             "Shrunk ": E_shrunk,
             "Kendall": E_Kendall,
             "TMFG   ": (E_TMFG, J_TMFG),
-            "MFCF   ": (E_sample, J_MFCF)
+            #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
 
         # In-sample: calcolo pesi
         Optimal_Weights_dict = {}
         for strategy in strategies:
             for method, Sigma in Sigma_methods.items():
-                if method in ["TMFG   ", "MFCF   "]:
+                if method in ["TMFG   ", "TMFG_MI"]:
                     E_cov, J_prec = Sigma
-                    _, w, _ = portfolio_statistics(X_train, E_cov, Oracle_train, Oracle_test, std_daily, std_stocks, strategy=strategy, J_Precision=J_prec)
+                    _, w, _ = portfolio_statistics(X_train, E_cov, method, Oracle_train, Oracle_test, std_daily, std_stocks, strategy=strategy, J_Precision=J_prec)
                 else:
-                    _, w, _ = portfolio_statistics(X_train, Sigma, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
+                    _, w, _ = portfolio_statistics(X_train, Sigma, method, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
 
                 Optimal_Weights_dict[(strategy, method)] = w
 
         # Out-of-sample: calcolo rischio su X_test_std
         for (strategy, method), w in Optimal_Weights_dict.items():
             test_data = X_test_std
-            risks = np.array([Risk_Out(test_data, w)])
+            risks = np.array([Risk_Out(test_data, w, method)])
             avg_risk = np.mean(risks)
             rolling_performance_dict[(strategy, method)].append(avg_risk)
         if pathfilename_temp is not None:
@@ -806,7 +744,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
         rolling_performance_dict = pickle.load(f)
 
     index = 0
-    n_methods = 8
+    n_methods = 7
     print("\nSUMMARY STATISTICS OVER ROLLING WINDOWS\n")
     print("STRATEGY |  METHOD |  MEAN VARIANCE       |  CV%")
     print("---------------------------------------------------")
