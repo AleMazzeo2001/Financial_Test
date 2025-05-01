@@ -18,6 +18,10 @@ import sys
 tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
 mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
 
+# Cluster  paths
+#tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
+#mfcf_path = os.path.expanduser("~/CODE/MFCF")
+
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
 

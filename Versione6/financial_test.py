@@ -17,22 +17,24 @@ import shutil
 import sys
 import os
 
-tmfg_core_path = os.path.expanduser(
-    "~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph"
-)
+tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
 mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
-FCA_path = os.path.expanduser("/Users/alessandromazzeo/Desktop/UCL/CODE/Nuova_Versione")
+
+
+# Cluster  paths
+#tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
+#mfcf_path = os.path.expanduser("~/CODE/MFCF")
+
+
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
-sys.path.append(FCA_path)
+
 import TMFG_core as tmfg
 import mfcf as mfcf
 import gain_functions as gf
 import gain_table
 import financial_test as FCA
-
 import pickle
-
 
 
 
@@ -59,9 +61,9 @@ def load_stock_data_rolling(
     # Trattamento dei NaN
     if df.isna().values.any():
         print(f"Total number of NaN values before interpolation: {df.isna().sum().sum()}")
-    df.interpolate(method="linear", inplace=True)
-    df.bfill(inplace=True)
-    df.ffill(inplace=True)
+        df.interpolate(method="linear", inplace=True)
+        df.bfill(inplace=True)
+        df.ffill(inplace=True)
     if df.isna().values.any():
         print("Ancora NaN trovati dopo il riempimento, verranno sostituiti con 0.")
         df.fillna(0, inplace=True)
@@ -268,7 +270,7 @@ def check_norm(g):
         g = g * c
     return g
 
-def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
+def optimal_weights_vecchia(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
     """
     Compute the optimal weights for the portfolio.
 
@@ -321,6 +323,45 @@ def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None)
     return w
 
 
+def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
+    """
+    Compute the optimal weights for the portfolio.
+
+    Parameters:
+    Sigma (numpy.ndarray): Covariance matrix of the returns.
+    g (numpy.ndarray): Predictions vector for the portfolio.
+    std_daily (numpy.ndarray): Daily volatilities (1 x T), unused here.
+    std_stocks (numpy.ndarray): Stock volatilities (N x 1).
+    J_Precision (numpy.ndarray or None): Optional precision matrix.
+
+    Returns:
+    w (numpy.ndarray): Optimal weights for the portfolio.
+    """
+    if J_Precision is not None:
+        w = J_Precision @ g / (g @ J_Precision @ g)
+
+    elif std_stocks is None:
+        eigvals = np.linalg.eigvalsh(Sigma)
+        #if np.min(np.abs(eigvals)) < 1e-10:
+        #    raise ValueError("Autovalori troppo piccoli in Sigma. La matrice potrebbe essere quasi singolare.")
+        
+        Sigma_inv = np.linalg.inv(Sigma)
+        w = Sigma_inv @ g / (g @ Sigma_inv @ g)
+
+    else:
+        Sigma_rescaled = (std_stocks @ std_stocks.T) * Sigma
+        eigvals = np.linalg.eigvalsh(Sigma_rescaled)
+        #if np.min(np.abs(eigvals)) < 1e-10:
+        #    raise ValueError("Autovalori troppo piccoli in Sigma_rescaled. La matrice potrebbe essere quasi singolare.")
+
+        Sigma_inv = np.linalg.inv(Sigma_rescaled)
+        den = g @ Sigma_inv @ g
+        w = ( Sigma_inv @ g ) / den
+
+
+    return w
+
+
 def variance_portfolio(Sigma, w, method, J_Precision=None):
     """
     Compute the variance of the portfolio.
@@ -350,7 +391,7 @@ def portfolio_statistics(
     Parameters:
     X_train (numpy.ndarray): Matrix of standardized returns.
 
-    Sigma (numpy.ndarray): Covariance matrix of the returns.
+    Sigma (numpy.ndarray): Covariance test matrix of the returns.
         Default is the identity matrix (Isotropic Case).
 
     strategy (str): Strategy for the portfolio.
@@ -386,7 +427,7 @@ def portfolio_statistics(
 
     # print(f"Strategy: {strategy}, portfolio variance: {var}")
 
-    return g, w, var
+    return g, w
 
 
 def is_positive_definite(matrix):
@@ -413,6 +454,7 @@ def Risk_Out(X, w, method):
 
     Sigma = np.cov(X)
     var = variance_portfolio(Sigma, w, method)
+    print(f"{method} Portfolio variance: {var}")
 
     return var
 
@@ -551,6 +593,7 @@ def kendall_tau_matrix(data):
 
 from concurrent.futures import ThreadPoolExecutor
 
+
 def kendall_tau_matrix_parallel(data, max_workers=None):
     """
     Versione parallela della matrice di Kendall Tau.
@@ -564,6 +607,7 @@ def kendall_tau_matrix_parallel(data, max_workers=None):
     """
     N = data.shape[0]
     tau_matrix = np.ones((N, N))
+    stds = np.std(data, axis=1)
 
     def compute_tau(i, j):
         tau, _ = kendalltau(data[i], data[j])
@@ -577,8 +621,13 @@ def kendall_tau_matrix_parallel(data, max_workers=None):
     for i, j, tau in results:
         tau_matrix[i, j] = tau
         tau_matrix[j, i] = tau
+    
+    weight_matrix = np.outer(stds, stds)
+    weighted_tau_matrix = tau_matrix * weight_matrix
 
-    return tau_matrix
+    return weighted_tau_matrix
+
+
 
 def mutual_info_matrix_parallel(data, max_workers=None):
     """
@@ -628,7 +677,8 @@ def Compute_Performances_Rolling(
 
     n_windows = X_train_3D.shape[0]
     strategies = ["min_var ", "omn     ", "mean_rev", "rnd     "]
-    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ", "Kendall", "TMFG   " ]#, "TMFG_MI"]
+    strategies = ["min_var "] #debug
+    methods_list = ["Sample ", "Rie    ", "IW     ", "Clipped", "Shrunk ","Kendall",  "TMFG   " ]#, "TMFG_MI"]
     n_methods = len(methods_list)
     stepTotali=n_windows-1
     # Salva le performance per ogni coppia rolling (finestra train+test)
@@ -687,9 +737,9 @@ def Compute_Performances_Rolling(
             for method, Sigma in Sigma_methods.items():
                 if method in ["TMFG   ", "TMFG_MI"]:
                     E_cov, J_prec = Sigma
-                    _, w, _ = portfolio_statistics(X_train, E_cov, method, Oracle_train, Oracle_test, std_daily, std_stocks, strategy=strategy, J_Precision=J_prec)
+                    _, w = portfolio_statistics(X_train, E_cov, method, Oracle_train, Oracle_test, std_daily, std_stocks, strategy=strategy, J_Precision=J_prec)
                 else:
-                    _, w, _ = portfolio_statistics(X_train, Sigma, method, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
+                    _, w = portfolio_statistics(X_train, Sigma, method, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
 
                 Optimal_Weights_dict[(strategy, method)] = w
 
@@ -772,7 +822,8 @@ def BarraCaricamento(stepTotali, step):
     progress = int(lunghezza_barra * step / stepTotali)  
     barra = '=' * progress + ' ' * (lunghezza_barra - progress) 
     
-    print(f"\r[{barra}] {percentuale:.2f}%")
+    #print(f"\r[{barra}] {percentuale:.2f}%")
+    print(f"\r[{barra}] {step}/ {stepTotali}")
 
 
 
