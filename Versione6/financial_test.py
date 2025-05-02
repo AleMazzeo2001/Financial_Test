@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pyRMT as rmt
-import yfinance as yf
+#import yfinance as yf
 import pandas as pd
 import time
 import os
@@ -17,6 +17,7 @@ import shutil
 import sys
 import os
 
+# Local paths
 tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
 mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
 
@@ -138,7 +139,7 @@ def standardize_returns(R):
     """
     # Standardizzazione sulle colonne (asse 0)
     col_mean = np.mean(X, axis=0, keepdims=True)
-    std_daily = np.std(X, axis=0, keepdims=True, ddof=0)  # *np.sqrt(T)
+    std_daily = np.std(X, axis=0, keepdims=True, ddof=0)   *np.sqrt(T)
     std_daily[std_daily < 1e-10] = 1  # Evita divisioni per zero
     X = (X) / std_daily
 
@@ -490,7 +491,7 @@ def generate_dataset(C, T, n_sets, type="Student", df=3):
     return data
 
 
-def Show_Outliers(variance_data, OUTPUT="Single_Boxplot"):
+def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_dir=None, len_rolling=100):
     """
     Show the outliers of the variance data using boxplots.
 
@@ -513,7 +514,10 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot"):
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
             plt.grid(True, linestyle="--", alpha=0.7)
-            plt.show()
+            if Save:
+                plt.savefig(f"{plots_dir}/{strategy}_{methods}_Rolling_{len_rolling}.png")
+            else:
+                plt.show()
 
     elif OUTPUT == "Multiple_Boxplot":
         grouped_data = {}
@@ -537,7 +541,12 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot"):
             plt.xticks(rotation=45)  # Ruotiamo le etichette se sono lunghe
             plt.grid(True, linestyle="--", alpha=0.7)
 
-            plt.show()
+            if Save:
+                if plots_dir:
+                    plt.savefig(f"{plots_dir}/{strategy}_Multiple_Rolling_{len_rolling}.png")
+
+            else:
+                plt.show()
 
 
 def mutual_info_matrix(data):
@@ -593,7 +602,6 @@ def kendall_tau_matrix(data):
 
 from concurrent.futures import ThreadPoolExecutor
 
-
 def kendall_tau_matrix_parallel(data, max_workers=None):
     """
     Versione parallela della matrice di Kendall Tau.
@@ -626,8 +634,6 @@ def kendall_tau_matrix_parallel(data, max_workers=None):
     weighted_tau_matrix = tau_matrix * weight_matrix
 
     return weighted_tau_matrix
-
-
 
 def mutual_info_matrix_parallel(data, max_workers=None):
     """
@@ -781,14 +787,33 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
     with open(filename, "wb") as f:
         pickle.dump(performance_dict, f)
 
-def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None):
+def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
         -Multiple_Boxplot
+
+    Save: bool variable => saves plots
     """
     import pickle
     import numpy as np
+    from pathlib import Path
+
+    path = Path(filename)
+
+    # Directory padre
+    parent_dirs = path.parent         # Run_01/Rolling_10
+    dir1 = parent_dirs.parent.name    # Run_01
+    dir2 = parent_dirs.name           # Rolling_10
+
+    # Nome del file
+    file_name = path.name             # risultati_rolling_temp.pkl
+
+    # Nuovo path: Run_01/Plots
+    plots_dir = Path(dir1) / "Plots"
+    plots_dir.mkdir(parents=True, exist_ok=True)  # crea la directory se non esiste
+
+
 
     with open(filename, "rb") as f:
         rolling_performance_dict = pickle.load(f)
@@ -811,7 +836,12 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
     #print("---------------------------------------------------")
 
     if OUTPUT is not None:
-        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)
+        if Save:
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling)
+        else:
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)
+
+    
 
 def BarraCaricamento(stepTotali, step):
     terminal_size = shutil.get_terminal_size()
