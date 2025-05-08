@@ -26,7 +26,6 @@ mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
 #tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
 #mfcf_path = os.path.expanduser("~/CODE/MFCF")
 
-
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
 
@@ -612,7 +611,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_di
             plt.title(f"Box Plot per {strategy}")
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
-            plt.xticks(rotation=45)  # Ruotiamo le etichette se sono lunghe
+            plt.xticks(rotation=30)  # Ruotiamo le etichette se sono lunghe
             plt.grid(True, linestyle="--", alpha=0.7)
 
             if Save:
@@ -772,7 +771,13 @@ def Compute_Performances_Rolling(
                       #"Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
     shrinkage_list = ["Sample__SI", 
-                      "Sample__SD"]
+                      "Sample__SD",
+                      "Rie_____SI",
+                      "Rie_____SD",
+                      "IW______SI",
+                      "IW______SD",
+                      "Clipped_SI",
+                      "Clipped_SD",]
 
     n_methods = len(methods_list)
     stepTotali=n_windows
@@ -804,27 +809,16 @@ def Compute_Performances_Rolling(
 
         # Covariance estimators
         E_sample = SE.Sample_Covariance(X_train)
-        E_rie = rmt.optimalShrinkage(X_train, return_covariance=True, method="rie")
-        E_iw = rmt.optimalShrinkage(X_train, return_covariance=True, method="iw")
-        E_Clipped = rmt.clipped(X_train, alpha=0.0, return_covariance=True)
+        E_rie = SE.RIE_Estimator(X_train)
+        E_iw = SE.RIE_IW_Estimator(X_train,)
+        E_Clipped = SE.Clipped_Estimator(X_train)
         #E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
-        #E_Kendall = kendall_tau_matrix_parallel(X_train)
+        #E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
 
         # TMFG e TMFG_MI
-        model = tmfg.TMFG()
-        corr = np.square(np.corrcoef(X_train, rowvar=True))
-        E_Sample_TMFG = np.cov(X_train)
-        _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
-        E_TMFG = np.linalg.inv(J_TMFG)
+        E_TMFG, J_TMFG = SE.Fast_TMFG(X_train)
 
-        if Compute_MI:
-            MI = mutual_info_matrix_parallel(X_train)
-            np.save("MI_Matrix.npy", MI)
-        else:
-            MI = np.load("MI_Matrix.npy")
-
-        _, _, J_TMFG_MI = model.fit_transform(weights=MI, cov=E_Sample_TMFG, output="logo")
-        E_TMFG_MI = np.linalg.inv(J_TMFG_MI)
+        
 
         Sigma_methods = {
             "Sample_": E_sample,
@@ -851,28 +845,105 @@ def Compute_Performances_Rolling(
                 Optimal_Weights_dict[(strategy, method)] = w
 
         # Add Shrinkage methods
-        E_sample_SI, w_sample_SI = SE.compute_best_shrinkage_covariance(  # SI : Shrinkage Identity
-            Sigma=E_sample,
-            X_train=X_train,
-            X_val=X_validation,
-            Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
-            X_train_std=FCA.standardize_returns_oracle(X_train),
-            shrinkage_type="identity",
-            method="Sample__SI",
-            strategy="min_var_",
-        )
-        E_sample_SD, w_sample_SD = SE.compute_best_shrinkage_covariance(  # SD : Shrinkage Diagonal
-            Sigma=E_sample,
-            X_train=X_train,
-            X_val=X_validation,
-            Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
-            X_train_std=FCA.standardize_returns_oracle(X_train),
-            shrinkage_type="diagonal",
-            method="Sample__SD",
-            strategy="min_var_",
-        )
-        Optimal_Weights_dict[("min_var_", "Sample__SI")] = w_sample_SI 
-        Optimal_Weights_dict[("min_var_", "Sample__SD")] = w_sample_SD
+        for strategy in strategies:
+            # Sample
+            _, w_sample_SI = SE.compute_best_shrinkage_covariance(  # SI : Shrinkage Identity
+                Sigma=E_sample,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="identity",
+                method="Sample__SI",
+                strategy=strategy,
+            )
+            _, w_sample_SD = SE.compute_best_shrinkage_covariance(  # SD : Shrinkage Diagonal
+                Sigma=E_sample,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="diagonal",
+                method="Sample__SD",
+                strategy=strategy,
+            )
+
+            # Rie
+            _, w_rie_SI = SE.compute_best_shrinkage_covariance(  # SI : Shrinkage Identity
+                Sigma=E_rie,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="identity",
+                method="Rie_____SI",
+                strategy=strategy,
+            )
+            _, w_rie_SD = SE.compute_best_shrinkage_covariance(  # SD : Shrinkage Diagonal
+                Sigma=E_rie,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="diagonal",
+                method="Rie_____SD",
+                strategy=strategy,
+            )
+            
+            # IW
+            _, w_iw_SI = SE.compute_best_shrinkage_covariance(  # SI : Shrinkage Identity
+                Sigma=E_iw,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="identity",
+                method="IW______SI",
+                strategy=strategy,
+            )
+            _, w_iw_SD = SE.compute_best_shrinkage_covariance(  # SD : Shrinkage Diagonal
+                Sigma=E_iw,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="diagonal",
+                method="IW______SD",
+                strategy=strategy,
+            )
+
+            # Clipped
+            _, w_clipped_SI = SE.compute_best_shrinkage_covariance(  # SI : Shrinkage Identity
+                Sigma=E_Clipped,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="identity",
+                method="Clipped_SI",
+                strategy=strategy,
+            )
+            _, w_clipped_SD = SE.compute_best_shrinkage_covariance(  # SD : Shrinkage Diagonal
+                Sigma=E_Clipped,
+                X_train=X_train,
+                X_val=X_validation,
+                Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
+                X_train_std=FCA.standardize_returns_oracle(X_train),
+                shrinkage_type="diagonal",
+                method="Clipped_SI",
+                strategy=strategy,
+            )
+            
+
+            Optimal_Weights_dict[(strategy, "Sample__SI")] = w_sample_SI 
+            Optimal_Weights_dict[(strategy, "Sample__SD")] = w_sample_SD
+            Optimal_Weights_dict[(strategy, "Rie_____SI")] = w_rie_SI
+            Optimal_Weights_dict[(strategy, "Rie_____SD")] = w_rie_SD
+            Optimal_Weights_dict[(strategy, "IW______SI")] = w_iw_SI
+            Optimal_Weights_dict[(strategy, "IW______SD")] = w_iw_SD
+            Optimal_Weights_dict[(strategy, "Clipped_SI")] = w_clipped_SI
+            Optimal_Weights_dict[(strategy, "Clipped_SD")] = w_clipped_SD
+            
 
 
         # Out-of-sample: calcolo rischio su X_test_std
