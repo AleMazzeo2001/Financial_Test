@@ -38,69 +38,6 @@ import Sigma_Estimation as SE
 import pickle
 
 
-
-def load_stock_data_rolling_vecchia(
-    file_name="returns_data_1060.csv", train_size=800, N_stocks=400, T_out=60, len_rolling=100
-):
-    """
-    Carica i dati delle azioni e genera coppie rolling (training, test) non sovrapposte.
-
-    Parameters:
-    - file_name: nome del file CSV contenente i rendimenti (shape: time x assets)
-    - train_size: numero di timestep per ciascun blocco di training
-    - N_stocks: numero di asset da considerare
-    - T_out: numero di timestep per ciascun blocco di test
-    - len_rolling: lunghezza del rolling
-
-    Returns:
-    - train_data: array di shape (n_windows, N_stocks, train_size)
-    - test_data: array di shape (n_windows, N_stocks, T_out)
-    """
-
-    df = pd.read_csv(file_name, index_col=0)
-
-    # Trattamento dei NaN
-    if df.isna().values.any():
-        print(f"Total number of NaN values before interpolation: {df.isna().sum().sum()}")
-        df.interpolate(method="linear", inplace=True)
-        df.bfill(inplace=True)
-        df.ffill(inplace=True)
-    if df.isna().values.any():
-        print("Ancora NaN trovati dopo il riempimento, verranno sostituiti con 0.")
-        df.fillna(0, inplace=True)
-
-    # Conversione in NumPy array e trasposizione
-    data = df.to_numpy().T  # shape: (N_assets, T)
-    data = data[:N_stocks, :]  # Seleziona i primi N_stocks
-
-    num_assets, num_timesteps = data.shape
-
-    # Generazione finestre rolling
-    train_windows = []
-    test_windows = []
-
-    start_idx = 0
-    while start_idx + train_size + T_out <= num_timesteps:
-        train_block = data[:, start_idx : start_idx + train_size]
-        test_block = data[:, start_idx + train_size : start_idx + train_size + T_out]
-
-        train_windows.append(train_block)
-        test_windows.append(test_block)
-
-        start_idx += len_rolling  # Rolling di un solo timestep
-
-    if len(train_windows) == 0:
-        raise ValueError("Nessuna finestra valida trovata: controlla la lunghezza dei dati o i parametri train_size/T_out.")
-
-    # Stack in array 3D
-    train_data = np.stack(train_windows)  # shape: (n_windows, N_stocks, train_size)
-    test_data = np.stack(test_windows)    # shape: (n_windows, N_stocks, T_out)
-
-    return train_data, test_data
-
-import numpy as np
-import pandas as pd
-
 def load_stock_data_rolling(
     file_name="returns_data_1060.csv", 
     train_size=800, 
@@ -768,7 +705,7 @@ def Compute_Performances_Rolling(
                       "IW_____", 
                       "Clipped", 
                       #"Shrunk_", 
-                      #"Kendall", # comment for Fast Experimets
+                      "Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
     shrinkage_list = ["Sample__SI", 
                       "Sample__SD",
@@ -777,9 +714,13 @@ def Compute_Performances_Rolling(
                       "IW______SI",
                       "IW______SD",
                       "Clipped_SI",
-                      "Clipped_SD",]
+                      "Clipped_SD",
+                      "Kendall_SI", # comment for Fast Experimets
+                      "Kendall_SD", # comment for Fast Experimets
+                      "TMFG____SI",
+                      "TMFG____SD",]
 
-    n_methods = len(methods_list)
+    n_methods = len(methods_list) + len(shrinkage_list)
     stepTotali=n_windows
     # Salva le performance per ogni coppia rolling (finestra train+test)
     rolling_performance_dict = { (strategy, method): [] for strategy in strategies for method in methods_list }
@@ -813,12 +754,10 @@ def Compute_Performances_Rolling(
         E_iw = SE.RIE_IW_Estimator(X_train,)
         E_Clipped = SE.Clipped_Estimator(X_train)
         #E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
-        #E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
+        E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
 
         # TMFG e TMFG_MI
         E_TMFG, J_TMFG = SE.Fast_TMFG(X_train)
-
-        
 
         Sigma_methods = {
             "Sample_": E_sample,
@@ -826,8 +765,8 @@ def Compute_Performances_Rolling(
             "IW_____": E_iw,
             "Clipped": E_Clipped,
             #"Shrunk_": E_shrunk,
-            #"Kendall": E_Kendall,  # comment for Fast Experimets
-            "TMFG___": (E_TMFG, J_TMFG),
+            "Kendall": E_Kendall,  # comment for Fast Experimets
+            "TMFG___": (E_sample, J_TMFG),
             #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
 
@@ -845,14 +784,14 @@ def Compute_Performances_Rolling(
                 Optimal_Weights_dict[(strategy, method)] = w
 
         # Add Shrinkage methods
-
-                # Add Shrinkage methods
         shrinkage_targets = ["identity", "diagonal"]
         base_estimators = {
             "Sample_": E_sample,
             "Rie____": E_rie,
             "IW_____": E_iw,
             "Clipped": E_Clipped,
+            "Kendall": E_Kendall,  # comment for Fast Experimets
+            "TMFG___": E_sample,
         }
 
         for strategy in strategies:
@@ -898,7 +837,7 @@ def Compute_Performances_Rolling(
         index += 1
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
-    print("---------------------------------------------------")
+    print("---------------------------------------------------\n\n")
     save_performance_dict(rolling_performance_dict, filename="risultati_rolling_def.pkl")
 
 
@@ -911,6 +850,7 @@ def Compute_Performances_Rolling(
 def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
     with open(filename, "wb") as f:
         pickle.dump(performance_dict, f)
+
 
 def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100):
     """
@@ -958,7 +898,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
         index += 1
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
-    #print("---------------------------------------------------")
+    print("---------------------------------------------------\n")
 
     if OUTPUT is not None:
         if Save:

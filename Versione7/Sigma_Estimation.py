@@ -207,15 +207,6 @@ def Fast_TMFG(X_train):
 
 
 
-
-
-
-
-
-
-
-
-
 def compute_best_shrinkage_covariance(
     Sigma, X_train, X_val, Oracle_train_std, X_train_std,
     shrinkage_type="identity", method="Rie____", strategy="min_var_",  
@@ -261,17 +252,32 @@ def compute_best_shrinkage_covariance(
         shrinked = (1 - alpha) * Sigma + alpha * target
         shrinked_matrices.append(shrinked)
 
-        # Calcolo pesi usando la matrice shrinkata
-        _, w = FCA.portfolio_statistics(
-            X_train,
-            shrinked,
-            method,
-            Oracle_train_std,
-            X_train_std,
-            std_daily=None,
-            std_stocks=None,
-            strategy=strategy
-        )
+        if method in ["TMFG___SI", "TMFG___SD"]:
+            # Calcolo TMFG
+            E_TMFG, J_TMFG = Fast_TMFG(X_train)
+            _, w = FCA.portfolio_statistics(
+                X_train,
+                shrinked,
+                method,
+                Oracle_train_std,
+                X_train_std,
+                std_daily=None,
+                std_stocks=None,
+                strategy=strategy,
+                J_Precision= J_TMFG
+            )
+
+        else:
+            _, w = FCA.portfolio_statistics(
+                X_train,
+                shrinked,
+                method,
+                Oracle_train_std,
+                X_train_std,
+                std_daily=None,
+                std_stocks=None,
+                strategy=strategy
+            )
         weights.append(w)
 
         # Calcolo rischio out-of-sample
