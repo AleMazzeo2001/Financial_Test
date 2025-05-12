@@ -381,8 +381,8 @@ def variance_portfolio(Sigma, w, method, strategy, J_Precision=None):
 
     var = np.dot(w, np.dot(Sigma, w))
 
-    if var < 0:
-        raise ValueError(f"{strategy}_{method}-Portfolio variance is negative!")
+    #if var < 0:
+    #    raise ValueError(f"{strategy}_{method}-Portfolio variance is negative!")
 
     return var
 
@@ -501,7 +501,7 @@ def generate_dataset(C, T, n_sets, type="Student", df=3):
     return data
 
 
-def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_dir=None, len_rolling=100):
+def Show_Outliers_vecchia(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_dir=None, len_rolling=100, Q = 0.5):
     """
     Show the outliers of the variance data using boxplots.
 
@@ -520,12 +520,12 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_di
         for (strategy, methods), var in variance_data.items():
             plt.figure(figsize=(8, 6))
             plt.boxplot(var)
-            plt.title(f"Box Plot per {strategy}, {methods}")
+            plt.title(f"Q={Q:.2f}: Box Plot per {strategy}, {methods}")
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
             plt.grid(True, linestyle="--", alpha=0.7)
             if Save:
-                plt.savefig(f"{plots_dir}/{strategy}_{methods}_Rolling_{len_rolling}.png")
+                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
             else:
                 plt.show()
 
@@ -545,7 +545,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_di
             labels = list(methods_data.keys())
 
             plt.boxplot(data, labels=labels)  # Creiamo il boxplot per tutti i metodi
-            plt.title(f"Box Plot per {strategy}")
+            plt.title(f"Q={Q:.2f}: Box Plot per {strategy}, len_rolling={len_rolling}")
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
             plt.xticks(rotation=30)  # Ruotiamo le etichette se sono lunghe
@@ -553,10 +553,119 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_di
 
             if Save:
                 if plots_dir:
-                    plt.savefig(f"{plots_dir}/{strategy}_Multiple_Rolling_{len_rolling}.png")
+                    plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
 
             else:
                 plt.show()
+
+import matplotlib.pyplot as plt
+import os
+from collections import defaultdict
+
+def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5):
+    """
+    Show the outliers of the variance data using boxplots.
+
+    Parameters:
+    - variance_data: Dictionary containing the variance data for each strategy and method.
+       variance_data[(strategy, method)] = performances
+    - OUTPUT: String indicating the type of boxplot to create.
+        "Single_Boxplot" for a single boxplot per method.
+        "Multiple_Boxplot" for grouped boxplots per strategy.
+        "Shrinkage_Boxplot" to group by method base name (e.g., Sample_, Sample__SI, Sample__SD).
+    - Save: Whether to save the plots or display them.
+    - plots_dir: Where to save plots if Save=True.
+    - len_rolling: Rolling window size for title/filename.
+    - Q: A float, e.g., ratio N/T, used in title/filename.
+    """
+
+    if OUTPUT == "Single_Boxplot":
+        for (strategy, methods), var in variance_data.items():
+            plt.figure(figsize=(8, 6))
+            plt.boxplot(var)
+            plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}, {methods}")
+            plt.ylabel("Varianza")
+            plt.xlabel("Metodo")
+            plt.grid(True, linestyle="--", alpha=0.7)
+            if Save and plots_dir:
+                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
+            else:
+                plt.show()
+
+    elif OUTPUT == "Multiple_Boxplot":
+        grouped_data = {}
+        for (strategy, methods), var in variance_data.items():
+            if strategy not in grouped_data:
+                grouped_data[strategy] = {}
+            grouped_data[strategy][methods] = var
+
+        for strategy, methods_data in grouped_data.items():
+            plt.figure(figsize=(8, 6))
+            data = list(methods_data.values())
+            labels = list(methods_data.keys())
+            plt.boxplot(data, labels=labels)
+            plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}")
+            plt.ylabel("Varianza")
+            plt.xlabel("Metodo")
+            plt.xticks(rotation=30)
+            plt.grid(True, linestyle="--", alpha=0.7)
+
+            if Save and plots_dir:
+                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
+            else:
+                plt.show()
+
+    elif OUTPUT == "Shrinkage_Boxplot":
+    # Per ogni strategia e metodo base, creiamo un gruppo con esattamente 3 slot: base, _SI, _SD
+        for strategy in set(k[0] for k in variance_data.keys()):
+            # Raggruppa i metodi che iniziano con lo stesso base_method
+            base_methods = set()
+            for (s, m) in variance_data.keys():
+                if s != strategy:
+                    continue
+                if m.endswith("_SI") or m.endswith("_SD"):
+                    base = m.rsplit("_", 1)[0]
+                else:
+                    base = m
+                base_methods.add(base)
+
+            for base in base_methods:
+                variants = {
+                    base: None,
+                    f"{base}_SI": None,
+                    f"{base}_SD": None
+                }
+
+                for variant in variants:
+                    key = (strategy, variant)
+                    if key in variance_data:
+                        variants[variant] = variance_data[key]
+
+                # Costruiamo il boxplot solo se almeno una variante ha dati
+                if any(v is not None for v in variants.values()):
+                    plt.figure(figsize=(8, 6))
+                    data = [variants[base], variants[f"{base}_SI"], variants[f"{base}_SD"]]
+                    labels = [base, f"{base}_SI", f"{base}_SD"]
+
+                    # Rimuove i None ma mantiene l'ordine e le etichette corrispondenti
+                    filtered_data_labels = [(d, l) for d, l in zip(data, labels) if d is not None]
+                    if not filtered_data_labels:
+                        continue
+                    data, labels = zip(*filtered_data_labels)
+
+                    plt.boxplot(data, labels=labels)
+                    plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Shrinkage Box Plot - {strategy}, {base}")
+                    plt.ylabel("Varianza")
+                    plt.xlabel("Metodo")
+                    plt.xticks(rotation=30)
+                    plt.grid(True, linestyle="--", alpha=0.7)
+
+                    if Save and plots_dir:
+                        filename = f"{plots_dir}/Q={Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.png"
+                        plt.savefig(filename)
+                    else:
+                        plt.show()
+
 
 
 def mutual_info_matrix(data):
@@ -705,7 +814,7 @@ def Compute_Performances_Rolling(
                       "IW_____", 
                       "Clipped", 
                       #"Shrunk_", 
-                      "Kendall", # comment for Fast Experimets
+                      #"Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
     shrinkage_list = ["Sample__SI", 
                       "Sample__SD",
@@ -715,8 +824,8 @@ def Compute_Performances_Rolling(
                       "IW______SD",
                       "Clipped_SI",
                       "Clipped_SD",
-                      "Kendall_SI", # comment for Fast Experimets
-                      "Kendall_SD", # comment for Fast Experimets
+                     # "Kendall_SI", # comment for Fast Experimets
+                     # "Kendall_SD", # comment for Fast Experimets
                       "TMFG____SI",
                       "TMFG____SD",]
 
@@ -739,6 +848,9 @@ def Compute_Performances_Rolling(
         Oracle_validation = Oracle_validation_3D[i]
         Oracle_test = Oracle_Test_3D[i]
 
+        N, T = X_train.shape
+        Q = N / T
+
         # Standardization
         X_train_std, std_daily, std_stocks = standardize_returns(X_train)
         X_test_std, _, _= standardize_returns(X_test)
@@ -754,7 +866,7 @@ def Compute_Performances_Rolling(
         E_iw = SE.RIE_IW_Estimator(X_train,)
         E_Clipped = SE.Clipped_Estimator(X_train)
         #E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
-        E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
+        #E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
 
         # TMFG e TMFG_MI
         E_TMFG, J_TMFG = SE.Fast_TMFG(X_train)
@@ -765,7 +877,7 @@ def Compute_Performances_Rolling(
             "IW_____": E_iw,
             "Clipped": E_Clipped,
             #"Shrunk_": E_shrunk,
-            "Kendall": E_Kendall,  # comment for Fast Experimets
+            #"Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": (E_sample, J_TMFG),
             #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
@@ -790,7 +902,7 @@ def Compute_Performances_Rolling(
             "Rie____": E_rie,
             "IW_____": E_iw,
             "Clipped": E_Clipped,
-            "Kendall": E_Kendall,  # comment for Fast Experimets
+            #"Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": E_sample,
         }
 
@@ -843,7 +955,7 @@ def Compute_Performances_Rolling(
 
     # Outlier plot
     if OUTPUT is not None:
-        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)
+        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q = Q)
 
     return rolling_performance_dict
 
@@ -852,7 +964,7 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
         pickle.dump(performance_dict, f)
 
 
-def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100):
+def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100, Q = 0.5):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
@@ -902,9 +1014,9 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
 
     if OUTPUT is not None:
         if Save:
-            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling)
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q)
         else:
-            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT)
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, len_rolling=len_rolling, Q = Q)
 
     
 

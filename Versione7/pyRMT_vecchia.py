@@ -1,3 +1,63 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+r"""Python for Random Matrix Theory. This package implements several 
+cleaning schemes for noisy correlation matrices, including 
+the optimal shrinkage, rotationally-invariant estimator
+to an underlying correlation matrix (as proposed by Joel Bun, 
+Jean-Philippe Bouchaud, Marc Potters and colleagues).
+
+Such cleaned correlation matrix are known to improve factor-decomposition
+via Principal Component Analysis (PCA) and could be of relevance in a variety 
+of contexts, including computational biology.
+
+Cleaning schemes also result in much improved out-of-sample risk
+of Markowitz optimal portfolios, as established over the years
+in several papers by Jean-Philippe Bouchaud, Marc Potters and collaborators.
+
+Some cleaning schemes can be easily adapted from the various shrinkage
+estimators implemented in the sklearn.covariance module 
+(see the various publications by O. Ledoit and M. Wolf listed below).
+
+In addition, it might make sense to perform an empirical estimate
+of a correlation matrix robust to outliers before proceeding with
+the cleaning schemes of the present module. Some of those robust estimates
+have been implemented in the sklearn.covariance module as well. 
+
+
+References
+----------
+* "DISTRIBUTION OF EIGENVALUES FOR SOME SETS OF RANDOM MATRICES",
+  V. A. Marcenko and L. A. Pastur
+  Mathematics of the USSR-Sbornik, Vol. 1 (4), pp 457-483
+* "A well-conditioned estimator for large-dimensional covariance matrices",
+  O. Ledoit and M. Wolf
+  Journal of Multivariate Analysis, Vol. 88 (2), pp 365-411
+* "Improved estimation of the covariance matrix of stock returns with "
+  "an application to portfolio selection",
+  O. Ledoit and M. Wolf
+  Journal of Empirical Finance, Vol. 10 (5), pp 603-621
+* "Financial Applications of Random Matrix Theory: a short review",
+  J.-P. Bouchaud and M. Potters
+  arXiv: 0910.1205 [q-fin.ST]
+* "Eigenvectors of some large sample covariance matrix ensembles",
+  O. Ledoit and S. Peche
+  Probability Theory and Related Fields, Vol. 151 (1), pp 233-264
+* "NONLINEAR SHRINKAGE ESTIMATION OF LARGE-DIMENSIONAL COVARIANCE MATRICES",
+  O. Ledoit and M. Wolf
+  The Annals of Statistics, Vol. 40 (2), pp 1024-1060 
+* "Rotational invariant estimator for general noisy matrices",
+  J. Bun, R. Allez, J.-P. Bouchaud and M. Potters
+  arXiv: 1502.06736 [cond-mat.stat-mech]
+* "Cleaning large Correlation Matrices: tools from Random Matrix Theory",
+  J. Bun, J.-P. Bouchaud and M. Potters
+  arXiv: 1610.08104 [cond-mat.stat-mech]
+* "Direct Nonlinear Shrinkage Estimation of Large-Dimensional Covariance Matrices (September 2017)", 
+  O. Ledoit and M. Wolf https://ssrn.com/abstract=3047302 or http://dx.doi.org/10.2139/ssrn.3047302
+ 
+"""
+
 from __future__ import division, print_function
 from builtins import reversed
 from builtins import map, zip
@@ -12,6 +72,7 @@ import numpy as np
 import pandas as pd
 from sklearn.covariance import EmpiricalCovariance
 from sklearn.preprocessing import StandardScaler
+
 
 __author__ = 'Gregory Giecold and Lionel Ouaknin'
 __copyright__ = 'Copyright 2017-2022 Gregory Giecold and contributors'
@@ -54,11 +115,27 @@ def checkDesignMatrix(X):
     X = np.asarray(X, dtype=float)
     X = np.atleast_2d(X)
 
-    N, T = X.shape
-    transpose_flag = False   
+    if X.shape[0] < X.shape[1]:
 
-    return  N, T, transpose_flag
-
+        #======================================================================= HO COMMENTATO IO!
+        
+       # warnings.warn("The Marcenko-Pastur distribution pertains to "
+       #               "the empirical covariance matrix of a random matrix X "
+       #               "of shape (T, N). It is assumed that the number of "
+       #               "samples T is assumed higher than the number of "
+       #               "features N. The transpose of the matrix X submitted "
+       #               "at input will be considered in the cleaning schemes "
+       #               "for the corresponding correlation matrix.", UserWarning)
+        
+        T, N = reversed(X.shape)
+        transpose_flag = True
+    else:
+        T, N = X.shape
+        transpose_flag = False
+        
+    return T, N, transpose_flag
+        
+        
 def marcenkoPastur(X):
     """
        Parameter
@@ -83,7 +160,7 @@ def marcenkoPastur(X):
        Mathematics of the USSR-Sbornik, Vol. 1 (4), pp 457-483
     """
 
-    N, T, _ = checkDesignMatrix(X)
+    T, N, _ = checkDesignMatrix(X)
     q = N / float(T)
 
     lambda_min = (1 - np.sqrt(q))**2
@@ -161,7 +238,7 @@ def clipped(X, alpha=None, return_covariance=False):
         raise
         sys.exit(1)
     
-    N, T, transpose_flag = checkDesignMatrix(X)
+    T, N, transpose_flag = checkDesignMatrix(X)
     if transpose_flag:
         X = X.T
         
@@ -169,19 +246,18 @@ def clipped(X, alpha=None, return_covariance=False):
         X = StandardScaler(with_mean=False,
                            with_std=True).fit_transform(X)
 
-    #============================ MODIFICA CHAT PER STIMA NELLO SPAZIO DELLE OSSERVAZIONI, NON DELLE VARIABILI
-    #ec = EmpiricalCovariance(store_precision=False,
-                            # assume_centered=True)
-    #ec.fit(X)
-    #E = ec.covariance_
-    E = np.cov(X, rowvar=True) #modifica per stima nello spazio delle osservazioni
-    #============================
+    ec = EmpiricalCovariance(store_precision=False,
+                             assume_centered=True)
+    ec.fit(X)
+    E = ec.covariance_
     
     if return_covariance:
         inverse_std = 1./np.sqrt(np.diag(E))
         E *= inverse_std
         E *= inverse_std.reshape(-1, 1)
-    
+    #if return_covariance: MODIFICA CHAT
+    #    inverse_std = 1. / np.sqrt(np.diag(E))
+    #    E = (E * inverse_std) * inverse_std[:, np.newaxis]
 
     eigvals, eigvecs = np.linalg.eigh(E)
     eigvecs = eigvecs.T
@@ -255,7 +331,6 @@ def stieltjes(z, E):
     return ret
 
 
-
 def xiHelper(x, q, E):
     """Helper function to the rotationally-invariant, optimal shrinkage
        estimator of the true correlation matrix (implemented via function
@@ -310,7 +385,6 @@ def xiHelper(x, q, E):
     xi = x / abs(1 - q + q * z * s)**2
 
     return xi
-
 
 
 def gammaHelper(x, q, N, lambda_N, inverse_wishart=False):
@@ -400,7 +474,6 @@ def gammaHelper(x, q, N, lambda_N, inverse_wishart=False):
     return Gamma
 
 
-
 def optimalShrinkage(X, return_covariance=False, method='rie'):
     """This function computes a cleaned, optimal shrinkage, 
        rotationally-invariant estimator (RIE) of the true correlation 
@@ -484,7 +557,7 @@ def optimalShrinkage(X, return_covariance=False, method='rie'):
         raise
         sys.exit(1)
 
-    N, T, transpose_flag = checkDesignMatrix(X)
+    T, N, transpose_flag = checkDesignMatrix(X)
     if transpose_flag:
         X = X.T
         
@@ -492,13 +565,10 @@ def optimalShrinkage(X, return_covariance=False, method='rie'):
         X = StandardScaler(with_mean=False,
                            with_std=True).fit_transform(X)
 
-    #============================ MODIFICA CHAT PER STIMA NELLO SPAZIO DELLE OSSERVAZIONI, NON DELLE VARIABILI
-    #ec = EmpiricalCovariance(store_precision=False,
-                            # assume_centered=True)
-    #ec.fit(X)
-    #E = ec.covariance_
-    E = np.cov(X, rowvar=True) #modifica per stima nello spazio delle osservazioni
-    #============================
+    ec = EmpiricalCovariance(store_precision=False,
+                             assume_centered=True)
+    ec.fit(X)
+    E = ec.covariance_
     
     if return_covariance:
         inverse_std = 1./np.sqrt(np.diag(E))
@@ -531,8 +601,43 @@ def optimalShrinkage(X, return_covariance=False, method='rie'):
         E_RIE += lambda_hat * eigvec.dot(eigvec.T)
         
    
+   #----------------------------------------- MODIFICA MIA ------------------------------------------------
+    tmp = 1./np.sqrt(np.diag(E_RIE)) # versione originale
 
-    tmp = 1./np.sqrt(np.diag(E_RIE)) 
+
+    """             
+    # Controllo sul fatto di essere definita positiva
+    eigenvalues, eigenvectors = np.linalg.eigh(E_RIE)
+    eigenvalues[eigenvalues < 0] = 0  # Imposta gli autovalori negativi a zero
+    E_RIE = eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T  # Ricostruisci la matrice
+
+    # Estrai la diagonale
+    diag_E_RIE = np.diag(E_RIE)
+
+    # Debug: Controlla se ci sono NaN o valori negativi
+    if np.any(np.isnan(diag_E_RIE)):
+        print("Attenzione: NaN trovati nella diagonale di E_RIE!")
+    if np.any(diag_E_RIE < 0):
+        print("Attenzione: Valori negativi trovati nella diagonale di E_RIE!")
+
+    # Sostituisci NaN con un valore piccolo positivo
+    diag_E_RIE = np.nan_to_num(diag_E_RIE, nan=1e-8)
+
+    # Sostituisci i valori negativi con zero per evitare problemi con sqrt
+    diag_E_RIE[diag_E_RIE < 0] = 0  
+
+    tmp = 1. / np.sqrt(diag_E_RIE)
+    
+    
+    
+    """
+    
+
+    #------------------------------------FINE MODIFICA MIA ------------------------------------------------
+
+
+
+
 
     E_RIE *= tmp
     E_RIE *= tmp.reshape(-1, 1)
@@ -612,6 +717,7 @@ def directKernel(q, T, N, eigvals):
     
     return d_hats
 
+  
 # Author : Alexandre Gramfort
 # license : BSD
 def poolAdjacentViolators(y):
@@ -657,4 +763,4 @@ def poolAdjacentViolators(y):
   
 if __name__ == '__main__':
 
-    pass        
+    pass

@@ -35,6 +35,8 @@ import financial_test as FCA
 # Argument parser per leggere i parametri da riga di comando
 parser = argparse.ArgumentParser(description="Esegui performance rolling con len_rolling variabile.")
 parser.add_argument("--len_rolling", type=int, default=100, help="Dimensione della finestra rolling (default: 100)")
+parser.add_argument("--N_stocks", type=int, default=400, help="Numero di azioni (default: 400)")
+parser.add_argument("--training_size", type=int, default=800, help="Dimensione del training set (default: 500)")
 parser.add_argument("--output", type=str, default=None, help="Single_Boxplot, Multiple_Boxplot, None (default: None)")
 args = parser.parse_args()
 
@@ -44,14 +46,22 @@ np.random.seed(27029)
 # Parametri rolling
 len_rolling = args.len_rolling
 output_mode = args.output
+N_stocks = args.N_stocks
+training_size = args.training_size
 
 # Crea la directory di output se non esiste
 output_dir = f"Rolling_{len_rolling}"
 os.makedirs(output_dir, exist_ok=True)
 
 # Carica i dati rolling
-X_train, X_validation, X_test = FCA.load_stock_data_rolling(file_name="returns_data_1060.csv", len_rolling=len_rolling)
-Oracle_train, Oracle_validation, Oracle_test = FCA.load_stock_data_rolling(file_name="oracle_returns_data_1060.csv", len_rolling=len_rolling)
+X_train, X_validation, X_test = FCA.load_stock_data_rolling(file_name="returns_data_1060.csv", 
+                                                            train_size= training_size, 
+                                                            N_stocks= N_stocks, 
+                                                            len_rolling=len_rolling)
+Oracle_train, Oracle_validation, Oracle_test = FCA.load_stock_data_rolling(file_name="oracle_returns_data_1060.csv", 
+                                                                           train_size= training_size, 
+                                                                           N_stocks= N_stocks,
+                                                                           len_rolling=len_rolling)
 
 print("Train shape:", X_train.shape)
 print("Validation shape:", X_validation.shape)
