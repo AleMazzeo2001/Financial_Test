@@ -562,7 +562,7 @@ import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
 
-def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5):
+def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5, log_scale=False): 
     """
     Show the outliers of the variance data using boxplots.
 
@@ -583,6 +583,8 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
         for (strategy, methods), var in variance_data.items():
             plt.figure(figsize=(8, 6))
             plt.boxplot(var)
+            if log_scale:
+                plt.yscale('log')
             plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}, {methods}")
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
@@ -604,6 +606,8 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
             data = list(methods_data.values())
             labels = list(methods_data.keys())
             plt.boxplot(data, labels=labels)
+            if log_scale:
+                plt.yscale('log')
             plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}")
             plt.ylabel("Varianza")
             plt.xlabel("Metodo")
@@ -654,6 +658,8 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
                     data, labels = zip(*filtered_data_labels)
 
                     plt.boxplot(data, labels=labels)
+                    if log_scale:
+                        plt.yscale('log')
                     plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Shrinkage Box Plot - {strategy}, {base}")
                     plt.ylabel("Varianza")
                     plt.xlabel("Metodo")
@@ -790,7 +796,7 @@ def mutual_info_matrix_parallel(data, max_workers=None):
 
 def Compute_Performances_Rolling(
     X_train_3D, X_validation_3D, X_test_3D, Oracle_Train_3D, Oracle_validation_3D, Oracle_Test_3D, 
-    pathfilename_temp=None, OUTPUT=None, Compute_MI=False
+    pathfilename_temp=None, OUTPUT=None, Compute_MI=False, log_scale=False,
 ):
     """
     OUTPUT Visualization of the outliers:
@@ -955,7 +961,7 @@ def Compute_Performances_Rolling(
 
     # Outlier plot
     if OUTPUT is not None:
-        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q = Q)
+        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q = Q, log_scale=log_scale)
 
     return rolling_performance_dict
 
@@ -964,7 +970,7 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
         pickle.dump(performance_dict, f)
 
 
-def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100, Q = 0.5):
+def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100, Q = 0.5, log_scale=False):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
@@ -1014,9 +1020,9 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
 
     if OUTPUT is not None:
         if Save:
-            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q)
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
         else:
-            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, len_rolling=len_rolling, Q = Q)
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
 
     
 

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pyRMT as rmt
-import yfinance as yf
+#import yfinance as yf
 import pandas as pd
 import time
 import os
@@ -48,9 +48,15 @@ len_rolling = args.len_rolling
 output_mode = args.output
 N_stocks = args.N_stocks
 training_size = args.training_size
+Q = N_stocks / training_size
+Q_str = f"{Q:.2f}"
 
-# Crea la directory di output se non esiste
-output_dir = f"Rolling_{len_rolling}"
+# Crea la directory padre Q=...
+parent_dir = f"Q_{Q_str}"
+os.makedirs(parent_dir, exist_ok=True)
+
+# Crea la sottocartella Rolling_... dentro Q=...
+output_dir = os.path.join(parent_dir, f"Rolling_{len_rolling}")
 os.makedirs(output_dir, exist_ok=True)
 
 # Carica i dati rolling
