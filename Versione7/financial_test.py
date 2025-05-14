@@ -17,15 +17,19 @@ import shutil
 import sys
 import os
 
-# Local paths
-tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
-mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
+# Rileva l'ambiente: default = "local"
+env = os.environ.get("ENV", "local")
 
+if env == "local":
+    tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
+    mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
+elif env == "cluster":
+    tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
+    mfcf_path = os.path.expanduser("~/CODE/MFCF")
+else:
+    raise ValueError(f"[ERROR] ENV='{env}' non riconosciuto. Usa 'local' o 'cluster'.")
 
-# Cluster  paths
-#tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
-#mfcf_path = os.path.expanduser("~/CODE/MFCF")
-
+# Aggiungi i path al sys.path
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
 
@@ -830,8 +834,8 @@ def Compute_Performances_Rolling(
                       "IW______SD",
                       "Clipped_SI",
                       "Clipped_SD",
-                     # "Kendall_SI", # comment for Fast Experimets
-                     # "Kendall_SD", # comment for Fast Experimets
+                      #"Kendall_SI", # comment for Fast Experimets
+                      #"Kendall_SD", # comment for Fast Experimets
                       "TMFG____SI",
                       "TMFG____SD",]
 

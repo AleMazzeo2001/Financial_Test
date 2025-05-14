@@ -14,13 +14,17 @@ from sklearn.feature_selection import mutual_info_regression
 
 import sys
 
-# Set path for local modules
-tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
-mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
+# Rileva l'ambiente: default = "local"
+env = os.environ.get("ENV", "local")
 
-# Cluster  paths
-#tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
-#mfcf_path = os.path.expanduser("~/CODE/MFCF")
+if env == "local":
+    tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
+    mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
+elif env == "cluster":
+    tmfg_core_path = os.path.expanduser("~/CODE/Triangulated_Maximally_Filtered_Graph")
+    mfcf_path = os.path.expanduser("~/CODE/MFCF")
+else:
+    raise ValueError(f"[ERROR] ENV='{env}' non riconosciuto. Usa 'local' o 'cluster'.")
 
 sys.path.append(tmfg_core_path)
 sys.path.append(mfcf_path)
@@ -38,6 +42,7 @@ parser.add_argument("--len_rolling", type=int, default=100, help="Dimensione del
 parser.add_argument("--N_stocks", type=int, default=400, help="Numero di azioni (default: 400)")
 parser.add_argument("--training_size", type=int, default=800, help="Dimensione del training set (default: 500)")
 parser.add_argument("--output", type=str, default=None, help="Single_Boxplot, Multiple_Boxplot, None (default: None)")
+parser.add_argument("--cluster", type=bool, default=False, help="Aggiusta path per il cluster (default: False)")
 args = parser.parse_args()
 
 # Imposta il seed
@@ -51,8 +56,10 @@ training_size = args.training_size
 Q = N_stocks / training_size
 Q_str = f"{Q:.2f}"
 
-# Crea la directory padre Q=...
-parent_dir = f"Q_{Q_str}"
+if args.cluster:
+    parent_dir = f"Jobs/Q_{Q_str}"
+else:
+    parent_dir = f"Q_{Q_str}"
 os.makedirs(parent_dir, exist_ok=True)
 
 # Crea la sottocartella Rolling_... dentro Q=...
