@@ -974,7 +974,13 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
         pickle.dump(performance_dict, f)
 
 
-def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100, Q = 0.5, log_scale=False):
+def load_and_summarize_performance(filename="rolling_performance.pkl", 
+                                   OUTPUT=None, 
+                                   Save=False, 
+                                   len_rolling=100, 
+                                   Q = 0.5, 
+                                   log_scale=False, 
+                                   output_dir=None):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
@@ -1024,7 +1030,11 @@ def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=No
 
     if OUTPUT is not None:
         if Save:
-            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
+            if output_dir:
+                Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=output_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
+            else:
+                Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
+            
         else:
             Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
 
