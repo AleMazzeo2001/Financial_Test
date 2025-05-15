@@ -240,7 +240,7 @@ def compute_best_shrinkage_covariance(
         raise ValueError("shrinkage_type deve essere 'identity' o 'diagonal'")
 
     # Range di alpha da testare
-    alphas = np.arange(0.05, 1.0, 0.05)
+    alphas = np.arange(0., 1.05, 0.05)
     #alphas = np.arange(1.0, 0, -0.05)
     print("Alphas:", alphas)
 

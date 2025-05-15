@@ -31,7 +31,7 @@ else:
 
 # Aggiungi i path al sys.path
 sys.path.append(tmfg_core_path)
-sys.path.append(mfcf_path)
+sys.path.append(mfcf_path) 
 
 import TMFG_core as tmfg
 import mfcf as mfcf
@@ -824,7 +824,7 @@ def Compute_Performances_Rolling(
                       "IW_____", 
                       "Clipped", 
                       #"Shrunk_", 
-                      #"Kendall", # comment for Fast Experimets
+                      "Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
     shrinkage_list = ["Sample__SI", 
                       "Sample__SD",
@@ -834,8 +834,8 @@ def Compute_Performances_Rolling(
                       "IW______SD",
                       "Clipped_SI",
                       "Clipped_SD",
-                      #"Kendall_SI", # comment for Fast Experimets
-                      #"Kendall_SD", # comment for Fast Experimets
+                      "Kendall_SI", # comment for Fast Experimets
+                      "Kendall_SD", # comment for Fast Experimets
                       "TMFG____SI",
                       "TMFG____SD",]
 
@@ -876,7 +876,7 @@ def Compute_Performances_Rolling(
         E_iw = SE.RIE_IW_Estimator(X_train,)
         E_Clipped = SE.Clipped_Estimator(X_train)
         #E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
-        #E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
+        E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
 
         # TMFG e TMFG_MI
         E_TMFG, J_TMFG = SE.Fast_TMFG(X_train)
@@ -887,7 +887,7 @@ def Compute_Performances_Rolling(
             "IW_____": E_iw,
             "Clipped": E_Clipped,
             #"Shrunk_": E_shrunk,
-            #"Kendall": E_Kendall,  # comment for Fast Experimets
+            "Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": (E_sample, J_TMFG),
             #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
@@ -912,7 +912,7 @@ def Compute_Performances_Rolling(
             "Rie____": E_rie,
             "IW_____": E_iw,
             "Clipped": E_Clipped,
-            #"Kendall": E_Kendall,  # comment for Fast Experimets
+            "Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": E_sample,
         }
 
@@ -974,13 +974,7 @@ def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
         pickle.dump(performance_dict, f)
 
 
-def load_and_summarize_performance(filename="rolling_performance.pkl", 
-                                   OUTPUT=None, 
-                                   Save=False, 
-                                   len_rolling=100, 
-                                   Q = 0.5, 
-                                   log_scale=False, 
-                                   output_dir=None):
+def load_and_summarize_performance(filename="rolling_performance.pkl", OUTPUT=None, Save=False, len_rolling=100, Q = 0.5, log_scale=False):
     """
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
@@ -1030,11 +1024,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl",
 
     if OUTPUT is not None:
         if Save:
-            if output_dir:
-                Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=output_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
-            else:
-                Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
-            
+            Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Save=True, plots_dir=plots_dir, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
         else:
             Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, len_rolling=len_rolling, Q = Q, log_scale=log_scale)
 
