@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--N_stocks", type=int, default=400, help="Numero di azioni")
     parser.add_argument("--training_size", type=int, default=800, help="Dimensione del training set")
     parser.add_argument("--log_scale", type=bool, default=False, help="Usa log scale per l'asse y")
+    parser.add_argument('--plots_dir', type=str, default=None, help='Directory in cui salvare i plot')
 
     args = parser.parse_args()
 
@@ -30,7 +31,8 @@ def main():
                                        Save=args.save, 
                                        len_rolling=args.len_rolling, 
                                        Q=Q, 
-                                       log_scale=args.log_scale)
+                                       log_scale=args.log_scale,
+                                       output_dir=args.plots_dir)
 
 if __name__ == "__main__":
     main()
