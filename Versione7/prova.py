@@ -82,7 +82,8 @@ print("Test shape:", X_test.shape)
 
 # Calcola le performance rolling
 save_path_temp = os.path.join(output_dir, "risultati_rolling_temp.pkl")
-rolling_performance_dict = FCA.Compute_Performances_Rolling(
+
+rolling_performance_dict, rolling_weights_dict = FCA.Compute_Performances_Rolling(
     X_train, X_validation, X_test, Oracle_train, Oracle_validation, Oracle_test, 
     OUTPUT = output_mode, 
     pathfilename_temp = save_path_temp, 
@@ -91,4 +92,6 @@ rolling_performance_dict = FCA.Compute_Performances_Rolling(
 
 # Salva i risultati nella directory corretta
 save_path = os.path.join(output_dir, "risultati_rolling.pkl")
+save_path_weights = os.path.join(output_dir, "risultati_rolling_weights.pkl")
 FCA.save_performance_dict(rolling_performance_dict, filename=save_path)
+FCA.save_performance_dict(rolling_weights_dict, filename=save_path_weights)

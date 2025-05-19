@@ -843,10 +843,16 @@ def Compute_Performances_Rolling(
     stepTotali=n_windows
     # Salva le performance per ogni coppia rolling (finestra train+test)
     rolling_performance_dict = { (strategy, method): [] for strategy in strategies for method in methods_list }
-   
+    rolling_weights_dict = { (strategy, method, step): [] for strategy in strategies for method in methods_list for step in range(stepTotali) }
+    
+
+
     for strategy in strategies:
         for method in shrinkage_list:
             rolling_performance_dict[(strategy, method)] = []
+            for step in range(stepTotali):
+                rolling_weights_dict[(strategy, method, step)] = []
+                
         
     for i in range(stepTotali):
         BarraCaricamento(stepTotali, i)
@@ -904,6 +910,7 @@ def Compute_Performances_Rolling(
                     _, w = portfolio_statistics(X_train, Sigma, method, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
 
                 Optimal_Weights_dict[(strategy, method)] = w
+                rolling_weights_dict[(strategy, method, i)].append(w)  # Salva i pesi per ogni rolling window
 
         # Add Shrinkage methods
         shrinkage_targets = ["identity", "diagonal"]
@@ -934,7 +941,7 @@ def Compute_Performances_Rolling(
                     )
 
                     Optimal_Weights_dict[(strategy, method_name)] = w
-
+                    rolling_weights_dict[(strategy, method_name, i)].append(w) 
 
         # Out-of-sample: calcolo rischio su X_test_std
         for (strategy, method), w in Optimal_Weights_dict.items():
@@ -942,7 +949,9 @@ def Compute_Performances_Rolling(
             risk = Risk_Out(test_data, w, method, strategy)
             rolling_performance_dict[(strategy, method)].append(risk)
         if pathfilename_temp is not None:
+            new_path = pathfilename_temp.replace(".pkl", "_weights.pkl")
             save_performance_dict(rolling_performance_dict, filename=pathfilename_temp)
+            save_performance_dict(rolling_weights_dict, filename=new_path)
         
     # Stampa finale delle statistiche sui rolling window
     index = 0
@@ -960,14 +969,14 @@ def Compute_Performances_Rolling(
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
     print("---------------------------------------------------\n\n")
-    save_performance_dict(rolling_performance_dict, filename="risultati_rolling_def.pkl")
-
+    #save_performance_dict(rolling_performance_dict, filename="risultati_rolling_def.pkl")
+    #save_performance_dict(rolling_weights_dict, filename="weights_risultati_rolling_def.pkl")
 
     # Outlier plot
     if OUTPUT is not None:
         Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q = Q, log_scale=log_scale)
 
-    return rolling_performance_dict
+    return rolling_performance_dict, rolling_weights_dict
 
 def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
     with open(filename, "wb") as f:
