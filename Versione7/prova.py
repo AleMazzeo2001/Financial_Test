@@ -50,6 +50,7 @@ np.random.seed(27029)
 
 # Parametri rolling
 len_rolling = args.len_rolling
+len_rolling_str = f"{args.len_rolling:03d}"
 output_mode = args.output
 N_stocks = args.N_stocks
 training_size = args.training_size
@@ -63,7 +64,7 @@ else:
 os.makedirs(parent_dir, exist_ok=True)
 
 # Crea la sottocartella Rolling_... dentro Q=...
-output_dir = os.path.join(parent_dir, f"Rolling_{len_rolling}")
+output_dir = os.path.join(parent_dir, f"Rolling_{len_rolling_str}")
 os.makedirs(output_dir, exist_ok=True)
 
 # Carica i dati rolling
