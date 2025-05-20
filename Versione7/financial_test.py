@@ -1063,10 +1063,12 @@ def BarraCaricamento(stepTotali, step):
 
 
 from scipy.stats import entropy
+from scipy.special import softmax
 
 def entropy_absolute_weights(w, base=2):
     """
     Computes the entropy of a weight vector.
+    w => softamx: p => S: entropy
 
     Parameters:
     w (numpy.ndarray): Weight vector.
@@ -1077,8 +1079,8 @@ def entropy_absolute_weights(w, base=2):
     """
     
     w = np.array(w)
-    p = np.abs(w)
-    p = p / np.sum(p)
+    p = softmax(w)
+   
 
     S = entropy(p, base=base)
    
@@ -1173,6 +1175,58 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
             plt.legend()
             plt.tight_layout()
             plt.show()
+
+    if OUTPUT == "Daily_Turnover":
+        strategy_filter = "min_var_"
+
+        standard_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+        suffix_SI = "_SI"
+        suffix_SD = "_SD"
+
+        categories = {
+            "Standard": [],
+            "Shrinkage_Identity": [],
+            "Shrinkage_Diagonal": []
+        }
+
+        # Raggruppa per categoria
+        for (strategy, method_name), time_dict in grouped_data.items():
+            if strategy != strategy_filter:
+                continue
+            if method_name in standard_methods:
+                categories["Standard"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SI):
+                categories["Shrinkage_Identity"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SD):
+                categories["Shrinkage_Diagonal"].append((method_name, time_dict))
+
+        def compute_turnover_series(data):
+            return [np.sum(np.abs(data[i+1] - data[i])) for i in range(len(data)-1)]
+
+        # Plot per ciascuna categoria
+        for category, method_list in categories.items():
+            plt.figure(figsize=(12, 6))
+
+            for method_name, time_dict in method_list:
+                sorted_indices = sorted(time_dict.keys())
+                data = [time_dict[i] for i in sorted_indices]
+
+                if len(data) < 2:
+                    continue  # turnover non definito
+
+                turnover = compute_turnover_series(data)
+                turnover_indices = sorted_indices[1:]
+
+                plt.plot(turnover_indices, turnover, linestyle='-', marker='o', label=method_name)
+
+            plt.title(f"Daily Turnover - {category} - Strategy: {strategy_filter}")
+            plt.xlabel("Indice temporale (i)")
+            plt.ylabel("Turnover giornaliero")
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
+
 
     else:
           
