@@ -995,6 +995,7 @@ def load_and_summarize_performance(filename="rolling_performance.pkl",
     OUTPUT Visualization of the outliers:
         -Single_Boxplot
         -Multiple_Boxplot
+        -Shrinkage_Boxplot
 
     Save: bool variable => saves plots
     """
@@ -1058,6 +1059,149 @@ def BarraCaricamento(stepTotali, step):
     #print(f"\r[{barra}] {percentuale:.2f}%")
     print(f"\r[{barra}] {step}/ {stepTotali}")
 
+
+
+
+from scipy.stats import entropy
+
+def entropy_absolute_weights(w, base=2):
+    """
+    Computes the entropy of a weight vector.
+
+    Parameters:
+    w (numpy.ndarray): Weight vector.
+    base (int): Base of the logarithm. Default is 2 for binary entropy.
+
+    Returns:
+    S (float): Entropy of the weight vector.
+    """
+    
+    w = np.array(w)
+    p = np.abs(w)
+    p = p / np.sum(p)
+
+    S = entropy(p, base=base)
+   
+    return S
+
+
+
+def load_and_summarize_weights(filename="risultati_rolling_weights.pkl", 
+                                   OUTPUT="Time_Boxplot", 
+                                   Save=False, 
+                                   len_rolling=100, 
+                                   Q = 0.5, 
+                                   log_scale=False,
+                                   output_dir=None):
+    
+    """
+    OUTPUT Visualization of the outliers:
+        -Single_Boxplot
+        -Multiple_Boxplot
+        
+
+    Save: bool variable => saves plots
+    """
+    import pickle
+    import numpy as np
+    from pathlib import Path
+
+    path = Path(filename)
+
+    # Directory padre
+    parent_dirs = path.parent         # Run_01/Rolling_10
+    dir1 = parent_dirs.parent.name    # Run_01
+    dir2 = parent_dirs.name           # Rolling_10
+
+    # Nome del file
+    file_name = path.name             # risultati_rolling_temp.pkl
+
+    # Nuovo path: Run_01/Plots
+    plots_dir = Path(dir1) / "Plots"
+    plots_dir.mkdir(parents=True, exist_ok=True)  # crea la directory se non esiste
+
+
+
+    with open(filename, "rb") as f:
+        rolling_weights_dict = pickle.load(f)
+
+    # Raggruppa le entry per (strategy, method_name)
+    grouped_data = defaultdict(lambda: {})
+    # Converti in array 1D
+    for (strategy, method_name, i), w in rolling_weights_dict.items():
+            grouped_data[(strategy, method_name)][i] = np.array(w).flatten()
+
+    if OUTPUT == "Entropy":
+        strategy_filter = "min_var_"
+
+        standard_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+        suffix_SI = "_SI"
+        suffix_SD = "_SD"
+
+        categories = {
+            "Standard": [],
+            "Shrinkage_Identity": [],
+            "Shrinkage_Diagonal": []
+        }
+
+        # Raggruppa per categoria
+        for (strategy, method_name), time_dict in grouped_data.items():
+            if strategy != strategy_filter:
+                continue
+            if method_name in standard_methods:
+                categories["Standard"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SI):
+                categories["Shrinkage_Identity"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SD):
+                categories["Shrinkage_Diagonal"].append((method_name, time_dict))
+
+        # Plot per ciascuna categoria
+        for category, method_list in categories.items():
+            plt.figure(figsize=(12, 6))
+
+            for method_name, time_dict in method_list:
+                sorted_indices = sorted(time_dict.keys())
+                data = [time_dict[i] for i in sorted_indices]
+                entropies = [entropy_absolute_weights(w) for w in data]
+
+                plt.plot(sorted_indices, entropies, linestyle='-', marker='o', label=method_name)
+
+            plt.title(f"Entropia dei pesi nel tempo - {category} - Strategy: {strategy_filter}")
+            plt.xlabel("Indice temporale (i)")
+            plt.ylabel("Entropia (base 2)")
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
+
+    else:
+          
+
+        # Per ogni combinazione (strategy, method_name), produci il grafico
+        for (strategy, method_name), time_dict in grouped_data.items():
+            # Ordina gli step temporali
+            sorted_indices = sorted(time_dict.keys())
+            data = [time_dict[i] for i in sorted_indices]
+
+            if OUTPUT == "Time_Boxplot":
+                # Calcola le medie
+                means = [np.mean(w) for w in data]
+                medians = [np.median(w) for w in data]
+
+                plt.figure(figsize=(12, 6))
+                plt.boxplot(data, positions=sorted_indices, showfliers=False)
+                plt.plot(sorted_indices, means, color='red', linestyle='-', marker='o', label='Media dei pesi')
+                plt.plot(sorted_indices, medians, color='blue', linestyle='--', marker='x', label='Mediana dei pesi')
+
+                plt.title(f"Distribuzione pesi - Strategy: {strategy}, Method: {method_name}")
+                plt.xlabel("Indice temporale (i)")
+                plt.ylabel("Peso")
+                plt.legend()
+                plt.grid(True)
+                plt.tight_layout()
+                plt.show()
+
+        
 
 
 
