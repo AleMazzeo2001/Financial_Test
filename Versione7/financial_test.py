@@ -504,64 +504,6 @@ def generate_dataset(C, T, n_sets, type="Student", df=3):
 
     return data
 
-
-def Show_Outliers_vecchia(variance_data, OUTPUT="Single_Boxplot", Save = False, plots_dir=None, len_rolling=100, Q = 0.5):
-    """
-    Show the outliers of the variance data using boxplots.
-
-    Parameters:
-    - variance_data: Dictionary containing the variance data for each strategy and method.
-       variance_data[(strategy, method)] = performances
-    - OUTPUT: String indicating the type of boxplot to create.
-        "Single_Boxplot" for a single boxplot for each strategy and method.
-        "Multiple_Boxplot" for multiple boxplots for each strategy.
-
-    Returns:
-    - None
-    """
-
-    if OUTPUT == "Single_Boxplot":
-        for (strategy, methods), var in variance_data.items():
-            plt.figure(figsize=(8, 6))
-            plt.boxplot(var)
-            plt.title(f"Q={Q:.2f}: Box Plot per {strategy}, {methods}")
-            plt.ylabel("Varianza")
-            plt.xlabel("Metodo")
-            plt.grid(True, linestyle="--", alpha=0.7)
-            if Save:
-                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
-            else:
-                plt.show()
-
-    elif OUTPUT == "Multiple_Boxplot":
-        grouped_data = {}
-        for (strategy, methods), var in variance_data.items():
-            if strategy not in grouped_data:
-                grouped_data[strategy] = {}
-            grouped_data[strategy][methods] = var
-
-        # Creiamo i boxplot per ogni strategia
-        for strategy, methods_data in grouped_data.items():
-            plt.figure(figsize=(8, 6))  # Creiamo una figura per ogni strategia
-
-            # Estraiamo i dati per ogni metodo
-            data = list(methods_data.values())
-            labels = list(methods_data.keys())
-
-            plt.boxplot(data, labels=labels)  # Creiamo il boxplot per tutti i metodi
-            plt.title(f"Q={Q:.2f}: Box Plot per {strategy}, len_rolling={len_rolling}")
-            plt.ylabel("Varianza")
-            plt.xlabel("Metodo")
-            plt.xticks(rotation=30)  # Ruotiamo le etichette se sono lunghe
-            plt.grid(True, linestyle="--", alpha=0.7)
-
-            if Save:
-                if plots_dir:
-                    plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
-
-            else:
-                plt.show()
-
 import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
@@ -1226,6 +1168,7 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
             plt.legend()
             plt.tight_layout()
             plt.show()
+            
 
 
     else:
