@@ -122,6 +122,11 @@ def standardize_returns(R):
     Parameters:
     R (numpy.ndarray): Matrix of returns.
 
+    row_mean: temporal mean for each stock (N x 1)
+    std_daily: daily standard deviation for each stock (N x 1)
+    std_stocks: standard deviation for each stocks (1 x T) -> remove eteroschedasticity of data
+    
+
     Returns:
     X (numpy.ndarray): Matrix of standardized returns.
     std_dev_daily (numpy.ndarray T): Standard deviation of each colum.
@@ -137,17 +142,40 @@ def standardize_returns(R):
     X = R
     # Standardizzazione sulle colonne (asse 0)
     col_mean = np.mean(X, axis=0, keepdims=True)
-    std_daily = np.std(X, axis=0, keepdims=True, ddof=0)   *np.sqrt(T)
-    std_daily[std_daily < 1e-10] = 1  # Evita divisioni per zero
-    X = (X) / std_daily
+    std_stocks = np.std(X, axis=0, keepdims=True, ddof=0)   
+    std_stocks[std_stocks < 1e-10] = 1  # Evita divisioni per zero
+    #X = (X) / std_stocks # RIGA NUOVA
 
     # Standardizzazione sulle righe (asse 1)
     row_mean = np.mean(X, axis=1, keepdims=True)
-    std_stocks = np.std(X, axis=1, keepdims=True, ddof=0)
-    std_stocks[std_stocks < 1e-10] = 1  # Evita divisioni per zero
-    X = (X - row_mean) / std_stocks
-
+    std_daily = np.std(X, axis=1, keepdims=True, ddof=0) *np.sqrt(T)
+    std_daily[std_daily < 1e-10] = 1  # Evita divisioni per zero
+    X = (X - row_mean) / std_daily
     return X, std_daily, std_stocks
+
+def standardize_parameters(R):
+    """ 
+        Return the parameters to standardize: row_mean, std_daily, std_stocks.
+        row_mean: temporal mean for each stock (N x 1)
+        std_daily: daily standard deviation for each stock (N x 1)
+        std_stocks: standard deviation for each stocks (1 x T) -> remove eteroschedasticity of data
+    """
+
+    N, T = R.shape
+    X = R
+    # Standardizzazione sulle colonne (asse 0)
+    col_mean = np.mean(X, axis=0, keepdims=True)
+    std_stocks = np.std(X, axis=0, keepdims=True, ddof=0)  
+    std_stocks[std_stocks < 1e-10] = 1  # Evita divisioni per zero
+    #X = (X) / std_stocks # RIGA NUOVA
+
+    # Standardizzazione sulle righe (asse 1)
+    row_mean = np.mean(X, axis=1, keepdims=True)
+    std_daily = np.std(X, axis=1, keepdims=True, ddof=0)  *np.sqrt(T)
+    std_daily[std_daily < 1e-10] = 1  # Evita divisioni per zero
+    X = (X - row_mean) / std_daily
+
+    return row_mean, std_daily, std_stocks
 
 
 def standardize_returns_oracle(R):
@@ -532,11 +560,11 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
             if log_scale:
                 plt.yscale('log')
             plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}, {methods}")
-            plt.ylabel("Varianza")
-            plt.xlabel("Metodo")
+            plt.ylabel("Variance")
+            plt.xlabel("Method")
             plt.grid(True, linestyle="--", alpha=0.7)
             if Save and plots_dir:
-                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
+                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
             else:
                 plt.show()
 
@@ -555,13 +583,13 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
             if log_scale:
                 plt.yscale('log')
             plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot per {strategy}")
-            plt.ylabel("Varianza")
-            plt.xlabel("Metodo")
+            plt.ylabel("Variance")
+            plt.xlabel("Method")
             plt.xticks(rotation=30)
             plt.grid(True, linestyle="--", alpha=0.7)
 
             if Save and plots_dir:
-                plt.savefig(f"{plots_dir}/Q={Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
+                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
             else:
                 plt.show()
 
@@ -607,16 +635,58 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
                     if log_scale:
                         plt.yscale('log')
                     plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: Shrinkage Box Plot - {strategy}, {base}")
-                    plt.ylabel("Varianza")
-                    plt.xlabel("Metodo")
+                    plt.ylabel("Variance")
+                    plt.xlabel("Method")
                     plt.xticks(rotation=30)
                     plt.grid(True, linestyle="--", alpha=0.7)
 
                     if Save and plots_dir:
-                        filename = f"{plots_dir}/Q={Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.png"
+                        filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.png"
                         plt.savefig(filename)
                     else:
                         plt.show()
+
+    elif OUTPUT == "Comparison_Boxplot":
+        for strategy in set(k[0] for k in variance_data.keys()):
+            categories = {
+                "Base": lambda m: not (m.endswith("_SI") or m.endswith("_SD")),
+                "SI": lambda m: m.endswith("_SI"),
+                "SD": lambda m: m.endswith("_SD"),
+            }
+
+            for category_name, method_filter in categories.items():
+                # Filtra i metodi secondo la categoria attuale
+                filtered_methods = [m for (s, m) in variance_data.keys() if s == strategy and method_filter(m)]
+                if not filtered_methods:
+                    continue
+
+                data = []
+                labels = []
+
+                for method in filtered_methods:
+                    key = (strategy, method)
+                    if key in variance_data:
+                        data.append(variance_data[key])
+                        labels.append(method)
+
+                if not data:
+                    continue
+
+                plt.figure(figsize=(10, 6))
+                plt.boxplot(data, labels=labels)
+                if log_scale:
+                    plt.yscale('log')
+                plt.title(f"Q={Q:.2f}, len_rolling={len_rolling}: {category_name} Methods Box Plot - {strategy}")
+                plt.ylabel("$Portfolio Variance$")
+                plt.xlabel("$Method")
+                plt.xticks(rotation=30)
+                plt.grid(True, linestyle="--", alpha=0.7)
+
+                if Save and plots_dir:
+                    filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{category_name}_Comparison_Rolling_{len_rolling}.png"
+                    plt.savefig(filename)
+                else:
+                    plt.show()
 
 
 
@@ -768,6 +838,7 @@ def Compute_Performances_Rolling(
                       #"Shrunk_", 
                       "Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
+    
     shrinkage_list = ["Sample__SI", 
                       "Sample__SD",
                       "Rie_____SI",
@@ -805,6 +876,7 @@ def Compute_Performances_Rolling(
         Oracle_train = Oracle_Train_3D[i]
         Oracle_validation = Oracle_validation_3D[i]
         Oracle_test = Oracle_Test_3D[i]
+        row_mean, std_daily, std_stocks = standardize_parameters(X_train)  #RIGA NUOVA
 
         N, T = X_train.shape
         Q = N / T
@@ -837,7 +909,6 @@ def Compute_Performances_Rolling(
             #"Shrunk_": E_shrunk,
             "Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": (E_sample, J_TMFG),
-            #"TMFG_MI": (E_TMFG_MI, J_TMFG_MI),
         }
 
         # In-sample: calcolo pesi
@@ -888,6 +959,8 @@ def Compute_Performances_Rolling(
         # Out-of-sample: calcolo rischio su X_test_std
         for (strategy, method), w in Optimal_Weights_dict.items():
             test_data = X_test_std
+            #test_data = (X_test - row_mean) / (std_stocks) # RIGA NUOVA
+            #test_data = X_test # RIGA NUOVA
             risk = Risk_Out(test_data, w, method, strategy)
             rolling_performance_dict[(strategy, method)].append(risk)
         if pathfilename_temp is not None:
@@ -1111,12 +1184,120 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
                 plt.plot(sorted_indices, entropies, linestyle='-', marker='o', label=method_name)
 
             plt.title(f"Entropia dei pesi nel tempo - {category} - Strategy: {strategy_filter}")
-            plt.xlabel("Indice temporale (i)")
+            plt.xlabel("Temporal index (i)")
             plt.ylabel("Entropia (base 2)")
             plt.grid(True)
             plt.legend()
             plt.tight_layout()
             plt.show()
+
+    if OUTPUT == "Laverange_Portfolio":
+        strategy_filter = "min_var_"
+
+        standard_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+        suffix_SI = "_SI"
+        suffix_SD = "_SD"
+
+        categories = {
+            "Standard": [],
+            "Shrinkage_Identity": [],
+            "Shrinkage_Diagonal": []
+        }
+
+        # Raggruppa per categoria
+        for (strategy, method_name), time_dict in grouped_data.items():
+            if strategy != strategy_filter:
+                continue
+            if method_name in standard_methods:
+                categories["Standard"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SI):
+                categories["Shrinkage_Identity"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SD):
+                categories["Shrinkage_Diagonal"].append((method_name, time_dict))
+
+        def compute_leverage_series(data):
+            return [np.sum(np.abs(weights)) for weights in data]
+
+        # Plot per ciascuna categoria
+        for category, method_list in categories.items():
+            plt.figure(figsize=(12, 6))
+
+            for method_name, time_dict in method_list:
+                sorted_indices = sorted(time_dict.keys())
+                data = [time_dict[i] for i in sorted_indices]
+
+                if len(data) < 2:
+                    continue  # turnover non definito
+
+                leverange = compute_leverage_series(data)
+                leverange_indices = sorted_indices
+
+                plt.plot(leverange_indices, leverange, linestyle='-', marker='o', label=method_name)
+
+            plt.title(f"Leverange Portfolio - {category} - Strategy: {strategy_filter}")
+            plt.xlabel("Temporal index  (i)")
+            plt.ylabel("Daily Leverange")
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
+
+    if OUTPUT == "Participation_Ratio":
+        strategy_filter = "min_var_"
+
+        standard_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+        suffix_SI = "_SI"
+        suffix_SD = "_SD"
+
+        categories = {
+            "Standard": [],
+            "Shrinkage_Identity": [],
+            "Shrinkage_Diagonal": []
+        }
+
+        # Raggruppa per categoria
+        for (strategy, method_name), time_dict in grouped_data.items():
+            if strategy != strategy_filter:
+                continue
+            if method_name in standard_methods:
+                categories["Standard"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SI):
+                categories["Shrinkage_Identity"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SD):
+                categories["Shrinkage_Diagonal"].append((method_name, time_dict))
+
+        
+        
+        
+        def compute_participation_ratio_series(data):
+            return [1.0 / np.sum(w**4) for w in data]
+
+        # Plot per ciascuna categoria
+        for category, method_list in categories.items():
+            plt.figure(figsize=(12, 6))
+
+            for method_name, time_dict in method_list:
+                sorted_indices = sorted(time_dict.keys())
+                data = [time_dict[i] for i in sorted_indices]
+
+                if len(data) < 2:
+                    continue  # turnover non definito
+
+                ParticipatioRatio = compute_participation_ratio_series(data)
+                PR_indices = sorted_indices
+
+                plt.plot(PR_indices, ParticipatioRatio, linestyle='-', marker='o', label=method_name)
+
+            plt.title(f"Participation Ratio - {category} - Strategy: {strategy_filter}")
+            plt.xlabel("Temporal index  (i)")
+            plt.ylabel("Daily Leverange")
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
+
+
+
 
     if OUTPUT == "Daily_Turnover":
         strategy_filter = "min_var_"
@@ -1162,12 +1343,13 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
                 plt.plot(turnover_indices, turnover, linestyle='-', marker='o', label=method_name)
 
             plt.title(f"Daily Turnover - {category} - Strategy: {strategy_filter}")
-            plt.xlabel("Indice temporale (i)")
-            plt.ylabel("Turnover giornaliero")
+            plt.xlabel("Temporal index (i)")
+            plt.ylabel("Daily Turnover")
             plt.grid(True)
             plt.legend()
             plt.tight_layout()
             plt.show()
+    
             
 
 
@@ -1191,8 +1373,8 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
                 plt.plot(sorted_indices, medians, color='blue', linestyle='--', marker='x', label='Mediana dei pesi')
 
                 plt.title(f"Distribuzione pesi - Strategy: {strategy}, Method: {method_name}")
-                plt.xlabel("Indice temporale (i)")
-                plt.ylabel("Peso")
+                plt.xlabel("Temporal Index (i)")
+                plt.ylabel("Weight")
                 plt.legend()
                 plt.grid(True)
                 plt.tight_layout()

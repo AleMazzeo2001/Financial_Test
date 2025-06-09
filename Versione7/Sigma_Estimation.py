@@ -1,9 +1,11 @@
 import numpy as np
-import numpy as np
 import financial_test as FCA
 import pyRMT as rmt
+import networkx as nx
+import matplotlib.pyplot as plt
 import sys
 import os
+import pandas as pd
 # Local paths
 tmfg_core_path = os.path.expanduser("~/Desktop/UCL/CODE/Triangulated_Maximally_Filtered_Graph")
 mfcf_path = os.path.expanduser("~/Desktop/UCL/CODE/MFCF")
@@ -205,6 +207,91 @@ def Fast_TMFG(X_train):
 
     return E_TMFG, J_TMFG
 
+def TMFG_Adjacency_Matrix(X_train):
+    """
+    Compute the adjacency matrix of the TMFG graph.
+    """
+    model = tmfg.TMFG()
+    corr = np.square(np.corrcoef(X_train, rowvar=True))
+    E_Sample_TMFG = np.cov(X_train)
+    _, _, AD_Matrix = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="unweighted_sparse_W_matrix")
+    
+    return AD_Matrix
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
+
+def TMFG_Network_Visualization(X_train, tickers_with_sectors_file="tickers_with_sectors.csv", output_dir=None):
+    """
+    Visualizza la rete TMFG con etichette dei ticker e colorazione per settore.
+
+    Parametri:
+        X_train: matrice (n_samples, n_assets)
+        tickers_with_sectors_file: file CSV con colonne 'Ticker' e 'Sector'
+        output_dir: directory per salvare l'immagine, se specificato
+    """
+    # Calcola la matrice di adiacenza
+    AD = TMFG_Adjacency_Matrix(X_train)
+
+    # Costruisci il grafo
+    G = nx.from_numpy_array(AD)
+
+    # Leggi tickers e settori
+    df_tickers = pd.read_csv(tickers_with_sectors_file)
+    if len(df_tickers) != G.number_of_nodes():
+        raise ValueError(f"Mismatch tra ticker ({len(df_tickers)}) e nodi ({G.number_of_nodes()})")
+
+    tickers = df_tickers["Ticker"].tolist()
+    sectors = df_tickers["Sector"].tolist()
+
+    # Mappa nodi -> ticker
+    G = nx.relabel_nodes(G, {i: tickers[i] for i in range(len(tickers))})
+
+    # Costruisci dizionario nodo → settore
+    node_sector = {tickers[i]: sectors[i] for i in range(len(tickers))}
+
+    # Mappa settore → colore
+    unique_sectors = sorted(set(sectors))
+    cmap = cm.get_cmap("tab20", len(unique_sectors))
+    sector_color_map = {sector: cmap(i) for i, sector in enumerate(unique_sectors)}
+    node_colors = [sector_color_map[node_sector[node]] for node in G.nodes]
+
+    # Layout e dimensioni
+    pos = nx.spring_layout(G, seed=42)
+    node_sizes = [100 + 10 * d for _, d in G.degree()]
+
+    # Disegno
+    plt.figure(figsize=(16, 16))
+    nx.draw_networkx_nodes(G, pos, node_size=node_sizes, node_color=node_colors, alpha=0.9)
+    nx.draw_networkx_edges(G, pos, alpha=0.3, width=0.5)
+    nx.draw_networkx_labels(G, pos, font_size=7, font_color="black", alpha=0.9)
+
+    # Legenda
+    for sector, color in sector_color_map.items():
+        plt.scatter([], [], c=[color], label=sector)
+    plt.legend(loc="center left", bbox_to_anchor=(1, 0.5), title="Settori")
+
+    plt.title("Network TMFG con nodi colorati per settore", fontsize=16)
+    plt.axis("off")
+    plt.tight_layout()
+
+    # Salva o mostra
+    if output_dir:
+        plt.savefig(f"{output_dir}/tmfg_network_by_sector.png", dpi=300, bbox_inches="tight")
+    else:
+        plt.show()
+
+
+
+
+
+
 
 
 def compute_best_shrinkage_covariance(
@@ -226,6 +313,7 @@ def compute_best_shrinkage_covariance(
     """
 
     N = Sigma.shape[0]
+    row_mean, std_daily, std_stocks = FCA.standardize_parameters(X_train)  #RIGA NUOVA
 
     # Definizione matrice target
     if shrinkage_type == "identity":
@@ -282,6 +370,8 @@ def compute_best_shrinkage_covariance(
 
         # Calcolo rischio out-of-sample
         validation_data, _, _ = FCA.standardize_returns(X_val)
+        #validation_data = (X_val - row_mean) / (std_stocks) #RIGA NUOVA 
+        #validation_data = X_val # RIGA NUOVA
         risk = FCA.Risk_Out(validation_data, w, method, strategy)
         performances.append(risk)
 
