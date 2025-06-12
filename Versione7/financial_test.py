@@ -42,34 +42,27 @@ import Sigma_Estimation as SE
 import pickle
 
 
+import pandas as pd
+import numpy as np
+
 def load_stock_data_rolling(
     file_name="returns_data_1060.csv", 
-    train_size=800, 
+    train_size=400, 
     val_size=60,
     N_stocks=400, 
     T_out=60, 
-    len_rolling=100
+    len_rolling=100,
+    fixed_val_start=800
 ):
     """
-    Carica i dati delle azioni e genera triple rolling (training, validation, test) non sovrapposte.
-
-    Parameters:
-    - file_name: nome del file CSV contenente i rendimenti (shape: time x assets)
-    - train_size: numero di timestep per ciascun blocco di training
-    - val_size: numero di timestep per ciascun blocco di validazione
-    - N_stocks: numero di asset da considerare
-    - T_out: numero di timestep per ciascun blocco di test
-    - len_rolling: lunghezza del rolling
-
-    Returns:
-    - train_data: array di shape (n_windows, N_stocks, train_size)
-    - val_data: array di shape (n_windows, N_stocks, val_size)
-    - test_data: array di shape (n_windows, N_stocks, T_out)
+    Carica i dati e genera triple rolling:
+    - validation sempre fissata a fixed_val_start
+    - test sempre fissato a fixed_val_start + val_size
+    - train che termina in fixed_val_start e parte a ritroso di train_size
     """
 
     df = pd.read_csv(file_name, index_col=0)
 
-    # Trattamento dei NaN
     if df.isna().values.any():
         print(f"Total number of NaN values before interpolation: {df.isna().sum().sum()}")
         df.interpolate(method="linear", inplace=True)
@@ -79,41 +72,50 @@ def load_stock_data_rolling(
         print("Ancora NaN trovati dopo il riempimento, verranno sostituiti con 0.")
         df.fillna(0, inplace=True)
 
-    # Conversione in NumPy array e selezione asset
     data = df.to_numpy().T  # shape: (N_assets, T)
-    data = data[:N_stocks, :]  # Seleziona i primi N_stocks
-
+    data = data[:N_stocks, :]
     num_assets, num_timesteps = data.shape
 
-    # Generazione finestre rolling
+    # Compute starting index for first training window
+    train_start_min = fixed_val_start - train_size
+
+    if train_start_min < 0:
+        raise ValueError(f"Train size {train_size} troppo lungo rispetto a fixed_val_start={fixed_val_start}")
+
     train_windows = []
     val_windows = []
     test_windows = []
 
-    start_idx = 0
-    total_window = train_size + val_size + T_out
+    start_idx = train_start_min
+    while True:
+        train_start = start_idx
+        train_end = train_start + train_size
+        val_start = fixed_val_start + (start_idx - train_start_min)
+        val_end = val_start + val_size
+        test_start = val_end
+        test_end = test_start + T_out
 
-    while start_idx + total_window <= num_timesteps:
-        train_block = data[:, start_idx : start_idx + train_size]
-        val_block = data[:, start_idx + train_size : start_idx + train_size + val_size]
-        test_block = data[:, start_idx + train_size + val_size : start_idx + total_window]
+        if test_end > num_timesteps:
+            break  # stop rolling quando non ci sono più dati a sufficienza
+
+        train_block = data[:, train_start:train_end]
+        val_block = data[:, val_start:val_end]
+        test_block = data[:, test_start:test_end]
 
         train_windows.append(train_block)
         val_windows.append(val_block)
         test_windows.append(test_block)
 
-        start_idx += len_rolling  # Rolling di len_rolling timestep
+        start_idx += len_rolling
 
     if len(train_windows) == 0:
-        raise ValueError("Nessuna finestra valida trovata: controlla la lunghezza dei dati o i parametri train_size/val_size/T_out.")
+        raise ValueError("Nessuna finestra valida trovata: controlla la lunghezza dei dati o i parametri.")
 
-    # Stack in array 3D
-    train_data = np.stack(train_windows)  # shape: (n_windows, N_stocks, train_size)
-    val_data = np.stack(val_windows)      # shape: (n_windows, N_stocks, val_size)
-    test_data = np.stack(test_windows)    # shape: (n_windows, N_stocks, T_out)
+    train_data = np.stack(train_windows)
+    val_data = np.stack(val_windows)
+    test_data = np.stack(test_windows)
 
     return train_data, val_data, test_data
-
 
 def standardize_returns(R):
     """
@@ -152,6 +154,38 @@ def standardize_returns(R):
     std_daily[std_daily < 1e-10] = 1  # Evita divisioni per zero
     X = (X - row_mean) / std_daily
     return X, std_daily, std_stocks
+
+import numpy as np
+
+def normalize_returns(X):
+    """
+    Normalizza la matrice X (N x T):
+    - rimuove la media temporale per ogni stock
+    - normalizza per la volatilità giornaliera stimata cross-section
+
+    Parameters:
+    -----------
+    X : np.ndarray
+        Matrice di shape (N, T) con i rendimenti
+
+    Returns:
+    --------
+    X_norm : np.ndarray
+        Matrice normalizzata
+    """
+    # Rimuovo la media temporale per ogni stock
+    X_demeaned = X - np.mean(X, axis=1, keepdims=True)
+
+    # Calcolo la volatilità giornaliera stimata per ogni colonna (istante temporale)
+    sigma_hat = np.sqrt(np.sum(X_demeaned**2, axis=0, keepdims=True))
+
+    # Evitiamo eventuali divisioni per zero
+    sigma_hat[sigma_hat == 0] = 1.0
+
+    # Normalizzo
+    X_norm = X_demeaned / sigma_hat
+
+    return X_norm
 
 def standardize_parameters(R):
     """ 
@@ -834,8 +868,7 @@ def Compute_Performances_Rolling(
     methods_list =   ["Sample_", 
                       "Rie____", 
                       "IW_____", 
-                      "Clipped", 
-                      #"Shrunk_", 
+                      "Clipped",  
                       "Kendall", # comment for Fast Experimets
                       "TMFG___",  ]
     
@@ -871,6 +904,7 @@ def Compute_Performances_Rolling(
         BarraCaricamento(stepTotali, i)
 
         X_train = X_train_3D[i]
+
         X_validation = X_validation_3D[i]
         X_test = X_test_3D[i]
         Oracle_train = Oracle_Train_3D[i]
@@ -881,12 +915,23 @@ def Compute_Performances_Rolling(
         N, T = X_train.shape
         Q = N / T
 
-        # Standardization
+        # Standardization VECCHIA MANIERA
+        """ 
         X_train_std, std_daily, std_stocks = standardize_returns(X_train)
         X_test_std, _, _= standardize_returns(X_test)
+        X_val_std, _, _= standardize_returns(X_validation) # DUBBIO
+        Oracle_train_std, _ = standardize_returns_oracle(Oracle_train)
+        
+        
+        """
+        
+
+        # Standardization NUOVA MANIERA
+        X_train_std = normalize_returns(X_train)
+        X_test_std= normalize_returns(X_test)
         Oracle_train_std, _ = standardize_returns_oracle(Oracle_train)
 
-
+        X_train = X_train_std # DUBBIO
 
         #Oracle_test_std, _, _ = standardize_returns(Oracle_test)
 
@@ -895,7 +940,6 @@ def Compute_Performances_Rolling(
         E_rie = SE.RIE_Estimator(X_train)
         E_iw = SE.RIE_IW_Estimator(X_train,)
         E_Clipped = SE.Clipped_Estimator(X_train)
-        #E_shrunk = shrunk_covariance(E_sample, shrinkage=0.1)
         E_Kendall = SE.Kendall_Estimator(X_train) # comment for Fast Experimets
 
         # TMFG e TMFG_MI
@@ -906,7 +950,6 @@ def Compute_Performances_Rolling(
             "Rie____": E_rie,
             "IW_____": E_iw,
             "Clipped": E_Clipped,
-            #"Shrunk_": E_shrunk,
             "Kendall": E_Kendall,  # comment for Fast Experimets
             "TMFG___": (E_sample, J_TMFG),
         }
@@ -918,7 +961,7 @@ def Compute_Performances_Rolling(
                 
                 if method in ["TMFG___", "TMFG_MI"]:
                     E_cov, J_prec = Sigma
-                    _, w = portfolio_statistics(X_train, E_cov, method, Oracle_train, Oracle_test, std_daily, std_stocks, strategy=strategy, J_Precision=J_prec)
+                    _, w = portfolio_statistics(X_train, E_cov, method, Oracle_train, Oracle_test, std_daily=None, std_stocks=None, strategy=strategy, J_Precision=J_prec)
                 else:
                     _, w = portfolio_statistics(X_train, Sigma, method, Oracle_train , Oracle_test, std_daily=None, std_stocks=None, strategy=strategy)
 
@@ -945,7 +988,7 @@ def Compute_Performances_Rolling(
                     _, w = SE.compute_best_shrinkage_covariance(
                         Sigma=Sigma,
                         X_train=X_train,
-                        X_val=X_validation,
+                        X_val=X_validation, # DUBBIO -> viene standardizzato nella funzione
                         Oracle_train_std=FCA.standardize_returns_oracle(Oracle_train),
                         X_train_std=FCA.standardize_returns_oracle(X_train),
                         shrinkage_type=target,

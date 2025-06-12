@@ -369,7 +369,9 @@ def compute_best_shrinkage_covariance(
         weights.append(w)
 
         # Calcolo rischio out-of-sample
-        validation_data, _, _ = FCA.standardize_returns(X_val)
+        #validation_data, _, _ = FCA.standardize_returns(X_val) # STANDARDIZZAZIONE VECCHIA
+        validation_data=FCA.normalize_returns(X_val) # STANDARDIZZAZIONE NUOVA
+
         #validation_data = (X_val - row_mean) / (std_stocks) #RIGA NUOVA 
         #validation_data = X_val # RIGA NUOVA
         risk = FCA.Risk_Out(validation_data, w, method, strategy)
