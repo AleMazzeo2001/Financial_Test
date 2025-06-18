@@ -88,7 +88,7 @@ rolling_performance_dict, rolling_weights_dict = FCA.Compute_Performances_Rollin
     X_train, X_validation, X_test, Oracle_train, Oracle_validation, Oracle_test, 
     OUTPUT = output_mode, 
     pathfilename_temp = save_path_temp, 
-    Compute_MI = False
+    
 )
 
 # Salva i risultati nella directory corretta

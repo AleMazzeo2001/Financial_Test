@@ -204,8 +204,45 @@ def Fast_TMFG(X_train):
     E_Sample_TMFG = np.cov(X_train)
     _, _, J_TMFG = model.fit_transform(weights=corr, cov=E_Sample_TMFG, output="logo")
     E_TMFG = np.linalg.inv(J_TMFG)
-
     return E_TMFG, J_TMFG
+
+def shrinkage_TMFG(X_train, alpha, shrinkage_type="identity"):
+    """
+         - shrinkage_type (str): 'identity' o 'diagonal'
+    """
+    N, T = X_train.shape
+    # Calcola la matrice di covarianza campionaria
+    Sigma = np.cov(X_train, rowvar=True)
+
+    if not (0 <= alpha <= 1):
+        raise ValueError("alpha deve essere compreso tra 0 e 1")
+
+    if shrinkage_type == "identity":
+        target = np.identity(N) * np.trace(Sigma) / N
+
+    elif shrinkage_type == "diagonal":
+        target = np.diag(np.diag(Sigma))
+
+    else:
+        raise ValueError("shrinkage_type deve essere 'identity' o 'diagonal'")
+
+    # Shrinked covariance
+    shrinked_cov = alpha * target + (1 - alpha) * Sigma
+
+    stddev = np.sqrt(np.diag(shrinked_cov))  # vettore delle deviazioni standard
+    denom = np.outer(stddev, stddev)
+    corr_matrix = shrinked_cov / denom
+    np.fill_diagonal(corr_matrix, 1.0) 
+
+    model = tmfg.TMFG()
+    corr = np.square(corr_matrix)
+    E_Sample_TMFG = np.cov(X_train)
+    _, _, J_TMFG = model.fit_transform(weights=corr, cov=shrinked_cov, output="logo")
+    E_TMFG = np.linalg.inv(J_TMFG)
+
+    return J_TMFG
+
+    
 
 def TMFG_Adjacency_Matrix(X_train):
     """
@@ -283,7 +320,7 @@ def TMFG_Network_Visualization(X_train, tickers_with_sectors_file="tickers_with_
 
     # Salva o mostra
     if output_dir:
-        plt.savefig(f"{output_dir}/tmfg_network_by_sector.png", dpi=300, bbox_inches="tight")
+        plt.savefig(f"{output_dir}/tmfg_network_by_sector.pdf", dpi=300, bbox_inches="tight")
     else:
         plt.show()
 
@@ -342,7 +379,7 @@ def compute_best_shrinkage_covariance(
 
         if method in ["TMFG___SI", "TMFG___SD"]:
             # Calcolo TMFG
-            E_TMFG, J_TMFG = Fast_TMFG(X_train)
+            J_TMFG_shrinked = shrinkage_TMFG(X_train, alpha, shrinkage_type=shrinkage_type)
             _, w = FCA.portfolio_statistics(
                 X_train,
                 shrinked,
@@ -352,7 +389,7 @@ def compute_best_shrinkage_covariance(
                 std_daily=None,
                 std_stocks=None,
                 strategy=strategy,
-                J_Precision= J_TMFG
+                J_Precision= J_TMFG_shrinked
             )
 
         else:
@@ -370,10 +407,10 @@ def compute_best_shrinkage_covariance(
 
         # Calcolo rischio out-of-sample
         #validation_data, _, _ = FCA.standardize_returns(X_val) # STANDARDIZZAZIONE VECCHIA
-        validation_data=FCA.normalize_returns(X_val) # STANDARDIZZAZIONE NUOVA
+        #validation_data=FCA.normalize_returns(X_val) # STANDARDIZZAZIONE NUOVA
 
         #validation_data = (X_val - row_mean) / (std_stocks) #RIGA NUOVA 
-        #validation_data = X_val # RIGA NUOVA
+        validation_data = X_val # RIGA NUOVA
         risk = FCA.Risk_Out(validation_data, w, method, strategy)
         performances.append(risk)
 
@@ -385,6 +422,20 @@ def compute_best_shrinkage_covariance(
     print("Best alpha:", best_alpha)
     print("\n\n")
 
-    return best_cov, best_weights
+    return best_alpha, best_weights
+
+def optimal_shrinked_matrix(Sigma, X_train, best_apha, type="_SI"):
+    N, T = X_train.shape
+    if type == "_SI":
+        trace_avg = np.trace(Sigma) / N
+        target = np.identity(N) * trace_avg
+    elif type == "_SD":
+        variances = np.var(X_train, axis=1, ddof=1)
+        target = np.diag(variances)
+
+    shrinked_matrix = (1 - best_apha) * Sigma + best_apha* target
+    return shrinked_matrix
+
+
 
 

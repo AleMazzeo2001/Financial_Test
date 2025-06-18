@@ -185,6 +185,12 @@ def normalize_returns(X):
     # Normalizzo
     X_norm = X_demeaned / sigma_hat
 
+    # Step 3: standardizzazione marginale per ogni asset --> questa parte la fanno sui test di overlap. non sull'ottimizazione del portfolio!!!
+    #sigma_i = np.std(X_norm, axis=1, ddof=1, keepdims=True)
+    #sigma_i[sigma_i == 0] = 1.0  # evitare divisione per zero
+
+    #X_final = X_norm / sigma_i
+
     return X_norm
 
 def standardize_parameters(R):
@@ -598,7 +604,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
             plt.xlabel("Method")
             plt.grid(True, linestyle="--", alpha=0.7)
             if Save and plots_dir:
-                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.png")
+                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_{methods}_Rolling_{len_rolling}.pdf")
             else:
                 plt.show()
 
@@ -623,7 +629,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
             plt.grid(True, linestyle="--", alpha=0.7)
 
             if Save and plots_dir:
-                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.png")
+                plt.savefig(f"{plots_dir}/Q_{Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.pdf")
             else:
                 plt.show()
 
@@ -675,7 +681,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
                     plt.grid(True, linestyle="--", alpha=0.7)
 
                     if Save and plots_dir:
-                        filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.png"
+                        filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.pdf"
                         plt.savefig(filename)
                     else:
                         plt.show()
@@ -717,7 +723,7 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
                 plt.grid(True, linestyle="--", alpha=0.7)
 
                 if Save and plots_dir:
-                    filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{category_name}_Comparison_Rolling_{len_rolling}.png"
+                    filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{category_name}_Comparison_Rolling_{len_rolling}.pdf"
                     plt.savefig(filename)
                 else:
                     plt.show()
@@ -844,7 +850,7 @@ def mutual_info_matrix_parallel(data, max_workers=None):
     return mi_matrix
 
 
-def Compute_Performances_Rolling(
+def Compute_Performances_Rolling_vecchia(
     X_train_3D, X_validation_3D, X_test_3D, Oracle_Train_3D, Oracle_validation_3D, Oracle_Test_3D, 
     pathfilename_temp=None, OUTPUT=None, Compute_MI=False, log_scale=False,
 ):
@@ -1027,14 +1033,186 @@ def Compute_Performances_Rolling(
         if (index % n_methods) == 0:
             print("---------------------------------------------------")
     print("---------------------------------------------------\n\n")
-    #save_performance_dict(rolling_performance_dict, filename="risultati_rolling_def.pkl")
-    #save_performance_dict(rolling_weights_dict, filename="weights_risultati_rolling_def.pkl")
-
+    
     # Outlier plot
     if OUTPUT is not None:
         Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q = Q, log_scale=log_scale)
 
     return rolling_performance_dict, rolling_weights_dict
+
+
+def Compute_Performances_Rolling(
+    X_train_3D, X_validation_3D, X_test_3D,
+    Oracle_Train_3D, Oracle_validation_3D, Oracle_Test_3D, 
+    pathfilename_temp=None, OUTPUT=None, log_scale=False,
+):
+
+    n_windows = Oracle_Train_3D.shape[0]
+    strategies = ["min_var_"]  # debug
+
+    methods_list = ["Sample_", 
+                    "Rie____", 
+                    "IW_____", 
+                    "Clipped", 
+                    "Kendall", # comment for Fast Experimets
+                    "TMFG___"]
+    shrinkage_targets = ["identity", "diagonal"]
+    shrinkage_suffix = {"identity": "_SI", "diagonal": "_SD"}
+
+    rolling_performance_dict = {(s, m): [] for s in strategies for m in methods_list}
+    rolling_weights_dict = {(s, m, i): [] for s in strategies for m in methods_list for i in range(n_windows)}
+    shrinkage_methods = []
+
+    for target in shrinkage_targets:
+        for base in methods_list:
+            method_name = base + shrinkage_suffix[target]
+            shrinkage_methods.append(method_name)
+            for strategy in strategies:
+                rolling_performance_dict[(strategy, method_name)] = []
+                for i in range(n_windows):
+                    rolling_weights_dict[(strategy, method_name, i)] = []
+
+    for i in range(n_windows):
+        BarraCaricamento(n_windows, i)
+
+        X_train = X_train_3D[i]
+        X_val = X_validation_3D[i]
+        X_test = X_test_3D[i]
+        Oracle_train = Oracle_Train_3D[i]
+        Oracle_val = Oracle_validation_3D[i]
+        Oracle_test = Oracle_Test_3D[i]
+
+        # Standardization
+        X_train_std = normalize_returns(X_train)
+        X_val_std = normalize_returns(X_val)
+        X_test_std = normalize_returns(X_test)
+        Oracle_train_std, _ = standardize_returns_oracle(Oracle_train)
+        Oracle_val_std, _ = standardize_returns_oracle(Oracle_val)
+
+        Training_Set = X_train_std
+        Validation_Set = X_val_std
+        Test_Set = X_test_std
+        # Base estimators on training only
+        Sigma_base_train = {
+            "Sample_": SE.Sample_Covariance(Training_Set),
+            "Rie____": SE.RIE_Estimator(Training_Set),
+            "IW_____": SE.RIE_IW_Estimator(Training_Set),
+            "Clipped": SE.Clipped_Estimator(Training_Set),
+            "Kendall": SE.Kendall_Estimator(Training_Set), # comment for Fast Experimets
+            "TMFG___": (SE.Sample_Covariance(Training_Set), SE.Fast_TMFG(Training_Set)[1])  # (cov, precision)
+        }
+
+        # Step 1: stima shrinkage coefficienti
+        alpha_opt_dict = {}
+        for base_method in methods_list:
+            Sigma = Sigma_base_train[base_method]
+            if isinstance(Sigma, tuple):  # es. ("TMFG___": (cov, J))
+                Sigma = Sigma[0]
+
+            for target in shrinkage_targets:
+                suffix = shrinkage_suffix[target]
+                method_name = base_method + suffix
+                alpha, _ = SE.compute_best_shrinkage_covariance(
+                    Sigma=Sigma,
+                    X_train=Training_Set,
+                    X_val=Validation_Set,
+                    Oracle_train_std=Oracle_train_std,
+                    X_train_std=Oracle_train_std,  # potrebbe essere una copia, lo vediamo
+                    shrinkage_type=target,
+                    method=method_name,
+                    strategy=strategies[0],
+                )
+                alpha_opt_dict[method_name] = alpha
+
+        # Step 2: estendiamo il training con validation
+        X_trainval = np.concatenate([Training_Set, Training_Set], axis=1)
+        Oracle_trainval = np.concatenate([Oracle_train_std, Oracle_val_std], axis=1)
+
+        Sigma_base_trainval = {
+            "Sample_": SE.Sample_Covariance(X_trainval),
+            "Rie____": SE.RIE_Estimator(X_trainval),
+            "IW_____": SE.RIE_IW_Estimator(X_trainval),
+            "Clipped": SE.Clipped_Estimator(X_trainval),
+            "Kendall": SE.Kendall_Estimator(X_trainval), # comment for Fast Experimets
+            "TMFG___": SE.Sample_Covariance(X_trainval),
+        }
+        _, J_TMFG_val = SE.Fast_TMFG(X_trainval)
+
+        # Calcolo pesi da matrici base
+        Optimal_Weights_dict = {}
+        for strategy in strategies:
+            for method in methods_list:
+                if method == "TMFG___":
+                    E_cov = Sigma_base_trainval[method]
+                    _, w = portfolio_statistics(
+                        X_trainval, E_cov, method, Oracle_trainval, Oracle_test,
+                        std_daily=None, std_stocks=None, strategy=strategy, J_Precision=J_TMFG_val
+                    )
+                else:
+                    Sigma = Sigma_base_trainval[method]
+                    _, w = portfolio_statistics(
+                        X_trainval, Sigma, method, Oracle_trainval, Oracle_test,
+                        std_daily=None, std_stocks=None, strategy=strategy
+                    )
+                Optimal_Weights_dict[(strategy, method)] = w
+                rolling_weights_dict[(strategy, method, i)].append(w)
+
+        # Calcolo pesi da matrici shrinkate
+        for strategy in strategies:
+            for base_method in methods_list:
+                
+                Sigma = Sigma_base_trainval[base_method]
+                for target in shrinkage_targets:
+                    suffix = shrinkage_suffix[target]
+                    method_name = base_method + suffix
+                    alpha = alpha_opt_dict[method_name]
+                    if method_name == "TMFG___SI" or method_name == "TMFG___SD":
+                        Sigma_shrinked = SE.optimal_shrinked_matrix(Sigma, X_trainval, alpha, type=target)
+                        J_Shrinked = SE.shrinkage_TMFG(X_train, alpha, shrinkage_type=target)
+                        _, w = portfolio_statistics(
+                            X_trainval, Sigma_shrinked, method_name, Oracle_trainval, Oracle_test,
+                            std_daily=None, std_stocks=None, strategy=strategy, J_Precision=J_Shrinked
+                        )
+                    else:
+                        Sigma_shrinked = SE.optimal_shrinked_matrix(Sigma, X_trainval, alpha, type=suffix)
+                        _, w = portfolio_statistics(
+                            X_trainval, Sigma_shrinked, method_name, Oracle_trainval, Oracle_test,
+                            std_daily=None, std_stocks=None, strategy=strategy
+                        )
+                    Optimal_Weights_dict[(strategy, method_name)] = w
+                    rolling_weights_dict[(strategy, method_name, i)].append(w)
+
+        # Test
+        for (strategy, method), w in Optimal_Weights_dict.items():
+            risk = Risk_Out(Test_Set, w, method, strategy)
+            rolling_performance_dict[(strategy, method)].append(risk)
+
+        if pathfilename_temp is not None:
+            new_path = pathfilename_temp.replace(".pkl", "_weights.pkl")
+            save_performance_dict(rolling_performance_dict, filename=pathfilename_temp)
+            save_performance_dict(rolling_weights_dict, filename=new_path)
+
+    # Stampa finale
+    print("\nSUMMARY STATISTICS OVER ROLLING WINDOWS\n")
+    print("STRATEGY |  METHOD |  MEAN VARIANCE       |  CV%")
+    print("---------------------------------------------------")
+    for key, values in rolling_performance_dict.items():
+        values = np.array(values)
+        mean_val = np.mean(values)
+        std_val = np.std(values, ddof=1)
+        cv = 100 * std_val / np.abs(mean_val) if mean_val != 0 else 0
+        strategy, method = key
+        print(f"{strategy} | {method} | {mean_val:.2e} +/- {std_val:.1e} | {cv:.1f}")
+    print("---------------------------------------------------\n\n")
+
+    if OUTPUT is not None:
+        Show_Outliers(rolling_performance_dict, OUTPUT=OUTPUT, Q=X_train.shape[0] / X_train.shape[1], log_scale=log_scale)
+
+    return rolling_performance_dict, rolling_weights_dict
+
+
+
+
 
 def save_performance_dict(performance_dict, filename="rolling_performance.pkl"):
     with open(filename, "wb") as f:
