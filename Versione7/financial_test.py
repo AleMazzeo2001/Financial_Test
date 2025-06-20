@@ -576,7 +576,7 @@ import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
 
-def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5, log_scale=False): 
+def Show_Outliers_vecchia(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5, log_scale=False): 
     """
     Show the outliers of the variance data using boxplots.
 
@@ -728,8 +728,112 @@ def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=
                 else:
                     plt.show()
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
+def Show_Outliers(variance_data, OUTPUT="Single_Boxplot", Save=False, plots_dir=None, len_rolling=100, Q=0.5, log_scale=False):
+    """
+    Visualizza i boxplot delle varianze dei portafogli con stile migliorato tramite Seaborn.
+    """
+    sns.set_theme(style="whitegrid", font_scale=1.1)
 
+    def plot_boxplot(data_dict, title, ylabel, filename=None):
+        """
+        Utilità per costruire e salvare/mostrare il boxplot con Seaborn.
+        """
+        df_plot = []
+        for label, values in data_dict.items():
+            if values is not None:
+                for v in values:
+                    df_plot.append({"Method": label, "Variance": v})
+
+        df_plot = pd.DataFrame(df_plot)
+
+        if df_plot.empty:
+            return
+
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="Method", y="Variance", data=df_plot, palette="Set2")
+        if log_scale:
+            ax.set_yscale("log")
+
+        plt.title(title)
+        plt.ylabel(ylabel)
+        plt.xlabel("Method")
+        plt.xticks(rotation=30)
+        plt.tight_layout()
+
+        if Save and filename:
+            plt.savefig(filename)
+            print(f"Boxplot salvato in: {filename}")
+        else:
+            plt.show()
+        plt.close()
+
+    if OUTPUT == "Single_Boxplot":
+        for (strategy, method), var in variance_data.items():
+            title = f"Q={Q:.2f}, len_rolling={len_rolling}: Box Plot - {strategy}, {method}"
+            filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{method}_Rolling_{len_rolling}.pdf" if Save else None
+            plot_boxplot({method: var}, title, "Portfolio Variance", filename)
+
+    elif OUTPUT == "Multiple_Boxplot":
+        grouped = {}
+        for (strategy, method), var in variance_data.items():
+            grouped.setdefault(strategy, {})[method] = var
+
+        for strategy, method_dict in grouped.items():
+            title = f"Q={Q:.2f}, len_rolling={len_rolling}: Multiple Box Plot - {strategy}"
+            filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_Multiple_Rolling_{len_rolling}.pdf" if Save else None
+            plot_boxplot(method_dict, title, "Portfolio Variance", filename)
+
+    elif OUTPUT == "Shrinkage_Boxplot":
+        for strategy in set(s for (s, _) in variance_data.keys()):
+            base_methods = set()
+            for (s, m) in variance_data:
+                if s != strategy:
+                    continue
+                if m.endswith("_SI") or m.endswith("_SD"):
+                    base = m.rsplit("_", 1)[0]
+                else:
+                    base = m
+                base_methods.add(base)
+
+            for base in base_methods:
+                variants = {
+                    base: None,
+                    f"{base}_SI": None,
+                    f"{base}_SD": None
+                }
+                for variant in variants:
+                    key = (strategy, variant)
+                    if key in variance_data:
+                        variants[variant] = variance_data[key]
+
+                if any(v is not None for v in variants.values()):
+                    title = f"Q={Q:.2f}, len_rolling={len_rolling}: Shrinkage Box Plot - {strategy}, {base}"
+                    filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{base}_Shrinkage_Rolling_{len_rolling}.pdf" if Save else None
+                    plot_boxplot(variants, title, "Portfolio Variance", filename)
+
+    elif OUTPUT == "Comparison_Boxplot":
+        categories = {
+            "Base": lambda m: not (m.endswith("_SI") or m.endswith("_SD")),
+            "SI": lambda m: m.endswith("_SI"),
+            "SD": lambda m: m.endswith("_SD"),
+        }
+
+        for strategy in set(s for (s, _) in variance_data.keys()):
+            for category, method_filter in categories.items():
+                methods = {
+                    m: variance_data[(strategy, m)]
+                    for (s, m) in variance_data
+                    if s == strategy and method_filter(m)
+                }
+
+                if methods:
+                    title = f"Q={Q:.2f}, len_rolling={len_rolling}: {category} Methods Box Plot - {strategy}"
+                    filename = f"{plots_dir}/Q_{Q:.2f}_{strategy}_{category}_Comparison_Rolling_{len_rolling}.pdf" if Save else None
+                    plot_boxplot(methods, title, "Portfolio Variance", filename)
 def mutual_info_matrix(data):
     """
     Calcola la matrice della mutua informazione per un dataset di variabili continue.
