@@ -400,7 +400,7 @@ def optimal_weights_vecchia(Sigma, g, std_daily=None, std_stocks=None, J_Precisi
     return w
 
 
-def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
+def optimal_weights_vecchia2(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
     """
     Compute the optimal weights for the portfolio.
 
@@ -435,6 +435,58 @@ def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None)
         den = g @ Sigma_inv @ g
         w = ( Sigma_inv @ g ) / den
 
+
+    return w
+
+def optimal_weights(Sigma, g, std_daily=None, std_stocks=None, J_Precision=None):
+    """
+    Compute the optimal weights for the portfolio.
+
+    Parameters:
+    Sigma (numpy.ndarray): Covariance matrix of the returns.
+    g (numpy.ndarray): Predictions vector for the portfolio.
+    std_daily (numpy.ndarray): Daily volatilities (1 x T), unused here.
+    std_stocks (numpy.ndarray): Stock volatilities (N x 1).
+    J_Precision (numpy.ndarray or None): Optional precision matrix.
+
+    Returns:
+    w (numpy.ndarray): Optimal weights for the portfolio.
+    """
+    if J_Precision is not None:
+        w = J_Precision @ g / (g @ J_Precision @ g)
+
+    elif std_stocks is None:
+        # Check eigenvalues and regularize if necessary
+        try:
+            eigvals = np.linalg.eigvalsh(Sigma)
+            if np.min(np.abs(eigvals)) < 1e-12:
+                raise np.linalg.LinAlgError("Eigenvalues too small")
+        except np.linalg.LinAlgError:
+            # Add small jitter to diagonal for stability
+            eps = 1e-6 * np.mean(np.diag(Sigma))
+            Sigma = Sigma + np.eye(Sigma.shape[0]) * eps
+            eigvals = np.linalg.eigvalsh(Sigma)
+        Sigma_inv = np.linalg.inv(Sigma)
+        den = g @ Sigma_inv @ g
+        w = (Sigma_inv @ g) / den
+
+    else:
+        Sigma_rescaled = (std_stocks @ std_stocks.T) * Sigma
+        
+        # Check eigenvalues and regularize if necessary
+        try:
+            eigvals = np.linalg.eigvalsh(Sigma_rescaled)
+            if np.min(np.abs(eigvals)) < 1e-12:
+                raise np.linalg.LinAlgError("Eigenvalues too small")
+        except np.linalg.LinAlgError:
+            # Add small jitter to diagonal for stability
+            eps = 1e-6 * np.mean(np.diag(Sigma_rescaled))
+            Sigma_rescaled = Sigma_rescaled + np.eye(Sigma_rescaled.shape[0]) * eps
+            eigvals = np.linalg.eigvalsh(Sigma_rescaled)
+
+        Sigma_inv = np.linalg.inv(Sigma_rescaled)
+        den = g @ Sigma_inv @ g
+        w = (Sigma_inv @ g) / den
 
     return w
 
@@ -1707,7 +1759,196 @@ def load_and_summarize_weights(filename="risultati_rolling_weights.pkl",
 
         
 
+######### PLOTTING FINALE PER IL PAPER
+from pathlib import Path
+import matplotlib.pyplot as plt
+import pickle
+import numpy as np
+from collections import defaultdict
 
+
+def entropy_absolute_weights(w):
+    w = np.abs(w)
+    w = w / np.exp(w)
+    return -np.sum(w * np.log2(w + 1e-12))
+
+
+def load_and_summarize_weights_nuova(filename="risultati_rolling_weights.pkl",
+                               OUTPUT="Time_Boxplot",
+                               Save=False,
+                               len_rolling=100,
+                               Q=0.5,
+                               log_scale=False,
+                               output_dir=None,
+                               All_Graphs=True):
+    path = Path(filename)
+    parent_dirs = path.parent
+    dir1 = parent_dirs.parent.name
+    dir2 = parent_dirs.name
+    file_name = path.name
+    plots_dir = Path(dir1) / "Plots"
+    plots_dir.mkdir(parents=True, exist_ok=True)
+
+    with open(filename, "rb") as f:
+        rolling_weights_dict = pickle.load(f)
+
+    grouped_data = defaultdict(lambda: {})
+    for (strategy, method_name, i), w in rolling_weights_dict.items():
+        grouped_data[(strategy, method_name)][i] = np.array(w).flatten()
+
+    if OUTPUT in ["Entropy", "Laverange_Portfolio", "Participation_Ratio", "Daily_Turnover"]:
+        strategy_filter = "min_var_"
+        standard_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+        suffix_SI = "_SI"
+        suffix_SD = "_SD"
+
+        categories = {
+            "Standard": [],
+            "Shrinkage_Identity": [],
+            "Shrinkage_Diagonal": []
+        }
+
+        for (strategy, method_name), time_dict in grouped_data.items():
+            if strategy != strategy_filter:
+                continue
+            if method_name in standard_methods:
+                categories["Standard"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SI):
+                categories["Shrinkage_Identity"].append((method_name, time_dict))
+            elif method_name.endswith(suffix_SD):
+                categories["Shrinkage_Diagonal"].append((method_name, time_dict))
+
+        fig, axs = plt.subplots(3, 1, figsize=(12, 14), sharex=True)
+        for idx, (category, method_list) in enumerate(categories.items()):
+            ax = axs[idx]
+
+            for method_name, time_dict in method_list:
+                sorted_indices = sorted(time_dict.keys())
+                data = [time_dict[i] for i in sorted_indices]
+
+                if OUTPUT == "Entropy":
+                    y_vals = [entropy_absolute_weights(w) for w in data]
+                    ylabel = "Entropy (base 2)"
+                    title = f"Entropy of Weights – {category}"
+                elif OUTPUT == "Laverange_Portfolio":
+                    y_vals = [np.sum(np.abs(w)) for w in data]
+                    ylabel = "Leverage"
+                    title = f"Leverage Portfolio – {category}"
+                elif OUTPUT == "Participation_Ratio":
+                    y_vals = [1.0 / np.sum(w ** 4) for w in data]
+                    ylabel = "Participation Ratio"
+                    title = f"Participation Ratio – {category}"
+                elif OUTPUT == "Daily_Turnover":
+                    if len(data) < 2:
+                        continue
+                    y_vals = [np.sum(np.abs(data[i + 1] - data[i])) for i in range(len(data) - 1)]
+                    sorted_indices = sorted_indices[1:]
+                    ylabel = "Turnover"
+                    title = f"Daily Turnover – {category}"
+                else:
+                    continue
+
+                ax.plot(sorted_indices, y_vals, linestyle='-', marker='o', label=method_name)
+
+            ax.set_title(title)
+            ax.set_ylabel(ylabel)
+            ax.grid(True)
+            ax.legend()
+
+        axs[-1].set_xlabel("Temporal Index (i)")
+        plt.suptitle(f"{OUTPUT.replace('_', ' ')}", fontsize=16)
+        plt.tight_layout(rect=[0, 0, 1, 0.97])
+        if output_dir:
+            plt.savefig(output_dir +f"/{OUTPUT}_boxplot_q={Q}.pdf")
+        plt.show()
+
+    else:
+        for (strategy, method_name), time_dict in grouped_data.items():
+            sorted_indices = sorted(time_dict.keys())
+            data = [time_dict[i] for i in sorted_indices]
+
+            if OUTPUT == "Time_Boxplot" and not All_Graphs:
+                means = [np.mean(w) for w in data]
+                medians = [np.median(w) for w in data]
+
+                plt.figure(figsize=(12, 6))
+                plt.boxplot(data, positions=sorted_indices, showfliers=False)
+                plt.plot(sorted_indices, means, color='red', linestyle='-', marker='o', label='Mean Weights')
+                plt.plot(sorted_indices, medians, color='blue', linestyle='--', marker='x', label='Median Weights')
+
+                plt.title(f"Weight Distribution, Method: {method_name}")
+                plt.xlabel("Temporal Index (i)")
+                plt.ylabel("Weight")
+                plt.legend()
+                plt.grid(True)
+                plt.tight_layout()
+                if output_dir:
+                    plt.savefig(output_dir + f"/{OUTPUT}_boxplot.pdf")
+                plt.show()
+
+            if OUTPUT == "Time_Boxplot" and All_Graphs:
+                strategy_filter = "min_var_"
+
+                base_methods = ["Sample_", "Rie____", "IW_____", "Clipped", "Kendall", "TMFG___"]
+                suffixes = ["", "_SI", "_SD"]
+
+                fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(18, 20), sharex=True)
+                fig.subplots_adjust(hspace=0.6)
+                axs = axs.reshape((6, 3))
+
+                for i, base_method in enumerate(base_methods):
+                    # --- Step 1: raccogli tutti i dati per questa riga
+                    all_weights = []
+                    for suffix in suffixes:
+                        method_name = base_method + suffix
+                        time_dict = grouped_data.get(("min_var_", method_name), None)
+                        if time_dict is not None:
+                            sorted_indices = sorted(time_dict.keys())
+                            data = [time_dict[k] for k in sorted_indices]
+                            all_weights.extend([w for w in data])
+
+                    # Calcola i limiti ymin, ymax della riga
+                    if all_weights:
+                        y_min = min(np.min(w) for w in all_weights)
+                        y_max = max(np.max(w) for w in all_weights)
+                    else:
+                        y_min, y_max = 0, 1  # fallback
+
+                    # --- Step 2: Plotta ogni subplot con ylim coerente per riga
+                    for j, suffix in enumerate(suffixes):
+                        method_name = base_method + suffix
+                        time_dict = grouped_data.get(("min_var_", method_name), None)
+                        ax = axs[i, j]
+
+                        if time_dict is not None:
+                            sorted_indices = sorted(time_dict.keys())
+                            data = [time_dict[k] for k in sorted_indices]
+
+                            means = [np.mean(w) for w in data]
+                            medians = [np.median(w) for w in data]
+
+                            ax.boxplot(data, positions=sorted_indices, showfliers=False)
+                            ax.plot(sorted_indices, means, color='red', linestyle='-', marker='o', label='Mean')
+                            ax.plot(sorted_indices, medians, color='blue', linestyle='--', marker='x', label='Median')
+
+                            ax.set_ylim(y_min, y_max)  # <-- Asse y coerente per riga
+                            ax.set_title(f"{method_name}", fontsize=10)
+
+                            if j == 0:
+                                ax.set_ylabel("Weight")
+                            if i == 5:
+                                ax.set_xlabel("Temporal Index (i)")
+                            ax.grid(True)
+
+                # Legenda e titolo globale
+                handles, labels = axs[0, 0].get_legend_handles_labels()
+                fig.legend(handles, labels, loc='upper center', ncol=2)
+                fig.suptitle("Weight Distribution Across All Estimation and Shrinkage Methods (Boxplot)", fontsize=16)
+                plt.tight_layout(rect=[0, 0, 1, 0.96])
+                if output_dir:
+                    plt.savefig(output_dir +f"/{OUTPUT}_boxplot_q={Q}.pdf")
+                plt.show()
+                return
 
 
 if __name__ == "__main__":
